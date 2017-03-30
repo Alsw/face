@@ -2271,7 +2271,7 @@ i.icon_4{
     box-shadow: none !important;
 }
 .btn_1{
-    background: #c32143;
+    background: #0767c8;
     border-radius: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -2286,7 +2286,7 @@ i.icon_4{
     font-size: 0.85em;
 }
 .btn_1:hover{
-	background:#ffa417;
+	background:#0767c8;
 }
 .sharing li {
     margin-bottom:1em;
