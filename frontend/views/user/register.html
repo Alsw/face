@@ -1,125 +1,157 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Face Community</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
-    <link href="css/style.css" rel='stylesheet' type='text/css' />
-    <link href="css/font-awesome.css" rel="stylesheet">
-</head>
-<body>
-   <header>
-        <div class="navbar navbar-inverse-gray navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="index.html"><img src="images/logo.png" style="height: 40px" alt="logo"></a>
-                    <div class="pull-right">
-                        <nav class="navbar nav_bottom" role="navigation">
-                            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-                                <ul class="nav navbar-nav nav_1">
-                                    <li><a href="index.html">首页</a></li>
-                                    <li><a href="">那个Ta</a></li>
-                                    <li class="dropdown">
-                                        <a href="info.html" class="dropdown-toggle" data-toggle="dropdown">资讯<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="info.html">新闻</a></li>
-                                            <li><a href="info.html">视频</a></li>
-                                            <li><a href="info.html">图文</a></li>
-                                            <li><a href="info.html">综艺</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="forum.html" class="dropdown-toggle" data-toggle="dropdown">论坛<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="forum.html">人脸识别</a></li>
-                                            <li><a href="forum.html">人工智能</a></li>
-                                            <li><a href="forum.html">资源共享</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="last"><a href="findme.html">FindMe</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <img class="Avatar" src="https://pic1.zhimg.com/da8e974dc_s.jpg" srcset="https://pic1.zhimg.com/da8e974dc_xs.jpg 2x" alt="罗松伟">&nbsp;罗松伟
-                                            <span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="me.html">个人中心</a></li>
-                                            <li><a href="">退出</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+<div class="grid_3">
+<div class="container">
+    <div class="breadcrumb1">
+        <ul>
+            <a href="index.html"><i class="fa fa-home home_1"></i></a>
+            <span class="divider">&nbsp;|&nbsp;</span>
+            <li class="current-page">Login</li>
+        </ul>
+    </div>
+    <div class="services">
+        <div class="col-sm-5 login_left">
+            <form>
+                <div class="form-item form-type-textfield form-item-name">
+                    <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+                    <input type="text" id="edit-name" name="name" value="" size="60" maxlength="60" class="form-text required">
+                </div>
+                <div class="form-item form-type-password form-item-pass">
+                    <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+                    <input type="password" id="edit-pass" name="pass" size="60" maxlength="128" class="form-text required">
+                </div>
+                <div class="form-group">
+                    <label for="edit-name">Email <span class="form-required" title="This field is required.">*</span></label>
+                    <input type="text" id="edit-name" name="name" value="" size="60" maxlength="60" class="form-text required">
+                </div>
+                <div class="age_select">
+                    <label for="edit-pass">Age <span class="form-required" title="This field is required.">*</span></label>
+                    <div class="age_grid">
+                        <div class="col-sm-4 form_box">
+                            <div class="select-block1">
+                                <select>
+                                    <option value="">Date</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                    <option value="">6</option>
+                                    <option value="">7</option>
+                                    <option value="">8</option>
+                                    <option value="">9</option>
+                                    <option value="">10</option>
+                                    <option value="">11</option>
+                                    <option value="">12</option>
+                                    <option value="">13</option>
+                                    <option value="">14</option>
+                                    <option value="">15</option>
+                                    <option value="">16</option>
+                                    <option value="">17</option>
+                                    <option value="">18</option>
+                                    <option value="">19</option>
+                                    <option value="">20</option>
+                                    <option value="">21</option>
+                                    <option value="">22</option>
+                                    <option value="">23</option>
+                                    <option value="">24</option>
+                                    <option value="">25</option>
+                                    <option value="">26</option>
+                                    <option value="">27</option>
+                                    <option value="">28</option>
+                                    <option value="">29</option>
+                                    <option value="">30</option>
+                                    <option value="">31</option>
+                                </select>
                             </div>
-                        </nav>
+                        </div>
+                        <div class="col-sm-4 form_box2">
+                            <div class="select-block1">
+                                <select>
+                                    <option value="">Month</option>
+                                    <option value="">January</option>
+                                    <option value="">February</option>
+                                    <option value="">March</option>
+                                    <option value="">April</option>
+                                    <option value="">May</option>
+                                    <option value="">June</option>
+                                    <option value="">July</option>
+                                    <option value="">August</option>
+                                    <option value="">September</option>
+                                    <option value="">October</option>
+                                    <option value="">November</option>
+                                    <option value="">December</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form_box1">
+                            <div class="select-block1">
+                                <select>
+                                    <option value="">Year</option>
+                                    <option value="">1980</option>
+                                    <option value="">1981</option>
+                                    <option value="">1982</option>
+                                    <option value="">1983</option>
+                                    <option value="">1984</option>
+                                    <option value="">1985</option>
+                                    <option value="">1986</option>
+                                    <option value="">1987</option>
+                                    <option value="">1988</option>
+                                    <option value="">1989</option>
+                                    <option value="">1990</option>
+                                    <option value="">1991</option>
+                                    <option value="">1992</option>
+                                    <option value="">1993</option>
+                                    <option value="">1994</option>
+                                    <option value="">1995</option>
+                                    <option value="">1996</option>
+                                    <option value="">1997</option>
+                                    <option value="">1998</option>
+                                    <option value="">1999</option>
+                                    <option value="">2000</option>
+                                    <option value="">2001</option>
+                                    <option value="">2002</option>
+                                    <option value="">2003</option>
+                                    <option value="">2004</option>
+                                    <option value="">2005</option>
+                                    <option value="">2006</option>
+                                    <option value="">2007</option>
+                                    <option value="">2008</option>
+                                    <option value="">2009</option>
+                                    <option value="">2010</option>
+                                    <option value="">2011</option>
+                                    <option value="">2012</option>
+                                    <option value="">2013</option>
+                                    <option value="">2014</option>
+                                    <option value="">2015</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+                <div class="form-group form-group1">
+                    <label class="col-sm-4 control-lable" for="sex">Sex : </label>
+                    <div class="col-sm-8">
+                        <div class="radios">
+                            <label for="radio-01" class="label_radio"> Male</label>
+                            <input type="radio" name="sex" checked="checked" radio-01>
+                            <label for="radio-02" class="label_radio">Female</label>
+                            <input type="radio" name="sex" id="radio-02"> 
+                        </div>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
-            </div>
-        </div>
-    </header>
-    <div class="grid_3">
-        <div class="container">
-            <div class="breadcrumb1">
-                <ul>
-                    <a href="index.html"><i class="fa fa-home home_1"></i></a>
-                    <span class="divider">&nbsp;|&nbsp;</span>
-                    <li class="current-page">Login</li>
-                </ul>
-            </div>
-            <div class="services">
-                <div class="col-sm-5 login_left">
-                    <form>
-                        <div class="form-item form-type-textfield form-item-name">
-                            <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
-                            <input type="text" id="edit-name" name="name" value="" size="60" maxlength="60" class="form-text required">
-                        </div>
-                        <div class="form-item form-type-password form-item-pass">
-                            <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
-                            <input type="password" id="edit-pass" name="pass" size="60" maxlength="128" class="form-text required">
-                        </div>
-                        <div class="form-actions">
-                            <input type="submit" id="edit-submit" name="op" value="Log in" class="btn_1 submit">
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label for="edit-name">Subject <span class="form-required" title="This field is required.">*</span></label>
+                    <textarea class="form-control bio" placeholder="" rows="3"></textarea>
                 </div>
-                <div class="col-sm-3">
+                <div class="form-actions">
+                    <input type="submit" id="edit-submit" name="op" value="sign up" class="btn_1 submit">
                 </div>
-                <div class="clearfix"> </div>
-            </div>
+            </form>
         </div>
+        <div class="col-sm-3">
+        </div>
+        <div class="clearfix"> </div>
     </div>
-    <footer>
-        <div class="footer">
-            <div class="container">
-                <div class="col-md-4 col_2">
-                    <h4>关于我们</h4>
-                    <p>致力于成为一个人脸识别交流社区</p>
-                </div>
-                <div class="col-md-4 col_2">
-                    <h4>技术支持</h4>
-                    <ul class="footer_links">
-                        <li><a href="#">bootstrap中文社区</a></li>
-                        <li><a href="#">thinkface论坛</a></li>
-                        <li><a href="#">yii中文社区</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 col_2">
-                    <h4>快速链接</h4>
-                    <ul class="footer_links">
-                        <li><a href="#">无</a></li>
-                        <li><a href="#">无</a></li>
-                        <li><a href="#">无</a></li>
-                    </ul>
-                </div>
-                <div class="clearfix"> </div>
-                <div class="copy">
-                    <!-- <p>Copyright &copy; 2015.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p> -->
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
-</html>
+</div>
+</div>
