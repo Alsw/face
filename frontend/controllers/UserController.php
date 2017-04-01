@@ -9,7 +9,7 @@ use yii\filters\AccessControl;
 
 class UserController extends Controller
 {   
-    public $layout = false;
+    public $layout = "face";
     public function actionIndex()
     {
         return $this->render('index');
@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function actionLogin()
     {
-    	return $this->render('login.html');
+    	return $this->render('login');
     }
 
     public function actionRegister()
