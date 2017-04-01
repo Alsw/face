@@ -1,3 +1,9 @@
+<?php
+
+use yii\helper\Html;
+
+$this->title = 'login';
+?>
 <div class="grid_3">
     <div class="container">
         <div class="breadcrumb1">
@@ -9,7 +15,7 @@
         </div>
         <div class="services">
             <div class="col-sm-5 login_left">
-                <form>
+                <form id="login-form" action="/index.php?r=user/login" method="post" role='form'>
                     <div class="form-item form-type-textfield form-item-name">
                         <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
                         <input type="text" id="edit-name" name="name" value="" size="60" maxlength="60" class="form-text required">

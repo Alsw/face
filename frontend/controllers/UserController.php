@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -10,14 +11,22 @@ use yii\filters\AccessControl;
 class UserController extends Controller
 {   
     public $layout = "face";
+    public $enableCsrfValidation = false;
     public function actionIndex()
     {
         return $this->render('index');
     }
 
     public function actionLogin()
-    {
-    	return $this->render('login');
+    {   
+        $postData = Yii::$app->request->post();
+        if(empty($postData)){
+            return $this->render('login');
+        }else{
+            return $this -> render('register');
+        }
+
+        var_dump($postData);
     }
 
     public function actionRegister()
