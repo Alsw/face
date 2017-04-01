@@ -12,6 +12,7 @@ class UserController extends Controller
 {   
     public $layout = "face";
     public $enableCsrfValidation = false;
+
     public function actionIndex()
     {
         return $this->render('index');

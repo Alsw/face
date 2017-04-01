@@ -41,7 +41,7 @@
                                         </ul>
                                     </li>
                                     <li class="last"><a href="findme.html">FindMe</a></li>
-                                    <li class="dropdown">
+                                    <li class="dropdown" style="display: none;">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                             <img class="Avatar" src="https://pic1.zhimg.com/da8e974dc_s.jpg" srcset="https://pic1.zhimg.com/da8e974dc_xs.jpg 2x" alt="罗松伟">&nbsp;罗松伟
                                             <span class="caret"></span></a>
@@ -49,6 +49,9 @@
                                             <li><a href="me.html">个人中心</a></li>
                                             <li><a href="">退出</a></li>
                                         </ul>
+                                    </li>
+                                     <li class="dropdown">
+                                        <a href="?r=user/login">登录</a>
                                     </li>
                                 </ul>
                             </div>
