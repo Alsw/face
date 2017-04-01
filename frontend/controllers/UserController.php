@@ -25,8 +25,6 @@ class UserController extends Controller
         }else{
             return $this -> render('register');
         }
-
-        var_dump($postData);
     }
 
     public function actionRegister()
