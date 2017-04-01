@@ -7,11 +7,54 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\LoginForm;
+use frontend\models\SignupForm;
 
 class UserController extends Controller
 {   
     public $layout = "face";
-    public $enableCsrfValidation = false;
+    public $enableCsrfValidation = true;
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'signup'],
+                'rules' => [
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+        ];
+    }
 
     public function actionIndex()
     {
@@ -20,11 +63,16 @@ class UserController extends Controller
 
     public function actionLogin()
     {   
-        $postData = Yii::$app->request->post();
-        if(empty($postData)){
-            return $this->render('login');
-        }else{
-            return $this -> render('register');
+       if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        } else {
+            return $this->render('login', [
+                'model' => $model,
+            ]);
         }
     }
 

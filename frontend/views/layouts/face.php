@@ -30,7 +30,7 @@ AppAsset::register($this);
                         <nav class="navbar nav_bottom" role="navigation">
                             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                                 <ul class="nav navbar-nav nav_1">
-                                    <li><a href="index.html">首页</a></li>
+                                    <li><?= Html::a('首页', ['user/index', 'id' => 'index']) ?></li>
                                     <li><a href="">那个Ta</a></li>
                                     <li class="dropdown">
                                         <a href="info.html" class="dropdown-toggle" data-toggle="dropdown">资讯<span class="caret"></span></a>
@@ -60,7 +60,7 @@ AppAsset::register($this);
                                         </ul>
                                     </li>
                                      <li class="dropdown">
-                                        <a href="?r=user/login">登录</a>
+                                       <?= Html::a(' 登录', ['user/login', 'id' => 'login']) ?>
                                     </li>
                                 </ul>
                             </div>
