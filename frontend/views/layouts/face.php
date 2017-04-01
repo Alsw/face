@@ -62,6 +62,9 @@ AppAsset::register($this);
                                      <li class="dropdown">
                                        <?= Html::a(' 登录', ['user/login', 'id' => 'login']) ?>
                                     </li>
+                                    <li class="dropdown">
+                                       <?= Html::a(' 退出', ['user/logout', 'id' => 'logout']) ?>
+                                    </li>
                                 </ul>
                             </div>
                         </nav>

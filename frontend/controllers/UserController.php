@@ -75,7 +75,12 @@ class UserController extends Controller
             ]);
         }
     }
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
 
+        return $this->goBack();
+    }
     public function actionRegister()
     {
     	return $this ->render('register');

@@ -21,6 +21,7 @@
                     <div class="form-actions">
                         <input type="submit" id="edit-submit" name="op" value="Log in" class="btn_1 submit">
                     </div>
+                    <input type="hidden" value="<?php echo Yii::app()->getRequest()->getCsrfToken(); ?>" name="YII_CSRF_TOKEN" />
                 </form>
             </div>
             <div class="col-sm-3">

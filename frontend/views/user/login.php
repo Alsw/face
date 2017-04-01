@@ -1,6 +1,7 @@
 <?php
 
-use yii\helper\Html;
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
 
 $this->title = 'login';
 ?>
@@ -15,19 +16,23 @@ $this->title = 'login';
         </div>
         <div class="services">
             <div class="col-sm-5 login_left">
-                <form id="login-form" action="/index.php?r=user/login" method="post" role='form'>
-                    <div class="form-item form-type-textfield form-item-name">
-                        <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
-                        <input type="text" id="edit-name" name="name" value="" size="60" maxlength="60" class="form-text required">
-                    </div>
-                    <div class="form-item form-type-password form-item-pass">
-                        <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
-                        <input type="password" id="edit-pass" name="pass" size="60" maxlength="128" class="form-text required">
-                    </div>
-                    <div class="form-actions">
-                        <input type="submit" id="edit-submit" name="op" value="Log in" class="btn_1 submit">
-                    </div>
-                </form>
+            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+
+                <?= $form->field($model, 'password')->passwordInput() ?>
+
+                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+
+                <div style="color:#999;margin:1em 0">
+                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+                </div>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                </div>
+
+            <?php ActiveForm::end(); ?>
             </div>
             <div class="col-sm-3">
             </div>
