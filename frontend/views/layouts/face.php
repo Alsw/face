@@ -1,17 +1,26 @@
 <?php
-?>
-<!DOCTYPE html>
-<html>
 
+/* @var $this \yii\web\View */
+/* @var $content string */
+
+use yii\helpers\Html;
+use frontend\assets\AppAsset;
+
+AppAsset::register($this);
+?>
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
 <head>
     <title>Face Community</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
-    <link href="css/style.css" rel='stylesheet' type='text/css' />
-    <link href="css/font-awesome.css" rel="stylesheet">
+    <?= Html::csrfMetaTags() ?>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
 </head>
 <body>
+<?php $this->beginBody() ?>
    <header>
         <div class="navbar navbar-inverse-gray navbar">
             <div class="navbar-inner">
@@ -93,8 +102,8 @@
             </div>
         </div>
     </footer>
+<?php $this->endBody() ?>
 </body>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 
 </html>
+<?php $this->endPage() ?>
