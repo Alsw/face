@@ -57,7 +57,8 @@ class UserController extends Controller
     }
 
     public function actionIndex()
-    {
+    {   
+       
         return $this->render('index');
     }
 
@@ -76,13 +77,23 @@ class UserController extends Controller
         }
     }
     public function actionLogout()
-    {
+    {   
         Yii::$app->user->logout();
-
         return $this->goBack();
     }
+
     public function actionRegister()
     {
-    	return $this ->render('register');
+    	$model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+        return $this->render('register', [
+            'model' => $model,
+        ]);
     }
 }

@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -19,6 +20,24 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
+<style type="text/css">
+    .logout{
+        width: 100%;
+        height: 25px;
+        text-align: center;
+        font-weight: 100;
+        font-size: 14px;
+        background: #0767c8;
+        border: 0;
+        color: #fff;
+    }
+    .logout:hover{
+        background: #0e7bef;
+    }
+    .Avatar{
+        width: 25px;
+    }
+</style>
 <body>
 <?php $this->beginBody() ?>
    <header>
@@ -50,21 +69,33 @@ AppAsset::register($this);
                                         </ul>
                                     </li>
                                     <li class="last"><a href="findme.html">FindMe</a></li>
-                                    <li class="dropdown" style="display: none;">
+                                    <?php if(Yii::$app->user->isGuest) :?>
+                                    <li>
+                                       <?= Html::a(' 登录', ['user/login']) ?>
+                                    </li>
+                                    <li>
+                                        <?= Html::a(' 注冊', ['user/register']) ?>
+                                    </li>
+                                    <?php else :?>
+                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <img class="Avatar" src="https://pic1.zhimg.com/da8e974dc_s.jpg" srcset="https://pic1.zhimg.com/da8e974dc_xs.jpg 2x" alt="罗松伟">&nbsp;罗松伟
-                                            <span class="caret"></span></a>
+                                            <img class="Avatar" src="https://pic1.zhimg.com/da8e974dc_s.jpg" >
+                                            <?= Yii::$app->user->identity->username ;?>
+                                            <span class="caret"></span>
+                                            </a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="me.html">个人中心</a></li>
-                                            <li><a href="">退出</a></li>
+                                            <li>
+                                                <?= Html::beginForm(['/user/logout'], 'post') ?>
+                                                    <?= Html::submitButton(
+                                                        'Logout', ['class' => 'logout']
+                                                    )?>
+                                                <?  Html::endForm() ?>    
+                                            </li>
                                         </ul>
                                     </li>
-                                     <li class="dropdown">
-                                       <?= Html::a(' 登录', ['user/login', 'id' => 'login']) ?>
-                                    </li>
-                                    <li class="dropdown">
-                                       <?= Html::a(' 退出', ['user/logout', 'id' => 'logout']) ?>
-                                    </li>
+                                   
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </nav>

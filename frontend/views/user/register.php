@@ -1,15 +1,51 @@
+<?php
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+use
+
+?>
 <div class="grid_3">
 <div class="container">
     <div class="breadcrumb1">
         <ul>
             <a href="index.html"><i class="fa fa-home home_1"></i></a>
             <span class="divider">&nbsp;|&nbsp;</span>
-            <li class="current-page">Refister</li>
+            <li class="current-page">Register</li>
         </ul>
     </div>
     <div class="services">
         <div class="col-sm-5 login_left">
-            <form>
+         <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'maxlength' => '60'])->label('UserName');?>
+                
+                <?= $form->field($model, 'password')->passwordInput(['maxlength' => '60'])->label('PassWord');?>
+                
+                <?= $form->field($model, 'email')->label('Email') ?>
+                
+                <?= $form->field($model, 'phonenumber')->label('PhoneNumber') ?>
+                
+                <?= $form->field($model, 'birthday')->label('Birthday') ?>
+
+                <?= $form->field($model, 'birthday')->widget(
+                    DatePicker::className(), [
+                        'inline' => true, 
+                        'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+                        'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'dd-M-yyyy'
+                        ]
+                ]);?>
+
+                <?= $form->field($model, 'sex')->textInput()->label('Sex')->radioList(['男'=>'男','女'=>'女']) ?>
+
+                <?= $form->field($model, 'introduce')->label('Introduce')->textarea(['rows'=>3]) ?>
+                
+                <div class="form-group">
+                    <?= Html::submitButton('SignUp', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                </div>
+
+            <?php ActiveForm::end(); ?>
+           <!--  <form>
                 <div class="form-item form-type-textfield form-item-name">
                     <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
                     <input type="text" id="edit-name" name="name" value="" size="60" maxlength="60" class="form-text required">
@@ -147,7 +183,7 @@
                 <div class="form-actions">
                     <input type="submit" id="edit-submit" name="op" value="sign up" class="btn_1 submit">
                 </div>
-            </form>
+            </form> -->
         </div>
         <div class="col-sm-3">
         </div>

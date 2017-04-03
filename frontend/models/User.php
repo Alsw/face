@@ -13,6 +13,7 @@ use Yii;
  * @property string $sex
  * @property string $birthday
  * @property string $phoneNumber
+ * @property string $role
  * @property string $attentionCount
  * @property string $introduce
  * @property string $auth_key
@@ -46,7 +47,7 @@ class User extends \yii\db\ActiveRecord
             [['avatar'], 'string', 'max' => 128],
             [['sex'], 'string', 'max' => 2],
             [['phoneNumber'], 'string', 'max' => 20],
-            [['auth_key'], 'string', 'max' => 32],
+            [['role', 'auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
@@ -65,6 +66,7 @@ class User extends \yii\db\ActiveRecord
             'sex' => 'Sex',
             'birthday' => 'Birthday',
             'phoneNumber' => 'Phone Number',
+            'role' => 'Role',
             'attentionCount' => 'Attention Count',
             'introduce' => 'Introduce',
             'auth_key' => 'Auth Key',
