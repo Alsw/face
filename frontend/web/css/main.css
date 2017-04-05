@@ -547,3 +547,14 @@ ul.articles li.article-entry:last-child {
 .Avatar {
     width: 25px;
 }
+#guanzhu {
+    background: #0e78e7;
+    color: #fff;
+    padding: 8px 20px;
+    border: 0px;
+    border-radius: 3px;
+}
+
+#guanzhu:hover {
+    background: #0767c8;
+}

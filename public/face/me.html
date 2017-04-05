@@ -6,16 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="css/bootstrap-3.1.1.min.css" rel='stylesheet' type='text/css' />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <!-- Custom Theme files -->
     <link href="css/style.css" rel='stylesheet' type='text/css' />
     <link href="css/font-awesome.css" rel="stylesheet">
 </head>
+<style type="text/css">
+#guanzhu {
+    background: #0e78e7;
+    color: #fff;
+    padding: 8px 20px;
+    border: 0px;
+    border-radius: 3px;
+}
+
+#guanzhu:hover {
+    background: #0767c8;
+}
+</style>
 
 <body>
-  <header>
+    <header>
         <div class="navbar navbar-inverse-gray navbar">
             <div class="navbar-inner">
                 <div class="container">
@@ -72,53 +83,43 @@
                 </ul>
             </div>
             <div class="profile">
-                <div class="col-md-8 profile_left">
-                    <h2>王小明</h2>
+                <div class="col-md-12 ">
                     <div class="col_3">
-                        <div class="col-sm-4 row_2">
+                        <div class="col-sm-2 row_2">
                             <div class="flexslider">
                                 <ul class="slides">
                                     <li data-thumb="images/p1.jpg">
                                         <img src="images/p1.jpg" />
                                     </li>
-                                    <li data-thumb="images/p2.jpg">
-                                        <img src="images/p2.jpg" />
+                                    <li data-thumb="images/p1.jpg">
+                                        <img src="images/p1.jpg" />
                                     </li>
-                                    <li data-thumb="images/p3.jpg">
-                                        <img src="images/p3.jpg" />
+                                    <li data-thumb="images/p1.jpg">
+                                        <img src="images/p1.jpg" />
                                     </li>
-                                    <li data-thumb="images/p4.jpg">
-                                        <img src="images/p4.jpg" />
+                                    <li data-thumb="images/p1.jpg">
+                                        <img src="images/p1.jpg" />
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-sm-8 row_1">
+                        <div class="col-sm-4 row_1">
+                            <h2>王小明</h2>
                             <table class="table_working_hours">
                                 <tbody>
-                                    <tr class="opened_1">
-                                        <td class="day_label">年龄</td>
-                                        <td class="day_value">33岁</td>
-                                    </tr>
                                     <tr class="opened">
                                         <td class="day_label">性别</td>
-                                        <td class="day_value">男</td>
+                                        <td class="day_value">女</td>
                                     </tr>
                                     <tr class="opened">
-                                        <td class="day_label">生日</td>
-                                        <td class="day_value">6月6号</td>
+                                        <td class="day_label">所在行业</td>
+                                        <td class="day_value">汽车</td>
                                     </tr>
                                     <tr class="opened">
-                                        <td class="day_label">星座</td>
-                                        <td class="day_value">双子座</td>
+                                        <td class="day_label">个人简介</td>
+                                        <td class="day_value">没有正能量</td>
                                     </tr>
                                     <tr class="opened">
-                                        <td class="day_label">公司</td>
-                                        <td class="day_value">xx大学</td>
-                                    </tr>
-                                    <tr class="opened">
-                                        <td class="day_label">所在地</td>
-                                        <td class="day_value">xxxxx</td>
                                     </tr>
                                     <tr class="opened">
                                         <td class="day_label">个人标签</td>
@@ -127,14 +128,20 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="col-sm-3 "></div>
+                        <div class="col-sm-3 ">
+                            <input type="button" name="" value="+ 关注" id="guanzhu">
+                        </div>
                         <div class="clearfix"> </div>
                     </div>
+                </div>
+                <div class="col-md-8 profile_left">
                     <div class="col_4">
                         <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs nav-tabs1" role="tablist">
                                 <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">动态</a></li>
-                                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">关注点</a></li>
-                                <li role="presentation"><a href="#profile1" role="tab" id="profile-tab1" data-toggle="tab" aria-controls="profile1">关注的人</a></li>
+                                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">相册</a></li>
+                                <li role="presentation"><a href="#profile1" role="tab" id="profile-tab1" data-toggle="tab" aria-controls="profile1">话题</a></li>
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
@@ -181,9 +188,6 @@
                     </div>
                 </div>
                 <div class="col-md-4 profile_right">
-                    <div class="newsletter">
-                        <input type="submit" value="关注">
-                    </div>
                     <div class="view_profile">
                         <h3>相似的人</h3>
                         <ul class="profile_item">
@@ -227,7 +231,7 @@
                         </ul>
                     </div>
                     <div class="view_profile view_profile1">
-                        <h3>关注她的人</h3>
+                        <h3>关注者   10</h3>
                         <ul class="profile_item">
                             <a href="#">
                                 <li class="profile_item-img">

@@ -21,22 +21,7 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <style type="text/css">
-    .logout{
-        width: 100%;
-        height: 25px;
-        text-align: center;
-        font-weight: 100;
-        font-size: 14px;
-        background: #0767c8;
-        border: 0;
-        color: #fff;
-    }
-    .logout:hover{
-        background: #0e7bef;
-    }
-    .Avatar{
-        width: 25px;
-    }
+  
 </style>
 <body>
 <?php $this->beginBody() ?>
@@ -84,7 +69,7 @@ AppAsset::register($this);
                                             <span class="caret"></span>
                                             </a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a href="me.html">个人中心</a></li>
+                                            <li><?= Html::a('个人主页', ['user/me']) ?></li>
                                             <li>
                                                 <?= Html::beginForm(['/user/logout'], 'post') ?>
                                                     <?= Html::submitButton(

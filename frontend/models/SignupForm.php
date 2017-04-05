@@ -38,7 +38,7 @@ class SignupForm extends Model
             ['password', 'string', 'min' => 6],
 
             ['birthday', 'required', 'message'=> '生日不能为空'],
-            
+
             ['phonenumber','number'],
             ['phonenumber','string', 'min' => 11],
             ['phonenumber', 'filter', 'filter' => 'trim'],

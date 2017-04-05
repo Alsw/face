@@ -96,4 +96,8 @@ class UserController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionMe()
+    {
+        return $this->render('me');
+    }
 }
