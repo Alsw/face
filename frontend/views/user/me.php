@@ -3,8 +3,8 @@
 use yii\helpers\Html;
 use frontend\assets\AppAsset;
 
-AppAsset::addJs($this, '@web/js/jquery.flexslider.js');
-AppAsset::addCss($this, '@web/css/flexslider.css')
+AppAsset::addJs($this, 'js/jquery.flexslider.js');
+AppAsset::addCss($this, 'css/flexslider.css')
 ?>
 
 <div class="grid_3">
@@ -13,7 +13,7 @@ AppAsset::addCss($this, '@web/css/flexslider.css')
             <ul>
                 <a href="index.html"><i class="fa fa-home home_1"></i></a>
                 <span class="divider">&nbsp;|&nbsp;</span>
-                <li class="current-page">个人主页</li>
+                <li class="current-page">个人主页 </li>
             </ul>
         </div>
         <div class="profile">
@@ -38,12 +38,12 @@ AppAsset::addCss($this, '@web/css/flexslider.css')
                         </div>
                     </div>
                     <div class="col-sm-4 row_1">
-                        <h2>王小明</h2>
+                        <h2><?= Html::encode($model->username) ?></h2>
                         <table class="table_working_hours">
                             <tbody>
                                 <tr class="opened">
                                     <td class="day_label">性别</td>
-                                    <td class="day_value">女</td>
+                                    <td class="day_value"><?= Html::encode($model->sex) ?></td>
                                 </tr>
                                 <tr class="opened">
                                     <td class="day_label">所在行业</td>
@@ -51,7 +51,7 @@ AppAsset::addCss($this, '@web/css/flexslider.css')
                                 </tr>
                                 <tr class="opened">
                                     <td class="day_label">个人简介</td>
-                                    <td class="day_value">没有正能量</td>
+                                    <td class="day_value"><?= Html::encode($model->introduce) ?></td>
                                 </tr>
                                 <tr class="opened">
                                 </tr>
@@ -63,9 +63,11 @@ AppAsset::addCss($this, '@web/css/flexslider.css')
                         </table>
                     </div>
                     <div class="col-sm-3 "></div>
-                    <div class="col-sm-3 ">
-                        <input type="button" name="" value="+ 关注" id="guanzhu">
+                    <div class="col-sm-2 ">
+                     <?= Html::a('+ 关注', ['user/personedit',],['class' => 'guanzhu']) ?>
+                     <?= Html::a('编辑资料', ['user/personedit'],['class' => 'guanzhu']) ?>
                     </div>
+
                     <div class="clearfix"> </div>
                 </div>
             </div>
@@ -211,11 +213,6 @@ AppAsset::addCss($this, '@web/css/flexslider.css')
         </div>
     </div>
 </div>
-<script>
-$(window).load(function() {
-    $('.flexslider').flexslider({
-        animation: "slide",
-        controlNav: "thumbnails"
-    });
-});
-</script>
+<?php 
+AppAsset::addJs($this, 'js/me.js');
+?>

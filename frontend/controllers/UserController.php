@@ -8,7 +8,11 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\userData;
 use frontend\models\SignupForm;
+use frontend\models\User;
+
+
 
 class UserController extends Controller
 {   
@@ -97,7 +101,21 @@ class UserController extends Controller
         ]);
     }
     public function actionMe()
-    {
-        return $this->render('me');
+    {   
+        if (Yii::$app->user->isGuest) {
+            return render('login');
+        }
+
+        $model = Yii::$app->user->identity;
+        return $this->render('me',[
+            'model' => $model,
+            ]);
+    }
+    public function actionPersonedit()
+    {   
+        $model = Yii::$app->user->identity;
+        return $this->render('personedit',[
+            'model' => $model,
+            ]);
     }
 }

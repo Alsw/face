@@ -46,7 +46,8 @@ class SignupForm extends Model
             ['phonenumber', 'unique','targetClass' => '\common\models\User','message'=> '手机号码已存在'],
             [['phonenumber'],'match','pattern'=>'/^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/','message'=>'请输入正确的手机号码'],  
 
-            ['sex','required','message'=>'请选择性别'],   
+            ['sex','required','message'=>'请选择性别'],
+            ['introduce','string'],   
         ];
     }
 
@@ -84,6 +85,6 @@ class SignupForm extends Model
         $user->sex = $this->sex;
         $user->introduce = $this->introduce;
         $user->generateAuthKey();
-         return $user->save() ? $user : null;
+        return $user->save() ? $user : null;
     }
 }

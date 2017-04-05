@@ -547,14 +547,38 @@ ul.articles li.article-entry:last-child {
 .Avatar {
     width: 25px;
 }
-#guanzhu {
+.guanzhu {
+    width: 100px;
+    display: block;
     background: #0e78e7;
     color: #fff;
     padding: 8px 20px;
     border: 0px;
     border-radius: 3px;
+    text-align: center;
 }
 
-#guanzhu:hover {
+.guanzhu:hover {
     background: #0767c8;
+    color: #fff;
+}
+.personEdit{
+    padding-top: 20px;
+    padding-left:20px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+}
+
+.personEdit dl{
+    overflow: hidden;
+}
+.personEdit dt{
+     font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
+    float: left;
+}
+.personEdit dd{
+    padding-left: 40px;
+    float: left;
 }
