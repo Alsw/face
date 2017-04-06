@@ -13,6 +13,7 @@ class m170330_081034_alert_user_cloums extends Migration
             ALTER TABLE  `user` ADD  `attentionCount` INT UNSIGNED NOT NULL DEFAULT  '0' AFTER  `phoneNumber` ;
             ALTER TABLE  `user` ADD  `introduce` TEXT NULL DEFAULT NULL AFTER  `attentionCount` ;
             ALTER TABLE  `user` ADD  `avatar` VARCHAR( 128 ) NOT NULL DEFAULT  '' AFTER  `username` ;
+            ALTER TABLE  `user` ADD  `role` VARCHAR( 128 ) NOT NULL DEFAULT  'USER' AFTER  `introduce` ;
         ";
         $this->execute($sql);
     }
