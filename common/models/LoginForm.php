@@ -12,7 +12,6 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
-    public $role;
     private $_user;
 
 
@@ -49,17 +48,6 @@ class LoginForm extends Model
             }
         }
     }
-    public function validateRole()
-    {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-             if ($user->role != 'ADMIN') {
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
     /**
      * Logs in a user using the provided username and password.
      *
@@ -68,11 +56,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            if ($this->validateRole()) {
-                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
-            } else {
-                return false;
-            }
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;
         }

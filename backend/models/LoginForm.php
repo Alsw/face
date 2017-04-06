@@ -53,7 +53,7 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (!in_array('ROLE_ADMIN', explode('|', $user->role))) {
+            if (!in_array('ADMIN', explode('|', $user->role))) {
                 return false;
             } else {
                 return true;
