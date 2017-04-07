@@ -1,0 +1,32 @@
+branches:
+  - develop
+
+language: php
+
+php:
+  - '5.5'
+  - '5.6'
+  - '7.0'
+
+env:
+  - SYMFONY_VERSION="~2.8.12" DB=mysql
+
+git:
+    submodules: false
+
+before_script:
+  - mysql -e 'CREATE DATABASE `face_test` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci'
+  - composer install --prefer-dist --dev --no-interaction
+
+script:
+  - mkdir -p build/logs
+  - phpunit -c app/phpunit.xml.dist --coverage-clover build/logs/clover.xml
+
+after_script:
+  - travis_retry php vendor/satooshi/php-coveralls/bin/coveralls -v
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+
+cache:
+  directories:
+    - $HOME/.composer/cache
