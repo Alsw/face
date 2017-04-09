@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\controllers;
+namespace backend \controllers;
 
 use Yii;
 use app\models\Article;
@@ -35,6 +35,9 @@ class ArticleController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -65,6 +68,9 @@ class ArticleController extends Controller
     {
         $model = new Article();
 
+        $model->createdTime = time();
+        $model->updatedTime = 0;
+        $model->userId = Yii::$app->user->identity->id; 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -73,7 +79,26 @@ class ArticleController extends Controller
             ]);
         }
     }
-
+     public function actions()
+    {
+        return [
+            'upload'=>[
+                'class' => 'common\widgets\file_upload\UploadAction',     //这里扩展地址别写错
+                'config' => [
+                    'imageUrlPrefix' => "http://www.facebackend.com/", 
+                    'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+                ]
+            ],
+             'ueditor'=>[
+                'class' => 'common\widgets\ueditor\UeditorAction',
+                'config'=>[
+                    //上传图片配置
+                    'imageUrlPrefix' => "http://www.facebackend.com/", /* 图片访问路径前缀 */
+                    'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+                ]
+            ],
+        ];
+    }
     /**
      * Updates an existing Article model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -81,9 +106,10 @@ class ArticleController extends Controller
      * @return mixed
      */
     public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+    {   
 
+        $model = $this->findModel($id);
+        $model->updatedTime = time();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -121,4 +147,6 @@ class ArticleController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+   
 }

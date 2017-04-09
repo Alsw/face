@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'categoryId',
+            //'categoryId',
             'tagIds:ntext',
             'source',
             // 'sourceUrl:url',
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'userId',
             // 'createdTime',
             // 'updatedTime',
-
+            
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-
 /**
  * This is the model class for table "article".
  *
@@ -48,6 +47,7 @@ class Article extends \yii\db\ActiveRecord
             [['tagIds', 'body', 'status'], 'string'],
             [['title', 'thumb', 'originalThumb', 'picture'], 'string', 'max' => 255],
             [['source', 'sourceUrl'], 'string', 'max' => 1024],
+            [['sourceUrl'],'url'],
         ];
     }
 
