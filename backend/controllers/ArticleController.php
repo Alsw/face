@@ -34,7 +34,7 @@ class ArticleController extends Controller
             'upload'=>[
                 'class' => 'common\widgets\file_upload\UploadAction',     //这里扩展地址别写错
                 'config' => [
-                    'imageUrlPrefix' => "http://www.facebackend.com/", 
+                    'imageUrlPrefix' => "http://www.facebackend.com", 
                     'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
                 ]
             ],
@@ -42,8 +42,10 @@ class ArticleController extends Controller
                 'class' => 'common\widgets\ueditor\UeditorAction',
                 'config'=>[
                     //上传图片配置
-                    'imageUrlPrefix' => "http://www.facebackend.com/", /* 图片访问路径前缀 */
-                    'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+                    'imageUrlPrefix' => "http://www.facebackend.com", /* 图片访问路径前缀 */
+                    'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+                    'initialFrameHeight' => '300',
+                     /* 上传保存路径,可以自定义保存路径和文件名格式 */
                 ]
             ],
         ];
@@ -86,12 +88,18 @@ class ArticleController extends Controller
     public function actionCreate()
     {
         $model = new Article();
+        if ($model->load(Yii::$app->request->post())) {
 
-        $model->createdTime = time();
-        $model->updatedTime = 0;
-        $model->userId = Yii::$app->user->identity->id; 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        	$data = Yii::$app->request->post('Article','');
+	       	$tagIds = implode(',', $data['tagIds']); 
+	       	$model->tagIds = $tagIds; 
+	        $model->createdTime = time();
+	        $model->updatedTime = 0;
+	        $model->userId = Yii::$app->user->identity->id;
+
+        	if ($model->save()) {
+           	 	return $this->redirect(['view', 'id' => $model->id]);
+        	}
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -109,10 +117,17 @@ class ArticleController extends Controller
     {   
 
         $model = $this->findModel($id);
-        $model->updatedTime = time();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        
+        if ($model->load(Yii::$app->request->post()) ) {
+        	$model->updatedTime = time();
+        	$data = Yii::$app->request->post('Article','');
+	       	$tagIds = implode(',', $data['tagIds']); 
+	       	$model->tagIds = $tagIds;
+        	if ($model->save()) {
+	            return $this->redirect(['view', 'id' => $model->id]);
+        	}
         } else {
+        	$model->tagIds = explode(',',$model->tagIds);
             return $this->render('update', [
                 'model' => $model,
             ]);

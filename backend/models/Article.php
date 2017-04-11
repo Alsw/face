@@ -44,10 +44,11 @@ class Article extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['categoryId', 'publishedTime', 'hits', 'promoted', 'postNum', 'upsNum', 'userId', 'createdTime', 'updatedTime'], 'integer'],
-            [['tagIds', 'body', 'status'], 'string'],
+            [['body', 'status'], 'string'],
             [['title', 'thumb', 'originalThumb', 'picture'], 'string', 'max' => 255],
             [['source', 'sourceUrl'], 'string', 'max' => 1024],
             [['sourceUrl'],'url'],
+            [['tagIds'],'required']
         ];
     }
 
