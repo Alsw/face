@@ -28,7 +28,26 @@ class ArticleController extends Controller
             ],
         ];
     }
-
+       public function actions()
+    {
+        return [
+            'upload'=>[
+                'class' => 'common\widgets\file_upload\UploadAction',     //这里扩展地址别写错
+                'config' => [
+                    'imageUrlPrefix' => "http://www.facebackend.com/", 
+                    'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+                ]
+            ],
+             'ueditor'=>[
+                'class' => 'common\widgets\ueditor\UeditorAction',
+                'config'=>[
+                    //上传图片配置
+                    'imageUrlPrefix' => "http://www.facebackend.com/", /* 图片访问路径前缀 */
+                    'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+                ]
+            ],
+        ];
+    }
     /**
      * Lists all Article models.
      * @return mixed
@@ -79,26 +98,7 @@ class ArticleController extends Controller
             ]);
         }
     }
-     public function actions()
-    {
-        return [
-            'upload'=>[
-                'class' => 'common\widgets\file_upload\UploadAction',     //这里扩展地址别写错
-                'config' => [
-                    'imageUrlPrefix' => "http://www.facebackend.com/", 
-                    'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
-                ]
-            ],
-             'ueditor'=>[
-                'class' => 'common\widgets\ueditor\UeditorAction',
-                'config'=>[
-                    //上传图片配置
-                    'imageUrlPrefix' => "http://www.facebackend.com/", /* 图片访问路径前缀 */
-                    'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
-                ]
-            ],
-        ];
-    }
+
     /**
      * Updates an existing Article model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -119,6 +119,20 @@ class ArticleController extends Controller
         }
     }
 
+
+    public function actionPublish($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 'published';
+        $model->publishedTime = time();
+        if ($model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
     /**
      * Deletes an existing Article model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
