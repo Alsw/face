@@ -1,6 +1,6 @@
 <?php
 
-namespace backend \controllers;
+namespace backend\controllers;
 
 use Yii;
 use app\models\Article;
