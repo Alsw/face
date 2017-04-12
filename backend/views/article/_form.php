@@ -8,6 +8,8 @@ use common\widgets\tags\TagWidget;
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
 /* @var $form yii\widgets\ActiveForm */
+
+
 ?>
 
 <div class="article-form">
@@ -16,7 +18,7 @@ use common\widgets\tags\TagWidget;
 
     <?= $form->field($model, 'title')->label('标题')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'categoryId')->label('栏目')->dropDownList(['1' => '新闻', '2' => '文章']) ?>
+    <?= $form->field($model, 'categoryId')->label('栏目')->dropDownList($datas) ?>
 
     
     <?= $form->field($model, 'tagIds')->label('标签')->widget('common\widgets\tags\TagWidget') ?>
@@ -32,7 +34,7 @@ use common\widgets\tags\TagWidget;
     
     <?= $form->field($model, 'originalThumb')->widget('common\widgets\file_upload\FileUpload') ?>
 
-    <?= $form->field($model, 'status')->label('是否推送')->dropDownList([ 'published' => '发送', 'unpublished' => '延缓', 'trash' => '废弃', ], ['prompt' => '延缓']) ?>
+    <?= $form->field($model, 'status')->label('是否推送')->dropDownList([ 'published' => '发送', 'unpublished' => '延缓', 'trash' => '废弃' ]) ?>
 
     <?= $form->field($model, 'promoted')->label('是否推荐')->dropDownList([ '1' => '推荐', '0' => '不推荐']) ?>
     <div class="form-group">

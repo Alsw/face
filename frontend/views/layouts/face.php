@@ -34,33 +34,18 @@ AppAsset::register($this);
                         <nav class="navbar nav_bottom" role="navigation">
                             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                                 <ul class="nav navbar-nav nav_1">
-                                    <li><?= Html::a('首页', ['user/index', 'id' => 'index']) ?></li>
-                                    <li><a href="">那个Ta</a></li>
-                                    <li class="dropdown">
-                                        <a href="info.html" class="dropdown-toggle" data-toggle="dropdown">资讯<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="info.html">新闻</a></li>
-                                            <li><a href="info.html">视频</a></li>
-                                            <li><a href="info.html">图文</a></li>
-                                            <li><a href="info.html">综艺</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="forum.html" class="dropdown-toggle" data-toggle="dropdown">论坛<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="forum.html">人脸识别</a></li>
-                                            <li><a href="forum.html">人工智能</a></li>
-                                            <li><a href="forum.html">资源共享</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="last"><a href="findme.html">FindMe</a></li>
+                                    <li><?= Html::a('首页', ['user/index']) ?></li>
+                                    <li><?= Html::a('那个Ta', ['user/index']) ?></li>
+                                    <li><?= Html::a('资讯', ['article/index']) ?></li>
+                                    <li><?= Html::a('论坛', ['user/index']) ?></li>
+                                    <li><?= Html::a('FindMe', ['user/index']) ?></li>
                                     <?php if(Yii::$app->user->isGuest) :?>
-                                    <li>
-                                       <?= Html::a(' 登录', ['user/login']) ?>
-                                    </li>
-                                    <li>
-                                        <?= Html::a(' 注冊', ['user/register']) ?>
-                                    </li>
+                                        <li>
+                                           <?= Html::a(' 登录', ['user/login']) ?>
+                                        </li>
+                                        <li>
+                                           <?= Html::a(' 注冊', ['user/register']) ?>
+                                        </li>
                                     <?php else :?>
                                      <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

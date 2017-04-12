@@ -68,7 +68,9 @@ class ArticlecategoryController extends Controller
     public function actionCreate()
     {
         $model = new ArticleCategory();
-
+        $model->createdTime = time();
+       
+        $model->parentId = Yii::$app->user->identity->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

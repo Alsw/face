@@ -5,6 +5,8 @@ namespace backend\controllers;
 use Yii;
 use app\models\Article;
 use app\models\ArticleSearch;
+use app\models\ArticleCategory;
+use app\models\ArticleCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -44,7 +46,7 @@ class ArticleController extends Controller
                     //上传图片配置
                     'imageUrlPrefix' => "http://www.facebackend.com", /* 图片访问路径前缀 */
                     'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
-                    'initialFrameHeight' => '300',
+                    'initialFrameHeight' => '400',
                      /* 上传保存路径,可以自定义保存路径和文件名格式 */
                 ]
             ],
@@ -96,13 +98,19 @@ class ArticleController extends Controller
 	        $model->createdTime = time();
 	        $model->updatedTime = 0;
 	        $model->userId = Yii::$app->user->identity->id;
-
         	if ($model->save()) {
            	 	return $this->redirect(['view', 'id' => $model->id]);
         	}
         } else {
+
+            $CategoryIds = ArticleCategory::find()->all();
+            $datas = array();
+            foreach ($CategoryIds as $key => $data) {
+                $datas[$data->id] = $data->name;
+            }
             return $this->render('create', [
                 'model' => $model,
+                'datas' => $datas,
             ]);
         }
     }
@@ -128,8 +136,14 @@ class ArticleController extends Controller
         	}
         } else {
         	$model->tagIds = explode(',',$model->tagIds);
+            $CategoryIds = ArticleCategory::find()->all();
+            $datas = array();
+            foreach ($CategoryIds as $key => $data) {
+                $datas[$data->id] = $data->name;
+            }
             return $this->render('update', [
                 'model' => $model,
+                'datas' => $datas,
             ]);
         }
     }

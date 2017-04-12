@@ -14,13 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'publishArticle')->textInput() ?>
+    <?= $form->field($model, 'publishArticle')->label('是否允许发布文章')->dropDownList([ '1' => '允许', '0' => '不允许']) ?>
 
-    <?= $form->field($model, 'published')->textInput() ?>
-
-    <?= $form->field($model, 'parentId')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'createdTime')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'published')->label('是否使用')->dropDownList([ '1' => '使用', '0' => '不使用']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

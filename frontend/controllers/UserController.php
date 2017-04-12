@@ -118,4 +118,8 @@ class UserController extends Controller
             'model' => $model,
             ]);
     }
+    public function actionPerson($id)
+    {
+        
+    }
 }
