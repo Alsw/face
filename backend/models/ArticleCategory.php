@@ -9,8 +9,6 @@ use Yii;
  *
  * @property string $id
  * @property string $name
- * @property string $code
- * @property integer $weight
  * @property integer $publishArticle
  * @property integer $published
  * @property string $parentId
@@ -32,11 +30,9 @@ class ArticleCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'code'], 'required'],
-            [['weight', 'publishArticle', 'published', 'parentId', 'createdTime'], 'integer'],
+            [['name'], 'required'],
+            [['publishArticle', 'published', 'parentId', 'createdTime'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['code'], 'string', 'max' => 64],
-            [['code'], 'unique'],
         ];
     }
 
@@ -48,8 +44,6 @@ class ArticleCategory extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'code' => 'Code',
-            'weight' => 'Weight',
             'publishArticle' => 'Publish Article',
             'published' => 'Published',
             'parentId' => 'Parent ID',
