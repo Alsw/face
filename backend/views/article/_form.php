@@ -28,6 +28,8 @@ use common\widgets\tags\TagWidget;
 
     <?= $form->field($model, 'sourceUrl')->label('资源链接')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'abstrat')->label('摘要:(请自行编辑，否则取文章前200字)')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'body')->label('内容')->widget('common\widgets\ueditor\Ueditor') ?>  
 
     <?= $form->field($model, 'thumb')->widget('common\widgets\file_upload\FileUpload') ?>

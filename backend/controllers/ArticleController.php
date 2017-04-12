@@ -3,9 +3,9 @@
 namespace backend\controllers;
 
 use Yii;
-use app\models\Article;
+use common\models\Article;
 use app\models\ArticleSearch;
-use app\models\ArticleCategory;
+use common\models\ArticleCategory;
 use app\models\ArticleCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -98,6 +98,10 @@ class ArticleController extends Controller
 	        $model->createdTime = time();
 	        $model->updatedTime = 0;
 	        $model->userId = Yii::$app->user->identity->id;
+            if (empty($data['abstrat'])) {
+                $model->abstrat = mb_substr($data['body'], 0,200); 
+            }
+
         	if ($model->save()) {
            	 	return $this->redirect(['view', 'id' => $model->id]);
         	}

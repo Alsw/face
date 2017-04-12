@@ -2,8 +2,6 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use frontend\assets\AppAsset;
-var_dump($datas);
-
 
 AppAsset::addCss($this, 'css/bootstrap-3.1.1.min.css');
 ?>
@@ -28,8 +26,11 @@ AppAsset::addCss($this, 'css/bootstrap-3.1.1.min.css');
                             <a href="#" title="Using Images">
                                 <?php echo '<img src="http://www.facebackend.com'.$model->thumb.'" width="600" class=" wp-post-image" alt="Living room">'; ?>
                             </a>
-                            <p><?php echo $model->body; ?></p>
-                            <?= Html::a(' Read more', ['article/detial','class'=>'readmore-link','id'=>'1']) ?>
+                            <p>
+                                <?php echo $model->abstrat; ?>
+                                 <?= Html::a(' Read more', ['article/detial','class'=>'readmore-link','id'=>$model->id]) ?>
+                            </p>
+                           
                         </article>
                     <?php endforeach; ?>
                     <div id="pagination">

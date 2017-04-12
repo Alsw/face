@@ -3,9 +3,9 @@
 namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
-use frontend\models\Article;
+use common\models\Article;
 use frontend\models\User;
-use frontend\models\ArticleCategory;
+use common\models\ArticleCategory;
 
 
 
@@ -30,13 +30,30 @@ class ArticleController extends \yii\web\Controller
             ]);
     }
     public function actionDetial($id)
-    {
-        return $this->render('articledetial');
+    {   
+
+        $model = 
+        $category = ArticleCategory::find()->all();
+        $categoryIds = array();
+        foreach ($category as $key => $value) {
+            $categoryIds[$value->id] = $value->name;
+        }
+        return $this->render('articledetial',[
+            'categoryName' => $categoryIds,
+            'model' => $this->findModel($id),
+        ]);
     }
 
     public function actionCategory($id)
     {
         return $this->render('articledetial');
     }
-
+     protected function findModel($id)
+    {
+        if (($model = Article::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 }

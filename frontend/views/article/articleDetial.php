@@ -1,20 +1,32 @@
+<?php 
+use yii\helpers\Html;
+use frontend\assets\AppAsset;
+
+
+?>
 <div class="page-container">
         <div class="container mains">
             <div class="row">
                 <div class="span8 col-lg-8">
                     <article>
                         <header>
-                            <h3><a href="">撞脸：你也许真有一个活生生的分身？</a></h3>
-                            <div class="border">
-                                <span class="date">2017-01-16</span>
-                                <span class="category"><a href="#" > Gorvett 利维坦</a></span>
-                                <span class="comments"><a href="#" >3</a></span>
-                                <span class="like-count">66</span>
-                            </div>
-                        </header>
-                        <a href="#" title="Using Images"><img src="images/640.png" width="600" class=" wp-post-image" alt="Living room"></a>
-                        <p>它在你的护照上。它关乎如何辨认罪犯。因为它，即使多年过去，在大街上你仍被老友认出。它，正是你的面孔：与你的身份联系如此紧密。很快，你就可以用脸解锁智能手机，通过公司门禁，还能“刷脸”买房子。. . . 它在你的护照上。它关乎如何辨认罪犯。因为它，即使多年过去，在大街上你仍被老友认出。它，正是你的面孔：与你的身份联系如此紧密。很快，你就可以用脸解锁智能手机，通过公司门禁，还能“刷脸”买房子。. 它在你的护照上。它关乎如何辨认罪犯。因为它，即使多年过去，在大街上你仍被老友认出。它，正是你的面孔：与你的身份联系如此紧密。很快，你就可以用脸解锁智能手机，通过公司门禁，还能“刷脸”买房子。.
-                        </p>
+                                <h3>
+                                    <?=HTML::a($model->title,['article/detial'])?>
+                                </h3>
+                                <div class="border">
+                                    <span class="date"><?php echo $model->createdTime;  ?></span>
+                                    <span class="category"><?=HTML::a($model->userId,['user/person'])?></span>
+                                    <span class="comments"><a href="#" >3</a></span>
+                                    <span class="like-count">66</span>
+                                </div>
+                            </header>
+                            <a href="#" title="Using Images">
+                                <?php echo '<img src="http://www.facebackend.com'.$model->thumb.'" width="600" class=" wp-post-image" alt="Living room">'; ?>
+                            </a>
+                            <p>
+                                <?php echo $model->body; ?>
+                                 
+                            </p>
                     </article>
                     <div class="comment">
                         <div class="hd">评论</div>
@@ -89,10 +101,9 @@
                     <section class="widget">
                         <h3 class="title">分类</h3>
                         <ul>
-                            <li><a href="#" title="Lorem ipsum dolor sit amet,">新闻</a> </li>
-                            <li><a href="#" title="Lorem ipsum dolor sit amet,">图文</a></li>
-                            <li><a href="#" title="Lorem ipsum dolor sit amet,">视频</a></li>
-                            <li><a href="#" title="Lorem ipsum dolor sit amet, ">综艺</a></li>
+                           <?php foreach ($categoryName as $key => $value): ?>
+                            <li><?=HTML::a($value,['article/category','id' => $key]);?></li>
+                            <?php endforeach;?>
                         </ul>
                     </section>
                     <!--  <section class="widget">

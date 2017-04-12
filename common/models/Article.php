@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use Yii;
 
@@ -13,6 +13,7 @@ use Yii;
  * @property string $tagIds
  * @property string $source
  * @property string $sourceUrl
+ * @property string $abstrat
  * @property string $publishedTime
  * @property string $body
  * @property string $thumb
@@ -43,10 +44,10 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
+            [['title', 'abstrat'], 'required'],
             [['categoryId', 'publishedTime', 'hits', 'promoted', 'postNum', 'upsNum', 'userId', 'createdTime', 'updatedTime'], 'integer'],
             [['body', 'status'], 'string'],
-            [['title', 'tagIds', 'thumb', 'originalThumb', 'picture'], 'string', 'max' => 255],
+            [['title', 'tagIds', 'abstrat', 'thumb', 'originalThumb', 'picture'], 'string', 'max' => 255],
             [['source', 'sourceUrl'], 'string', 'max' => 1024],
         ];
     }
@@ -63,6 +64,7 @@ class Article extends \yii\db\ActiveRecord
             'tagIds' => 'Tag Ids',
             'source' => 'Source',
             'sourceUrl' => 'Source Url',
+            'abstrat' => 'Abstrat',
             'publishedTime' => 'Published Time',
             'body' => 'Body',
             'thumb' => 'Thumb',
