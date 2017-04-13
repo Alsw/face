@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'body:ntext',
             'thumb',
             'originalThumb',
-            'picture',
             'status',
             'hits',
             'promoted',

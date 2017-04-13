@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
 
@@ -30,9 +30,10 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['objectType', 'objectId', 'content', 'createdTime'], 'required'],
-            [['objectType', 'objectId', 'userId', 'createdTime'], 'integer'],
+            [['id', 'objectType', 'objectId', 'content', 'createdTime'], 'required'],
+            [['id', 'objectType', 'objectId', 'userId', 'createdTime'], 'integer'],
             [['content'], 'string'],
+            [['id'], 'unique'],
             [['objectType'], 'unique'],
             [['objectId'], 'unique'],
         ];

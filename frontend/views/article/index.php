@@ -14,7 +14,7 @@ AppAsset::addCss($this, 'css/bootstrap-3.1.1.min.css');
                         <article>
                             <header>
                                 <h3>
-                                    <?=HTML::a($model->title,['article/detial'])?>
+                                    <?=HTML::a($model->title,['article/detial', 'id'=>$model->id])?>
                                 </h3>
                                 <div class="border">
                                     <span class="date"><?php echo $model->createdTime;  ?></span>
