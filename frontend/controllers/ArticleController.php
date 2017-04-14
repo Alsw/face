@@ -41,12 +41,12 @@ class ArticleController extends \yii\web\Controller
             'model' => $this->findModel($id),
         ]);
     }
-
     public function actionCategory($id)
     {
         return $this->render('articledetial');
     }
-     protected function findModel($id)
+
+    protected function findModel($id)
     {
         if (($model = Article::findOne($id)) !== null) {
             return $model;

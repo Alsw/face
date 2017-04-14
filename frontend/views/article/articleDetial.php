@@ -1,6 +1,8 @@
 <?php 
 use yii\helpers\Html;
-use frontend\assets\AppAsset
+use frontend\assets\AppAsset;
+
+
 ?>
 <div class="page-container">
     <div class="container mains">
@@ -77,6 +79,10 @@ use frontend\assets\AppAsset
                     </div>
                 </div>
             </div>
+
+
+
+
             <aside class="span4 page-sidebar col-lg-4">
                 <section class="widget">
                     <div class="support-widget">

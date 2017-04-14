@@ -1,6 +1,6 @@
 $('#createComment').on('click', function() {
     $.ajax({
-        url: '/index.php?r=comment/create',
+        url: 'index.php?r=comment/create',
         type: 'post',
         dataType: 'json',
         data: {
