@@ -5,15 +5,20 @@ $('#createComment').on('click', function() {
         dataType: 'json',
         data: {
             content: $('#comment-text').val(),
-            objectType: $('#objectData .objectId').text(),
-            objectId: $('#objectData .objectType').text(),
+            objectType: parseInt($('#objectData .objectType').text()),
+            objectId: parseInt($('#objectData .objectId').text()),
             _csrf: $('#_csrf').val()
         },
         success: function(data) {
-            console.log(data);
+            if (data.status === 205) {
+                location.href = "index.php?=user/login"
+            }
+            if (data.status === 200) {
+                console.log(data.data);
+            }
         },
         error: function() {
-            alert('cuowu');
+            alert('error');
         }
     })
 });

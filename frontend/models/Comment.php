@@ -9,7 +9,7 @@ use Yii;
  *
  * @property string $id
  * @property integer $objectType
- * @property string $objectId
+ * @property integer $objectId
  * @property string $userId
  * @property string $content
  * @property string $createdTime
@@ -30,12 +30,9 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'objectType', 'objectId', 'content', 'createdTime'], 'required'],
-            [['id', 'objectType', 'objectId', 'userId', 'createdTime'], 'integer'],
+            [['objectType', 'objectId', 'content', 'createdTime'], 'required'],
+            [['objectType', 'objectId', 'userId', 'createdTime'], 'integer'],
             [['content'], 'string'],
-            [['id'], 'unique'],
-            [['objectType'], 'unique'],
-            [['objectId'], 'unique'],
         ];
     }
 
