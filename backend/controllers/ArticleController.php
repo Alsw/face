@@ -19,7 +19,7 @@ class ArticleController extends Controller
     /**
      * @inheritdoc
      */
-    public $layout = "face";
+    // public $layout = "face";
     public function behaviors()
     {
         return [
