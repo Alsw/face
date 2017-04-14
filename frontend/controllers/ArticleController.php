@@ -30,15 +30,13 @@ class ArticleController extends \yii\web\Controller
             ]);
     }
     public function actionDetial($id)
-    {   
-
-        $model = 
+    {
         $category = ArticleCategory::find()->all();
         $categoryIds = array();
         foreach ($category as $key => $value) {
             $categoryIds[$value->id] = $value->name;
         }
-        return $this->render('articledetial',[
+        return $this->render('article-detial',[
             'categoryName' => $categoryIds,
             'model' => $this->findModel($id),
         ]);
