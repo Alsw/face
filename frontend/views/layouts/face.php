@@ -60,7 +60,7 @@ AppAsset::register($this);
                                                     <?= Html::submitButton(
                                                         'Logout', ['class' => 'logout']
                                                     )?>
-                                                <?  Html::endForm() ?>    
+                                                <?= Html::endForm() ?>    
                                             </li>
                                         </ul>
                                     </li>

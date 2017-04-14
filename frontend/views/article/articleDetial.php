@@ -1,8 +1,6 @@
 <?php 
 use yii\helpers\Html;
-use frontend\assets\AppAsset;
-use yii\widgets\ActiveForm;
-
+use frontend\assets\AppAsset
 ?>
 <div class="page-container">
     <div class="container mains">
@@ -26,6 +24,7 @@ use yii\widgets\ActiveForm;
                         <p>
                             <?php echo $model->body; ?>
                         </p>
+                        <input type="button" name="" value="123123">
                 </article>
                 <div class="comment">
                     <div class="hd">评论</div>

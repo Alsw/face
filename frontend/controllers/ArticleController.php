@@ -31,8 +31,6 @@ class ArticleController extends \yii\web\Controller
     }
     public function actionDetial($id)
     {   
-
-        $model = 
         $category = ArticleCategory::find()->all();
         $categoryIds = array();
         foreach ($category as $key => $value) {
