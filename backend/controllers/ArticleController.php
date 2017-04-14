@@ -30,13 +30,13 @@ class ArticleController extends Controller
             ],
         ];
     }
-       public function actions()
+    public function actions()
     {
         return [
             'upload'=>[
                 'class' => 'common\widgets\file_upload\UploadAction',     //这里扩展地址别写错
                 'config' => [
-                    'imageUrlPrefix' => "http://www.facebackend.com", 
+                    'imageUrlPrefix' => "http://www.facebackend.com",
                     'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
                 ]
             ],
