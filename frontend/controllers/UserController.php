@@ -69,7 +69,7 @@ class UserController extends Controller
     public function actionLogin()
     {   
        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->goBack();
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -92,7 +92,7 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                    return $this->goBack();
                 }
             }
         }

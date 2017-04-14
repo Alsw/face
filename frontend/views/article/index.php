@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use frontend\assets\AppAsset;
 
-AppAsset::addCss($this, 'css/bootstrap-3.1.1.min.css');
 ?>
 <div class="page-container">
         <div class="container mains">

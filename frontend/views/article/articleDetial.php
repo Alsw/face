@@ -32,6 +32,7 @@ use yii\widgets\ActiveForm;
                     <div style="display: none" id="objectData">
                         <?= Html::tag('p', Html::encode($model->id), ['class' => 'objectId']) ?>
                         <?= Html::tag('p', Html::encode('article'), ['class' => 'objectType']) ?>
+                        <input name="_csrf" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>">    
                     </div>
                     <div class="bd">
                         <div class="publish">

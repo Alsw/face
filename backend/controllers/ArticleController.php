@@ -19,6 +19,7 @@ class ArticleController extends Controller
     /**
      * @inheritdoc
      */
+    public $layout = "face";
     public function behaviors()
     {
         return [
@@ -194,6 +195,4 @@ class ArticleController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-   
 }

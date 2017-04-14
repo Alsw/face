@@ -2,8 +2,6 @@
 namespace common\controllers;
 
 use yii\base\object;
-
-
 /**
 * 
 */
@@ -34,7 +32,7 @@ class ResController extends object
 	public function getRes()
 	{
 		$resArr = [
-            'stata'=>$this->state,
+            'status'=>$this->status,
             'message'=>$this->message,
             'data'=>$this->data,
         ];
