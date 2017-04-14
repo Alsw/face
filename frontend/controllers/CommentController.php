@@ -21,8 +21,9 @@ class CommentController extends \yii\web\Controller
         //     return $Res->setStatus('205')->setMessage('请登录')->getRes();
         // }
         
-        // return $Res->setStatus('200')->setMessage('success')->setData($aa)->getRes();        
-        echo "123";
+        // return $Res->setStatus('200')->setMessage('success')->setData($aa)->getRes();     
+        echo "123";   
+        return true;
     }
     
 }

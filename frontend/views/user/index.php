@@ -1,3 +1,9 @@
+<?php 
+use yii\helpers\Html;
+use frontend\assets\AppAsset;
+use yii\widgets\ActiveForm;
+
+?>
 <div>
     <div class="jumbotron">
             <h1>Face Community</h1>
@@ -162,3 +168,6 @@
             </div>
         </div>
     </div>
+<?php 
+    AppAsset::addJs($this, 'js/comment.js');
+?>
