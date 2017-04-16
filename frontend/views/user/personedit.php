@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use frontend\assets\AppAsset;
+use yii\widgets\ActiveForm;
+use common\widgets\file_upload\FileUpload; 
+
 
 AppAsset::addJs($this, 'js/jquery.flexslider.js');
 AppAsset::addCss($this, 'css/flexslider.css')
@@ -39,41 +42,49 @@ AppAsset::addCss($this, 'css/flexslider.css')
                     </div>
                     <div class="col-sm-10 row_1">
                         <h2><?= Html::encode($model->username) ?></h2>
+                        <?php $form = ActiveForm::begin(); ?>
                         <div class="personEdit">
-                            <dl>
-                                <dt>性别</dt>
-                                <dd>未知</dd>   
-                            </dl>
 
+                            <dl>
+                                <?= $form->field($model, 'avatar')->widget('common\widgets\file_upload\FileUpload')->label('用户头像') ?>
+                            </dl>
+                        </div>
+                        <?php ActiveForm::end(); ?>
+                         <div class="personEdit">
+                            <dl>
+                                <?= $form->field($model, 'introduce')->textarea(['rows'=>4])->label('个人简介') ?>
+                            </dl>
+                            
                         </div>
                          <div class="personEdit">
                             <dl>
-                                <dt>性别</dt>
+                                <dt>展示照片1</dt>
                                 <dd>未知</dd>   
                             </dl>
                             
                         </div>
                          <div class="personEdit">
                             <dl>
-                                <dt>性别</dt>
+                                <dt>展示照片2</dt>
                                 <dd>未知</dd>   
                             </dl>
                             
                         </div>
                          <div class="personEdit">
                             <dl>
-                                <dt>性别</dt>
+                                <dt>展示照片3</dt>
                                 <dd>未知</dd>   
                             </dl>
                             
                         </div>
                          <div class="personEdit">
                             <dl>
-                                <dt>性别</dt>
+                                <dt>展示照片4</dt>
                                 <dd>未知</dd>   
                             </dl>
                             
                         </div>
+
                     </div>
                     </div>
 
