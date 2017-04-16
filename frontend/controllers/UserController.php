@@ -44,6 +44,7 @@ class UserController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+            
         ];
     }
 
@@ -56,6 +57,13 @@ class UserController extends Controller
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+            'upload'=>[
+                'class' => 'common\widgets\file_upload\UploadAction',     //这里扩展地址别写错
+                'config' => [
+                    'imageUrlPrefix' => "http://www.facebackend.com",
+                    'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+                ]
             ],
         ];
     }

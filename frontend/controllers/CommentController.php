@@ -36,7 +36,6 @@ class CommentController extends \yii\web\Controller
         if($comment->save()){
 
         	$data = array(
-	       		'userName' => $user->username,
 	       		'content' => $comment->content,
 	       		'objectType' => 'user',
 	       		// 'objectType' => $comment->objectType,
@@ -49,6 +48,7 @@ class CommentController extends \yii\web\Controller
 	        	$data['object'] = array(
 	        		'userId' => $userFind->id,
 	        		'userName' => $userFind->username,
+	        		'userImg' => $userFind->avatar
 	        	); 
 	        }
 	   		return $Res->setStatus('200')->setMessage('success')->setData($data)->getRes();
