@@ -41,49 +41,34 @@ AppAsset::addCss($this, 'css/flexslider.css')
                         </div>
                     </div>
                     <div class="col-sm-10 row_1">
-                        <h2><?= Html::encode($model->username) ?></h2>
-                        <?php $form = ActiveForm::begin(); ?>
+                        <h2><?= Html::encode($model['user']->username) ?></h2>
+                        <?php $form = ActiveForm::begin(['action' => ['user/personupdate'],'method'=>'post']); ?>
                         <div class="personEdit">
 
                             <dl>
-                                <?= $form->field($model, 'avatar')->widget('common\widgets\file_upload\FileUpload')->label('用户头像') ?>
+                                <?= $form->field($model['user'], 'avatar')->widget('common\widgets\file_upload\FileUpload')->label('用户头像') ?>
                             </dl>
                         </div>
+                          <div class="personEdit">
+                            <dl>
+                                <?= $form->field($model['user'], 'introduce')->textarea(['rows'=>4])->label('个人简介') ?>
+                            </dl>
+                            
+                        </div>
+                       <!--  <?php  foreach ($model['userImg'] as $value):?>
+                            <?php var_dump($value) ?>
+                            <div class="personEdit">
+                                <dl>
+                                    <?= $form->field($value, 'imgPath')->widget('common\widgets\file_upload\FileUpload')->label('用户展示') ?>
+                                </dl>
+                            </div>
+                        <?php endforeach;?> -->
+                        <div class="form-group">
+                            <?= Html::submitButton('确认', ['class' =>'btn btn-primary']) ?>
+                        </div>
+
                         <?php ActiveForm::end(); ?>
-                         <div class="personEdit">
-                            <dl>
-                                <?= $form->field($model, 'introduce')->textarea(['rows'=>4])->label('个人简介') ?>
-                            </dl>
-                            
-                        </div>
-                         <div class="personEdit">
-                            <dl>
-                                <dt>展示照片1</dt>
-                                <dd>未知</dd>   
-                            </dl>
-                            
-                        </div>
-                         <div class="personEdit">
-                            <dl>
-                                <dt>展示照片2</dt>
-                                <dd>未知</dd>   
-                            </dl>
-                            
-                        </div>
-                         <div class="personEdit">
-                            <dl>
-                                <dt>展示照片3</dt>
-                                <dd>未知</dd>   
-                            </dl>
-                            
-                        </div>
-                         <div class="personEdit">
-                            <dl>
-                                <dt>展示照片4</dt>
-                                <dd>未知</dd>   
-                            </dl>
-                            
-                        </div>
+
 
                     </div>
                     </div>

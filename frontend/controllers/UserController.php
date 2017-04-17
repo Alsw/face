@@ -11,6 +11,7 @@ use common\models\LoginForm;
 use common\models\userData;
 use frontend\models\SignupForm;
 use frontend\models\User;
+use frontend\models\UserAlbum;
 
 
 
@@ -61,7 +62,7 @@ class UserController extends Controller
             'upload'=>[
                 'class' => 'common\widgets\file_upload\UploadAction',     //这里扩展地址别写错
                 'config' => [
-                    'imageUrlPrefix' => "http://www.facebackend.com",
+                    'imageUrlPrefix' => "http://www.facefrontend.com",
                     'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
                 ]
             ],
@@ -121,10 +122,28 @@ class UserController extends Controller
     }
     public function actionPersonedit()
     {   
-        $model = Yii::$app->user->identity;
+        $user = Yii::$app->user->identity;
+        $userImg = UserAlbum::find(['userId' => $user->id])->all();
+        $model = [
+            'user' => $user,
+            'userImg' => $userImg
+        ];
+       
         return $this->render('personedit',[
             'model' => $model,
             ]);
+    }
+    public function actionPersonupdate(){
+        $user = Yii::$app->user->identity;
+        $model = User::findone(['id'=>$user->id]);
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+               return $this->render('me',[
+                'model' => $model,
+                ]);
+            }
+        }
     }
     public function actionPerson($id)
     {
