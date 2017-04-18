@@ -9,7 +9,16 @@ use common\widgets\file_upload\FileUpload;
 AppAsset::addJs($this, 'js/jquery.flexslider.js');
 AppAsset::addCss($this, 'css/flexslider.css')
 ?>
-
+<style type="text/css">
+    .per_real_img{
+        width: 150px;
+        height: 150px;
+    }
+    .per_upload_img{
+        width: 150px;
+        height: 150px;
+    } 
+</style>
 <div class="grid_3">
     <div class="container">
         <div class="breadcrumb1">
