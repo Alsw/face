@@ -146,7 +146,13 @@ class UserController extends Controller
         }
     }
     public function actionPerson($id)
-    {
-        
+    {   
+        $user = Yii::$app->user->identity;
+        $model = User::findone(['id'=>$id]);
+        if ($id == $user->id) {
+            return $this->render('me',['model' => $model]);
+        }else{
+            return $this->render('person',['model' => $model]);  
+        }
     }
 }

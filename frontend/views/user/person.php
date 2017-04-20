@@ -64,7 +64,7 @@ AppAsset::addCss($this, 'css/flexslider.css')
                     </div>
                     <div class="col-sm-3 "></div>
                     <div class="col-sm-2 ">
-                     <?= Html::a('编辑资料', ['user/personedit'],['class' => 'guanzhu']) ?>
+                     <?= Html::a('+ 关注', ['user/personedit',],['class' => 'guanzhu']) ?>
                     </div>
 
                     <div class="clearfix"> </div>

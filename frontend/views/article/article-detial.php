@@ -2,6 +2,14 @@
 use yii\helpers\Html;
 use frontend\assets\AppAsset
 ?>
+<style type="text/css">
+    .person{
+        display: none;
+    }
+    .person  #createComment {
+        float: right;
+    }
+</style>
 <div class="page-container">
     <div class="container mains">
         <div class="row">
@@ -9,7 +17,7 @@ use frontend\assets\AppAsset
                 <article>
                     <header>
                         <h3>
-                            <?=HTML::a($model->title,['article/detial'])?>
+                            <?=HTML::tag('p',$model->title,['article/detial'])?>
                         </h3>
                         <div class="border">
                             <span class="date"><?php echo $model->createdTime;  ?></span>
@@ -26,7 +34,7 @@ use frontend\assets\AppAsset
                     <div class="hd">评论</div>
                     <div style="display: none" id="objectData">
                         <?= Html::tag('p', Html::encode($model->id), ['class' => 'objectId']) ?>
-                        <?= Html::tag('p', Html::encode('article'), ['class' => 'objectType']) ?>
+                        <?= Html::tag('p', Html::encode(3), ['class' => 'objectType']) ?>
                         <input name="_csrf" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>">    
                     </div>
                     <div class="bd">
@@ -37,63 +45,38 @@ use frontend\assets\AppAsset
                             </div>
                         </div>
                         <ul class="media-list">
-                            <?php foreach ($CommentModels as  $value): ?>
+                            <?php foreach ($comment as  $value): ?>
                                   <li class="media">
                                     <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object img-cricle" src="" width="45" height="45" alt="...">
-                                            <?php echo '<img class="media-object img-cricle" width="45" height="45" src="http://www.facefrontend.com'.Yii::$app->user->identity->avatar.'">'; ?>
-                                        </a>
+                                        
+                                        <?= Html::a('<img class="media-object img-cricle" width="45" height="45" src="http://www.facefrontend.com'.$value['user']->avatar.'">', ['user/person','id'=>$value['user']->id]) ?>
                                     </div>
                                     <div class="media-body">
-                                        <h4 class="media-heading">Media heading</h4>
-                                        <span>2015年2月1日</span>
-                                        <p>评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容123456798</p>
+                                        <h4 class="media-heading">
+                                            <?=Html::a($value['user']->username, ['user/person','id'=>$value['user']->id])?>
+                                        </h4>
+                                        <span><?php echo date("Y-m-d H:i", $value['comment']->createdTime) ?></span>
+                                        <p><?php echo $value['comment']->content; ?></p>
                                     </div>
                                     <div class="media-right ">
                                         <div class="huifu">
-                                            <a href="#">回复</a>
+                                            <a class="personCommet">回复</a>
+                                        </div>
+                                    </div>
+                                    <div style="display: none;" id="commentData">
+                                        <?= Html::tag('p', Html::encode($model->id), ['class' => 'objectId']) ?>
+                                        <?= Html::tag('p', Html::encode(5), ['class' => 'objectType']) ?>
+                                        <input name="_csrf" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
+                                    </div>
+                                    <div class="publish person">
+                                        <textarea id="comment-text" placeholder="参与讨论。支持markdown语法" class="input-block-level"></textarea>
+                                        <div >
+                                            <button id="createComment">发表评论</button>
                                         </div>
                                     </div>
                                     <div class="dev"></div>
                                 </li>
                             <?php endforeach;?>
-                            <li class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object img-cricle" src="images/1.jpg" width="45" height="45" alt="...">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">Media heading</h4>
-                                    <span>2015年2月1日</span>
-                                    <p>评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容123456798</p>
-                                </div>
-                                <div class="media-right ">
-                                    <div class="huifu">
-                                        <a href="#">回复</a>
-                                    </div>
-                                </div>
-                                <div class="dev"></div>
-                            </li>
-                            <li class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="images/1.jpg" width="75" height="75" alt="...">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">Media heading</h4>
-                                    <span>2015年2月1日</span>
-                                    <p><a>@1234  </a>评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容123456798</p>
-                                </div>
-                                <div class="media-right ">
-                                    <div class="huifu">
-                                        <a href="#">回复</a>
-                                    </div>
-                                </div>
-                                <div class="dev"></div>
-                            </li>
                         </ul>
                     </div>
                 </div>

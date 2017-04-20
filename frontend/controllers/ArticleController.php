@@ -6,8 +6,7 @@ use yii\web\Controller;
 use common\models\Article;
 use frontend\models\User;
 use common\models\ArticleCategory;
-use frontend\models\CommentSearch;
-use frontend\models\UserSearch;
+use frontend\models\Comment;
 
 
 
@@ -33,19 +32,12 @@ class ArticleController extends \yii\web\Controller
     }
     public function actionDetial($id)
     {   
-        $comment = new CommentSearch();
-        $userSearch = new UserSearch();
-        $CommentModels  = $comment->findObjectModel($id, 3);
-            
-        foreach ($CommentModels as $key => $value) {
-            //$CommentModels[$key]->user = $userSearch->findModel($value->userId);
+
+        $Comment = Comment::find()->where(['objectType'=>'3','objectId' =>$id ])->all();
+        foreach ($Comment as $key => $value) {
+            $Comment[$key] = ['comment' => $value, 'user' => $value->user];
         }
-        // foreach ($CommentModels as $value) {
-        //     $Ccomments = $comment->findModels($value->id)->returnModels();
-        // }
-
-
-
+       
         $category = ArticleCategory::find()->all();
         $categoryIds = array();
         foreach ($category as $key => $value) {
@@ -54,12 +46,23 @@ class ArticleController extends \yii\web\Controller
         return $this->render('article-detial',[
             'categoryName' => $categoryIds,
             'model' => $this->findModel($id),
-            'CommentModels' => $CommentModels,
+            'comment' => $Comment,
         ]);
     }
     public function actionCategory($id)
-    {
-        return $this->render('articledetial');
+    {   
+        $article = new Article();
+        $article_count = $article->find()->count();
+        $articleAll = $article->find()->where(['categoryId' => $id])->all();
+        $category = ArticleCategory::find()->all();
+        $categoryIds = array();
+        foreach ($category as $key => $value) {
+            $categoryIds[$value->id] = $value->name;
+        }
+        return $this->render('index',[
+            'datas' => $articleAll,
+            'categoryName' => $categoryIds,
+            ]);
     }
 
     protected function findModel($id)

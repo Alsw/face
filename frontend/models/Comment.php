@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use frontend\models\User;
 /**
  * This is the model class for table "comment".
  *
@@ -50,5 +51,9 @@ class Comment extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id'=>'userId']);
+    }
    
 }

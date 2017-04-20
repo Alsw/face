@@ -27,18 +27,19 @@ use frontend\assets\AppAsset;
                             </a>
                             <p>
                                 <?php echo $model->abstrat; ?>
+                                <span></span>
                                  <?= Html::a(' Read more', ['article/detial','class'=>'readmore-link','id'=>$model->id]) ?>
                             </p>
                            
                         </article>
                     <?php endforeach; ?>
-                    <div id="pagination">
+                    <!-- <div id="pagination">
                         <a href="#" class="btn active">1</a>
                         <a href="#" class="btn">2</a>
                         <a href="#" class="btn">3</a>
                         <a href="#" class="btn">Next »</a>
                         <a href="#" class="btn">Last »</a>
-                    </div>
+                    </div> -->
                 </div>
                 <aside class="span4 page-sidebar col-lg-4">
                     <section class="widget">

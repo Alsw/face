@@ -34,50 +34,20 @@ class CommentController extends \yii\web\Controller
         $comment->createdTime = time();
         
         if($comment->save()){
-
+            $user = $comment->user;
         	$data = array(
     	       	 'content' => $comment->content,
 	       		 'objectType' => $comment->objectType,
-	       		 'object' => $comment->objectId, 	
+	       		 'object' => $comment->objectId,
+                 'createdTime' => $comment->createdTime,
+                 'userId' => $user->id, 
+                 'userAvatar' => $user->avatar,
+                 'userName' => $user->username,
 	        );
-
-
-
-
-	        $arr = array('userName' =>$user->username ,);
-	        if ($data['objectType'] == 'user') {
-	        	$userFind = User::findOne($data['object']);
-	        	$data['object'] = array(
-	        		'userId' => $userFind->id,
-	        		'userName' => $userFind->username,
-	        		'userImg' => $userFind->avatar
-	        	); 
-	        }
 	   		return $Res->setStatus('200')->setMessage('success')->setData($data)->getRes();
         }
         else{
-	   		return $Res->setStatus('215')->setMessage('保存失败'.$comment->errors)->getRes();
-        }
-    }
-
-    protected function findModels($id)
-    {   
-        $modelArr = array();
-        if (($models = Comment->find(['objectType'=>'Comment','objectId' => $id ])->all()) !== null) {
-            array_push($modelArr, $models);
-            foreach ($models as  $value) {
-                $this->findModels($value->objectId);
-            }
-        }
-        return $modelArr;
-    }
-
-    protected function findObjectModel($objectId, $objectType)
-    {
-        if (($models = Comment::find('objectId' => $objectId, 'objectType' => $objectType)->all()) !== null) {
-            return $models;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+	   		return $Res->setStatus('215')->setMessage($comment->errors)->getRes();
         }
     }
 }
