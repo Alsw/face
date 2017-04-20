@@ -9,7 +9,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\controllers\ResController;
 use frontend\models\Comment;
-use frontend\models\user;
+use frontend\models\User;
 
 
 class CommentController extends \yii\web\Controller
@@ -36,12 +36,14 @@ class CommentController extends \yii\web\Controller
         if($comment->save()){
 
         	$data = array(
-	       		'content' => $comment->content,
-	       		'objectType' => 'user',
-	       		// 'objectType' => $comment->objectType,
-	       		// 'object' => $comment->objectId, 	
-	       		'object' => 1, 	
+    	       	 'content' => $comment->content,
+	       		 'objectType' => $comment->objectType,
+	       		 'object' => $comment->objectId, 	
 	        );
+
+
+
+
 	        $arr = array('userName' =>$user->username ,);
 	        if ($data['objectType'] == 'user') {
 	        	$userFind = User::findOne($data['object']);
@@ -54,9 +56,28 @@ class CommentController extends \yii\web\Controller
 	   		return $Res->setStatus('200')->setMessage('success')->setData($data)->getRes();
         }
         else{
-        	var_dump($comment->errors);
-        	exit();
 	   		return $Res->setStatus('215')->setMessage('保存失败'.$comment->errors)->getRes();
+        }
+    }
+
+    protected function findModels($id)
+    {   
+        $modelArr = array();
+        if (($models = Comment->find(['objectType'=>'Comment','objectId' => $id ])->all()) !== null) {
+            array_push($modelArr, $models);
+            foreach ($models as  $value) {
+                $this->findModels($value->objectId);
+            }
+        }
+        return $modelArr;
+    }
+
+    protected function findObjectModel($objectId, $objectType)
+    {
+        if (($models = Comment::find('objectId' => $objectId, 'objectType' => $objectType)->all()) !== null) {
+            return $models;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 }

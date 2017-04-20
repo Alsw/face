@@ -3,7 +3,6 @@
 namespace frontend\models;
 
 use Yii;
-
 /**
  * This is the model class for table "comment".
  *
@@ -50,4 +49,6 @@ class Comment extends \yii\db\ActiveRecord
             'createdTime' => 'Created Time',
         ];
     }
+
+   
 }

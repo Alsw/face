@@ -37,6 +37,27 @@ use frontend\assets\AppAsset
                             </div>
                         </div>
                         <ul class="media-list">
+                            <?php foreach ($CommentModels as  $value): ?>
+                                  <li class="media">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object img-cricle" src="" width="45" height="45" alt="...">
+                                            <?php echo '<img class="media-object img-cricle" width="45" height="45" src="http://www.facefrontend.com'.Yii::$app->user->identity->avatar.'">'; ?>
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Media heading</h4>
+                                        <span>2015年2月1日</span>
+                                        <p>评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容123456798</p>
+                                    </div>
+                                    <div class="media-right ">
+                                        <div class="huifu">
+                                            <a href="#">回复</a>
+                                        </div>
+                                    </div>
+                                    <div class="dev"></div>
+                                </li>
+                            <?php endforeach;?>
                             <li class="media">
                                 <div class="media-left">
                                     <a href="#">
