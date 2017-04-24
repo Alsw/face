@@ -7,7 +7,7 @@ class m170420_082122_create_table_comment extends Migration
     public function up()
     {
          $sql = "
-            CREATE TABLE `comment` (
+            CREATE TABLE  IF NOT EXISTS `comment` (
                  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
                  `objectType` varchar(20) NOT NULL,
                  `objectId` int(10) unsigned NOT NULL,

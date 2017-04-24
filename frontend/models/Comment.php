@@ -4,13 +4,15 @@ namespace frontend\models;
 
 use Yii;
 use frontend\models\User;
+
 /**
  * This is the model class for table "comment".
  *
  * @property string $id
- * @property integer $objectType
+ * @property string $objectType
  * @property integer $objectId
  * @property string $userId
+ * @property string $toUserId
  * @property string $content
  * @property string $createdTime
  */
@@ -19,6 +21,7 @@ class Comment extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $children;
     public static function tableName()
     {
         return 'comment';
@@ -30,9 +33,10 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['objectType', 'objectId', 'content', 'createdTime'], 'required'],
-            [['objectType', 'objectId', 'userId', 'createdTime'], 'integer'],
+            [['objectType', 'objectId', 'toUserId', 'content', 'createdTime'], 'required'],
+            [['objectId', 'userId', 'toUserId', 'createdTime'], 'integer'],
             [['content'], 'string'],
+            [['objectType'], 'string', 'max' => 20],
         ];
     }
 
@@ -46,14 +50,31 @@ class Comment extends \yii\db\ActiveRecord
             'objectType' => 'Object Type',
             'objectId' => 'Object ID',
             'userId' => 'User ID',
+            'toUserId' => 'To User ID',
             'content' => 'Content',
             'createdTime' => 'Created Time',
         ];
     }
-
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id'=>'userId']);
+
+        return $this->hasOne(User::className(), ['id' => 'userId']);
+
     }
-   
+    public function getToUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'toUserId']);
+    }
+
+    public function findComments($objectId,$objectType)
+    {
+        $data = Comment::find()->where(['objectId'=>$objectId, 'objectType'=>$objectType,'toUserId' => 0])->all();
+        foreach ($data as $value) {
+            $value->children = Comment::find()->where(['objectId' => $value['id'], 'objectType'=>'comment'])->all();
+        }
+
+        return $data;
+
+    }
+
 }

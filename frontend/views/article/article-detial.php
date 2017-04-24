@@ -32,10 +32,8 @@ use frontend\assets\AppAsset
                 </article>
                 <div class="comment">
                     <div class="hd">评论</div>
-                    <div style="display: none" id="objectData">
-                        <?= Html::tag('p', Html::encode($model->id), ['class' => 'objectId']) ?>
-                        <?= Html::tag('p', Html::encode(3), ['class' => 'objectType']) ?>
-                        <input name="_csrf" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>">    
+                    <div style="display: none" id="objectData" data-id=<?php echo $model->id ;?>>
+                        <input name="_csrf" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>"> 
                     </div>
                     <div class="bd">
                         <div class="publish">
@@ -46,27 +44,24 @@ use frontend\assets\AppAsset
                         </div>
                         <ul class="media-list">
                             <?php foreach ($comment as  $value): ?>
-                                  <li class="media">
+
+                                  <li class="media" data-id=<?php echo $value['comment']->id;?>>
                                     <div class="media-left">
-                                        
                                         <?= Html::a('<img class="media-object img-cricle" width="45" height="45" src="http://www.facefrontend.com'.$value['user']->avatar.'">', ['user/person','id'=>$value['user']->id]) ?>
                                     </div>
-                                    <div class="media-body">
+                                    <div class="media-body" >
                                         <h4 class="media-heading">
                                             <?=Html::a($value['user']->username, ['user/person','id'=>$value['user']->id])?>
                                         </h4>
                                         <span><?php echo date("Y-m-d H:i", $value['comment']->createdTime) ?></span>
                                         <p><?php echo $value['comment']->content; ?></p>
                                     </div>
-                                    <div class="media-right ">
+                                    <div class="media-right" data-id=<?php echo $value['user']->id;?> >
                                         <div class="huifu">
                                             <a class="personCommet">回复</a>
                                         </div>
                                     </div>
-                                    <div style="display: none;" id="commentData">
-                                        <?= Html::tag('p', Html::encode($model->id), ['class' => 'objectId']) ?>
-                                        <?= Html::tag('p', Html::encode(5), ['class' => 'objectType']) ?>
-                                        <input name="_csrf" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
+                                    <div style="display: none;" id="commentData" >
                                     </div>
                                     <div class="publish person">
                                         <textarea id="comment-text" placeholder="参与讨论。支持markdown语法" class="input-block-level"></textarea>
@@ -74,7 +69,29 @@ use frontend\assets\AppAsset
                                             <button id="createComment">发表评论</button>
                                         </div>
                                     </div>
+                                     <?php if(!empty($value['comment']->children)): ?>  
+                                        <?php foreach ($value['comment']->children as  $items): ?>
+                                             <div class="media" style="margin-left: 40px;">
+                                                <div class="media-left">
+                                                    <a href="#">
+                                                        <img class="media-object img-cricle" src="images/1.jpg" width="45" height="45" alt="...">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading">Media heading</h4>
+                                                    <span>2015年2月1日</span>
+                                                    <p>评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容123456798</p>
+                                                </div>
+                                                <div class="media-right ">
+                                                    <div class="huifu">
+                                                        <a href="#">回复</a>
+                                                    </div>
+                                                </div>
+                                               </div>
+                                        <?php endforeach;?>
+                                    <?php endif; ?>  
                                     <div class="dev"></div>
+
                                 </li>
                             <?php endforeach;?>
                         </ul>

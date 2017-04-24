@@ -7,6 +7,7 @@ use common\models\Article;
 use frontend\models\User;
 use common\models\ArticleCategory;
 use frontend\models\Comment;
+use frontend\models\CommentSearch;
 
 
 
@@ -22,9 +23,11 @@ class ArticleController extends \yii\web\Controller
         $articleAll = $article->find()->all();
         $category = ArticleCategory::find()->all();
         $categoryIds = array();
+
         foreach ($category as $key => $value) {
             $categoryIds[$value->id] = $value->name;
         }
+
         return $this->render('index',[
             'datas' => $articleAll,
             'categoryName' => $categoryIds,
@@ -32,8 +35,8 @@ class ArticleController extends \yii\web\Controller
     }
     public function actionDetial($id)
     {   
-
-        $Comment = Comment::find()->where(['objectType'=>'3','objectId' =>$id ])->all();
+        $CommentSearch = new Comment();
+        $Comment = $CommentSearch->findComments($id,'article');
         foreach ($Comment as $key => $value) {
             $Comment[$key] = ['comment' => $value, 'user' => $value->user];
         }
@@ -43,6 +46,8 @@ class ArticleController extends \yii\web\Controller
         foreach ($category as $key => $value) {
             $categoryIds[$value->id] = $value->name;
         }
+
+
         return $this->render('article-detial',[
             'categoryName' => $categoryIds,
             'model' => $this->findModel($id),

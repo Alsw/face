@@ -22,15 +22,21 @@ class CommentController extends \yii\web\Controller
         if (Yii::$app->user->isGuest) {
             return $Res->setStatus('205')->setMessage('请登录')->getRes();
         }
+
+
         $objectId = Yii::$app->request->post('objectId','');
         $objectType = Yii::$app->request->post('objectType','');
+        $toUserId = Yii::$app->request->post('toUserId','0');
         $content = Yii::$app->request->post('content','');
+
+
         $user = Yii::$app->user->identity;
         $comment = new Comment();
         $comment->objectId = intval($objectId);
-        $comment->objectType = intval($objectType);
+        $comment->objectType = $objectType;
         $comment->content = $content;
         $comment->userId = $user->id;
+        $comment->toUserId = $toUserId; 
         $comment->createdTime = time();
         
         if($comment->save()){

@@ -5,8 +5,9 @@ $('#createComment').on('click', function() {
         dataType: 'json',
         data: {
             content: $('#comment-text').val(),
-            objectType: parseInt($('#objectData .objectType').text()),
-            objectId: parseInt($('#objectData .objectId').text()),
+            objectType: 'article',
+            objectId: $('#objectData ').data('id'),
+            toUserId: 0,
             _csrf: $('#_csrf').val()
         },
         success: function(data) {
@@ -67,10 +68,11 @@ $('.person #createComment').on('click', function() {
         type: 'post',
         dataType: 'json',
         data: {
-            content: $(this).parent('.person').children('#comment-text').val(),
-            objectType: parseInt($(this).parents('.media').children('#commentData').children('.objectType').text()),
-            objectId: parseInt($(this).parents('.media').children('#commentData').children('.objectId').text()),
-            _csrf: $('#commentData #_csrf').val()
+            content: $(this).parents('.person').children('#comment-text').val(),
+            objectType: 'comment',
+            objectId: $(this).parents('.media').data('id'),
+            toUserId: $(this).parents('.media-right').data('id'),
+            _csrf: $('#_csrf').val()
         },
         success: function(data) {
 
