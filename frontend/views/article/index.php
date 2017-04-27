@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use frontend\assets\AppAsset;
+use yii\widgets\LinkPager;
 
 ?>
 <div class="page-container">
@@ -16,7 +17,8 @@ use frontend\assets\AppAsset;
                                     <?=HTML::a($model->title,['article/detial', 'id'=>$model->id])?>
                                 </h3>
                                 <div class="border">
-                                    <span class="date"><?php echo $model->createdTime;  ?></span>
+                                
+                                    <span class="date"><?php echo date("Y-m-d H:i", $model->createdTime) ?></span>
                                     <span class="category"><?=HTML::a($model->userId,['user/person'])?></span>
                                     <span class="comments"><a href="#" >3</a></span>
                                     <span class="like-count">66</span>
@@ -33,13 +35,7 @@ use frontend\assets\AppAsset;
                            
                         </article>
                     <?php endforeach; ?>
-                    <!-- <div id="pagination">
-                        <a href="#" class="btn active">1</a>
-                        <a href="#" class="btn">2</a>
-                        <a href="#" class="btn">3</a>
-                        <a href="#" class="btn">Next »</a>
-                        <a href="#" class="btn">Last »</a>
-                    </div> -->
+                    <?= LinkPager::widget(['pagination' => $pages]); ?>
                 </div>
                 <aside class="span4 page-sidebar col-lg-4">
                     <section class="widget">
@@ -67,7 +63,7 @@ use frontend\assets\AppAsset;
                         <h3 class="title">分类</h3>
                         <ul>
                             <?php foreach ($categoryName as $key => $value): ?>
-                            <li><?=HTML::a($value,['article/category','id' => $key]);?></li>
+                            <li><?=HTML::a($value->name,['article/category','id' => $key]);?></li>
                             <?php endforeach;?>
                         </ul>
                     </section>

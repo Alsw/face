@@ -8,7 +8,7 @@ use frontend\models\User;
 use common\models\ArticleCategory;
 use frontend\models\Comment;
 use frontend\models\CommentSearch;
-
+use yii\data\Pagination; 
 
 
 class ArticleController extends \yii\web\Controller
@@ -18,34 +18,30 @@ class ArticleController extends \yii\web\Controller
 
     public function actionIndex()
     {   
-        $article = new Article();
-        $article_count = $article->find()->count();
-        $articleAll = $article->find()->all();
+
+        $data = Article::find()->orderBy('createdTime DESC');
+        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '2']);
+        $model = $data->offset($pages->offset)->limit($pages->limit)->all();
         $category = ArticleCategory::find()->all();
-        $categoryIds = array();
-
-        foreach ($category as $key => $value) {
-            $categoryIds[$value->id] = $value->name;
-        }
-
-        return $this->render('index',[
-            'datas' => $articleAll,
-            'categoryName' => $categoryIds,
-            ]);
+    
+        return $this->render('index', [
+            'datas' => $model,
+            'pages' => $pages,
+            'categoryName' => $category,
+        ]);
     }
     public function actionDetial($id)
     {   
         $CommentSearch = new Comment();
         $Comment = $CommentSearch->findComments($id,'article');
-        foreach ($Comment as $key => $value) {
-            $Comment[$key] = ['comment' => $value, 'user' => $value->user];
-        }
-       
+
         $category = ArticleCategory::find()->all();
         $categoryIds = array();
         foreach ($category as $key => $value) {
             $categoryIds[$value->id] = $value->name;
         }
+
+       
 
 
         return $this->render('article-detial',[

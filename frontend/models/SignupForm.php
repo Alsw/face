@@ -56,9 +56,9 @@ class SignupForm extends Model
      *
      * @return User|null the saved model or null if saving fails
      */
-    protected function beforeSave()  
+    protected function beforeSave($insert)  
     {  
-        if(parent::beforeSave()){  
+        if(parent::beforeSave($insert)){  
             if($this->isNewRecord){  
                 $this->create_at = time();  
                 $this->status = '0';

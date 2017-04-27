@@ -15,28 +15,7 @@ $('#createComment').on('click', function() {
                 location.href = "index.php?=user/login"
             }
             if (data.status === 200) {
-                console.log(data);
-                var data = data.data;
-                var htmls = `  <li class="media">
-                                <div class="media-left">
-                                    <a href="user/index">
-                                        <img class="media-object img-cricle" src=${'http://www.facefrontend.com'  + data.userAvatar} width="45" height="45" alt="...">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">${data.userName}</h4>
-                                    <span>${data.createdTime}</span>
-                                    <p>${data.content}</p>
-                                </div>
-                                <div class="media-right ">
-                                    <div class="huifu">
-                                        <a href="#">回复</a>
-                                    </div>
-                                </div>
-                                <div class="dev"></div>
-                            </li>`;
-                $('.media-list').prepend(htmls);
-
+                window.location.reload();
             }
         },
         error: function() {
@@ -45,14 +24,16 @@ $('#createComment').on('click', function() {
     })
 });
 $('.media-list').on('click', '.huifu a', function() {
-    var status = $(this).parents('.media-right').nextAll('.person');
+    var status = $(this).parents('.media-right').next('.person');
     if (status.css('display') === 'none') {
         $('.person').css({
             display: 'none',
         });
         status.css({
             display: 'block'
-        })
+        }).children('textarea').focus();
+
+
 
     } else {
         status.css({
@@ -61,8 +42,12 @@ $('.media-list').on('click', '.huifu a', function() {
     }
 
 });
-
-$('.person #createComment').on('click', function() {
+$('.media-list').on('click', '.media-body', function() {
+    $('.person').css({
+        display: 'none',
+    });
+});
+$('.media-list').on('click', '#createComment', function() {
     $.ajax({
         url: 'index.php?r=comment/create',
         type: 'post',
@@ -71,11 +56,16 @@ $('.person #createComment').on('click', function() {
             content: $(this).parents('.person').children('#comment-text').val(),
             objectType: 'comment',
             objectId: $(this).parents('.media').data('id'),
-            toUserId: $(this).parents('.media-right').data('id'),
+            toUserId: $(this).parents('.person').prev('.media-right').data('id'),
             _csrf: $('#_csrf').val()
         },
         success: function(data) {
-
+            if (data.status === 205) {
+                location.href = "index.php?=user/login"
+            }
+            if (data.status === 200) {
+                window.location.reload();
+            }
         },
         error: function() {
             alert('error');

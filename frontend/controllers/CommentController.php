@@ -26,9 +26,9 @@ class CommentController extends \yii\web\Controller
 
         $objectId = Yii::$app->request->post('objectId','');
         $objectType = Yii::$app->request->post('objectType','');
-        $toUserId = Yii::$app->request->post('toUserId','0');
+        $toUserId = Yii::$app->request->post('toUserId','');
         $content = Yii::$app->request->post('content','');
-
+        
 
         $user = Yii::$app->user->identity;
         $comment = new Comment();

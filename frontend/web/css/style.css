@@ -1579,8 +1579,8 @@ ul.pagination {
 .pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
     z-index: 2;
     color: #fff;
-    background-color:#ffa417;
-    border-color:#ffa417;
+    // background-color:#ffa417;
+    // border-color:#ffa417;
     cursor: default;
 }
 .pagination>li >a {
@@ -1763,7 +1763,7 @@ ul.phone li.phone_right p{
 	color:#555;
 	font-size:0.85em;
 	line-height:1.8em;
-	margin-bottom:2em;
+
 }
 /*--upgrade--*/
 .pricing-tables{
@@ -3528,4 +3528,5 @@ a.order-btn {
 ul.feature_list.feature_list1 {
     margin-bottom: 1em;
 }
+
 

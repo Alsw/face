@@ -1,10 +1,12 @@
 <?php 
 use yii\helpers\Html;
-use frontend\assets\AppAsset
+use frontend\assets\AppAsset;
+use yii\widgets\LinkPager;
 ?>
 <style type="text/css">
     .person{
         display: none;
+        overflow: hidden;
     }
     .person  #createComment {
         float: right;
@@ -20,7 +22,7 @@ use frontend\assets\AppAsset
                             <?=HTML::tag('p',$model->title,['article/detial'])?>
                         </h3>
                         <div class="border">
-                            <span class="date"><?php echo $model->createdTime;  ?></span>
+                            <span class="date"><?php echo date("Y-m-d H:i", $model->createdTime) ?></span>
                             <span class="category"><?=HTML::a($model->userId,['user/person'])?></span>
                             <span class="comments"><a href="#" >3</a></span>
                             <span class="like-count">66</span>
@@ -45,23 +47,21 @@ use frontend\assets\AppAsset
                         <ul class="media-list">
                             <?php foreach ($comment as  $value): ?>
 
-                                  <li class="media" data-id=<?php echo $value['comment']->id;?>>
+                                  <li class="media" data-id=<?php echo $value->id;?>>
                                     <div class="media-left">
-                                        <?= Html::a('<img class="media-object img-cricle" width="45" height="45" src="http://www.facefrontend.com'.$value['user']->avatar.'">', ['user/person','id'=>$value['user']->id]) ?>
+                                        <?= Html::a('<img class="media-object img-cricle" width="45" height="45" src="http://www.facefrontend.com'.$value->user->avatar.'">', ['user/person','id'=>$value->user->id]) ?>
                                     </div>
                                     <div class="media-body" >
                                         <h4 class="media-heading">
-                                            <?=Html::a($value['user']->username, ['user/person','id'=>$value['user']->id])?>
+                                            <?=Html::a($value->user->username, ['user/person','id'=>$value->user->id])?>
                                         </h4>
-                                        <span><?php echo date("Y-m-d H:i", $value['comment']->createdTime) ?></span>
-                                        <p><?php echo $value['comment']->content; ?></p>
+                                        <span><?php echo date("Y-m-d H:i", $value->createdTime) ?></span>
+                                        <p><?php echo $value->content; ?></p>
                                     </div>
-                                    <div class="media-right" data-id=<?php echo $value['user']->id;?> >
+                                    <div class="media-right" data-id=<?php echo $value->user->id;?> >
                                         <div class="huifu">
                                             <a class="personCommet">回复</a>
                                         </div>
-                                    </div>
-                                    <div style="display: none;" id="commentData" >
                                     </div>
                                     <div class="publish person">
                                         <textarea id="comment-text" placeholder="参与讨论。支持markdown语法" class="input-block-level"></textarea>
@@ -69,29 +69,40 @@ use frontend\assets\AppAsset
                                             <button id="createComment">发表评论</button>
                                         </div>
                                     </div>
-                                     <?php if(!empty($value['comment']->children)): ?>  
-                                        <?php foreach ($value['comment']->children as  $items): ?>
-                                             <div class="media" style="margin-left: 40px;">
+                                     <?php if(!empty($value->children)): ?>  
+                                        <?php foreach ($value->children as  $items): ?>
+                                             <div class="media" style="margin-left: 40px;"  data-id=<?php echo $value->id;?>>
                                                 <div class="media-left">
-                                                    <a href="#">
-                                                        <img class="media-object img-cricle" src="images/1.jpg" width="45" height="45" alt="...">
-                                                    </a>
+                                                     <?= Html::a('<img class="media-object img-cricle" width="45" height="45" src="http://www.facefrontend.com'.$items->user->avatar.'">', ['user/person','id'=>$items->user->id]) ?>
                                                 </div>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Media heading</h4>
-                                                    <span>2015年2月1日</span>
-                                                    <p>评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容12345679评论内容123456798</p>
+                                                  <div class="media-body" >
+                                                    <h4 class="media-heading">
+                                                        <?=Html::a($items->user->username, ['user/person','id'=>$items->user->id])?>
+                                                    </h4>
+                                                    <span><?php echo date("Y-m-d H:i", $items->createdTime) ?></span>
+
+                                                    <p>
+                                                        <?php if ($items->toUser !== null):?>
+                                                            <?php echo '@'.$items->toUser->username.''; ?>
+                                                        <?php endif; ?>  
+                                                        <?php echo $items->content; ?>
+                                                    </p>
                                                 </div>
-                                                <div class="media-right ">
+                                               <div class="media-right" data-id=<?php echo $items->user->id;?> >
                                                     <div class="huifu">
-                                                        <a href="#">回复</a>
+                                                        <a class="personCommet">回复</a>
                                                     </div>
                                                 </div>
-                                               </div>
+                                                <div class="publish person">
+                                                    <textarea id="comment-text" placeholder="参与讨论。支持markdown语法" class="input-block-level" style="width: 80%"></textarea>
+                                                    <div>
+                                                        <button"id="createComment">发表评论</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php endforeach;?>
                                     <?php endif; ?>  
                                     <div class="dev"></div>
-
                                 </li>
                             <?php endforeach;?>
                         </ul>

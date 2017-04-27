@@ -67,10 +67,11 @@ class Comment extends \yii\db\ActiveRecord
     }
 
     public function findComments($objectId,$objectType)
-    {
-        $data = Comment::find()->where(['objectId'=>$objectId, 'objectType'=>$objectType,'toUserId' => 0])->all();
+    {   
+       
+        $data = Comment::find()->where(['objectId'=>$objectId, 'objectType'=>$objectType,'toUserId' => 0])->orderBy('createdTime DESC')->all();
         foreach ($data as $value) {
-            $value->children = Comment::find()->where(['objectId' => $value['id'], 'objectType'=>'comment'])->all();
+            $value->children = Comment::find()->where(['objectId' => $value['id'], 'objectType'=>'comment'])->orderBy('createdTime ASC')->all();
         }
 
         return $data;

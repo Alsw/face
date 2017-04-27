@@ -1,16 +1,16 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Comment;
+use common\models\topic;
 
 /**
- * CommentSearch represents the model behind the search form about `frontend\models\Comment`.
+ * TopicSearch represents the model behind the search form about `common\models\topic`.
  */
-class CommentSearch extends Comment
+class TopicSearch extends topic
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class CommentSearch extends Comment
     public function rules()
     {
         return [
-            [['id', 'objectId', 'userId', 'toUserId', 'createdTime'], 'integer'],
-            [['objectType', 'content'], 'safe'],
+            [['id', 'columnId', 'userId', 'createdTime', 'updatedTime', 'goodCount'], 'integer'],
+            [['tags', 'title', 'content', 'status'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class CommentSearch extends Comment
      */
     public function search($params)
     {
-        $query = Comment::find();
+        $query = topic::find();
 
         // add conditions that should always apply here
 
@@ -60,14 +60,17 @@ class CommentSearch extends Comment
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'objectId' => $this->objectId,
+            'columnId' => $this->columnId,
             'userId' => $this->userId,
-            'toUserId' => $this->toUserId,
             'createdTime' => $this->createdTime,
+            'updatedTime' => $this->updatedTime,
+            'goodCount' => $this->goodCount,
         ]);
 
-        $query->andFilterWhere(['like', 'objectType', $this->objectType])
-            ->andFilterWhere(['like', 'content', $this->content]);
+        $query->andFilterWhere(['like', 'tags', $this->tags])
+            ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
     }
