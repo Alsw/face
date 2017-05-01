@@ -10,6 +10,7 @@ use yii\filters\AccessControl;
 use common\controllers\ResController;
 use frontend\models\Comment;
 use frontend\models\User;
+use yii\helpers\Json;
 
 
 class CommentController extends \yii\web\Controller
@@ -56,7 +57,32 @@ class CommentController extends \yii\web\Controller
 	   		return $Res->setStatus('215')->setMessage($comment->errors)->getRes();
         }
     }
-    
+    public function actionShow()
+    {
+        $Res = new ResController();
+
+        $objectId = Yii::$app->request->post('objectId','');
+        $objectType = Yii::$app->request->post('objectType','');
+        
+        $models = Comment::find()->where([
+            'objectId' => $objectId,
+            'objectType' => $objectType,
+        ])->orderBy('createdTime ASC')->all();
+        $array = array();
+        foreach ($models as $key => $value) {
+            $array[$key] = [
+            'value' => $value, 
+            'userId'=> $value->user->id,
+            'userName'=> $value->user->username,
+            'userAvatar'=> $value->user->avatar,
+            'toUser'=> $value->toUser->username,
+            'createdTime' =>Yii::$app->formatter->asRelativeTime($value->createdTime)
+            ];
+        }
+        return Json::encode($array);
+             
+
+    }
 }
 
 

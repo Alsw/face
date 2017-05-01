@@ -57,15 +57,13 @@ class Comment extends \yii\db\ActiveRecord
     }
     public function getUser()
     {
-
         return $this->hasOne(User::className(), ['id' => 'userId']);
-
     }
     public function getToUser()
     {
         return $this->hasOne(User::className(), ['id' => 'toUserId']);
     }
-
+   
     public function findComments($objectId,$objectType)
     {   
        

@@ -169,5 +169,5 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 <?php 
-    AppAsset::addJs($this, 'js/comment.js');
+    AppAsset::addJs($this, 'js/article.js');
 ?>

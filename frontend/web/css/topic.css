@@ -489,3 +489,53 @@
     -ms-flex-align: center;
     align-items: center
 }
+.topic-comment a{
+color:#8590a6;
+margin-right:25px;
+}
+.Input{
+width: 100%;
+-webkit-box-flex: 1;
+-ms-flex: 1;
+flex: 1;
+padding: 0;
+overflow: hidden;
+font-family: inherit;
+font-size: inherit;
+font-weight: inherit;
+background: transparent;
+border: none;
+outline: none;
+resize: none;
+line-height: 24px;
+background: #f7f8fa;
+}
+.Editable{
+width: 100%;
+padding: 10px;
+background: #fff;
+border: 1px solid #e7eaf1;
+border-radius: 3px;
+box-sizing: border-box;
+}
+.CommentEditor-actions{
+overflow: hidden;
+}
+.CommentEditor-actions button{
+float: right;
+margin-right: 10px;
+background-color: #0f88eb;
+color: #fff;
+}
+.CommentEditor-actions .quxiao{
+background-color: #fff;
+color: #0f88eb;
+border:0;
+padding-top: 6px;
+}
+.CommentItem-editor #comment-footer{
+    float: left; width: 10%; margin-top: 5px;
+ }
+.CommentItem-editor #input-footer{
+    float: left;width: 90%;
+ }

@@ -1,5 +1,6 @@
 <?php 
 use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
 use frontend\assets\AppAsset;
 use yii\widgets\LinkPager;
 ?>
@@ -29,7 +30,7 @@ use yii\widgets\LinkPager;
                         </div>
                     </header>
                     <p>
-                        <?php echo $model->body; ?>
+                     <?=HtmlPurifier::process($model->body) ?>
                     </p>
                 </article>
                 <div class="comment">
@@ -56,7 +57,7 @@ use yii\widgets\LinkPager;
                                             <?=Html::a($value->user->username, ['user/person','id'=>$value->user->id])?>
                                         </h4>
                                         <span><?php echo date("Y-m-d H:i", $value->createdTime) ?></span>
-                                        <p><?php echo $value->content; ?></p>
+                                        <p> <?=HtmlPurifier::process($value->content) ?></p>
                                     </div>
                                     <div class="media-right" data-id=<?php echo $value->user->id;?> >
                                         <div class="huifu">
@@ -144,5 +145,5 @@ use yii\widgets\LinkPager;
     </div>
 </div>
 <?php 
-    AppAsset::addJs($this, 'js/comment.js');
+    AppAsset::addJs($this, 'js/article.js');
 ?>

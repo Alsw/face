@@ -8,13 +8,13 @@ use common\models\LoginForm;
 use common\controllers\ResController;
 use common\models\TopicSearch;
 use yii\data\Pagination; 
+use frontend\models\Comment;
 
 class TopicController extends \yii\web\Controller
 {	
 
 	public $layout = "face";
     
-
     public function actions()
     {
         return [
@@ -69,8 +69,10 @@ class TopicController extends \yii\web\Controller
     public function actionDetail($id)
     {
         $model = Topic::findone(['id'=>$id]);
+        $CommentSearch = new Comment();
+        $Comment = $CommentSearch->findComments($id,'topic');
         
-        return $this->render('topic-detail',['model'=>$model]);
+        return $this->render('topic-detail',['model'=>$model,'comment' => $Comment]);
     }
 
     public function actionColumn()

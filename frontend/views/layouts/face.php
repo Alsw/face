@@ -7,7 +7,6 @@ use yii\helpers\Html;
 use frontend\assets\AppAsset;
 
 AppAsset::register($this);
-
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -20,9 +19,6 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<style type="text/css">
-  
-</style>
 <body>
 <?php $this->beginBody() ?>
    <header>
@@ -54,14 +50,16 @@ AppAsset::register($this);
                                             <?= Yii::$app->user->identity->username ;?>
                                             <span class="caret"></span>
                                             </a>
-                                        <ul class="dropdown-menu" role="menu">
+                                        <ul class="dropdown-menu" role="menu" >
                                             <li><?= Html::a('个人主页', ['user/me']) ?></li>
-                                            <li>
+                                            <li id="logout-li">
+                                             <a id="logout">
                                                 <?= Html::beginForm(['/user/logout'], 'post') ?>
                                                     <?= Html::submitButton(
                                                         'Logout', ['class' => 'logout']
                                                     )?>
                                                 <?= Html::endForm() ?>    
+                                             </a>
                                             </li>
                                         </ul>
                                     </li>
@@ -90,6 +88,7 @@ AppAsset::register($this);
                         <li><a href="#">bootstrap中文社区</a></li>
                         <li><a href="#">thinkface论坛</a></li>
                         <li><a href="#">yii中文社区</a></li>
+                        <li><a href="http://glyphicons.com/">Glyphicons</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 col_2">

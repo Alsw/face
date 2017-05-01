@@ -5,7 +5,7 @@ p {margin: 0;}
 html, body{
 	font-family: 'Ubuntu', sans-serif;
 	font-size: 100%;
-    background:#fff; 
+  background:#eee; 
 }
 body a{
 	transition:0.5s all;
