@@ -41,9 +41,6 @@ class ArticleController extends \yii\web\Controller
             $categoryIds[$value->id] = $value->name;
         }
 
-       
-
-
         return $this->render('article-detial',[
             'categoryName' => $categoryIds,
             'model' => $this->findModel($id),

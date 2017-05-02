@@ -35,19 +35,33 @@ class TopicController extends \yii\web\Controller
                      /* 上传保存路径,可以自定义保存路径和文件名格式 */
                 ]
             ],
+
         ];
     }
     public function actionIndex()
     {   
         $sort = Yii::$app->request->get('sort', 'all');
-        if ($sort === 'all') {
-
-            $data = Topic::find();
-            $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '2']);
-            $model = $data->offset($pages->offset)->limit($pages->limit)->all();
-
-            return $this->render('index',['models' => $model, 'pages' => $pages]);
+        $columns = $this->findColumns();
+       
+        if (is_numeric($sort)) {
+            $data = Topic::find()->where(['columnId'=>$sort])->orderBy('createdTime DESC');
+        }else if ($sort === 'all') {
+             $data = Topic::find()->orderBy('id DESC');
+        }else if($sort ==='new'){
+             $data = Topic::find()->orderBy('createdTime DESC');
+        }else if($sort === 'hot'){
+             $data = Topic::find()->orderBy('goodCount DESC');
+        }else{
+             $data = Topic::find()->orderBy('id ASC');
         }
+
+        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '5']);
+        $model = $data->offset($pages->offset)->limit($pages->limit)->all();
+         return $this->render('index',[
+                'models' => $model, 
+                'columns'=>$columns, 
+                'pages' => $pages
+        ]);
     }
 
     public function actionAddtopic()
@@ -69,22 +83,21 @@ class TopicController extends \yii\web\Controller
     public function actionDetail($id)
     {
         $model = Topic::findone(['id'=>$id]);
+       
         $CommentSearch = new Comment();
-        $Comment = $CommentSearch->findComments($id,'topic');
-        
+        $Comment = $CommentSearch->commentsAsArray($id,'topic');
+              
         return $this->render('topic-detail',['model'=>$model,'comment' => $Comment]);
     }
 
-    public function actionColumn()
+    public function findColumns()
     {   
 
-        $Res = new ResController();
-        $parentId = Yii::$app->request->post('parentId','');
-        $Column = new TopicColumn();
-        $data = $Column->findColumns($parentId);
-
-
-        return $Res->setStatus(200)->setMessage('success')->setData($data)->getRes();
+        $models = TopicColumn::find()->where(['parentId'=>0])->all();
+        foreach ($models as $key => $value) {
+            $value->children = TopicColumn::find()->where(['parentId'=>$value->id])->all();
+        }
+        return $models;
     }
 
 }

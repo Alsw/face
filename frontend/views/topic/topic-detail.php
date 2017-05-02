@@ -80,20 +80,31 @@ AppAsset::addJs($this, 'js/bootstrap.min.js');
                                         </p>
                                        
                                     </div>
+                                
                                     <div class="goodCount">
-                                          <p>
-                                              <span class="up"></span>
-                                              <?php echo $model->goodCount; ?>
-                                          </p>
-                                          <p>
-                                              <span class="down"></span>
-                                          </p>
+                                     <?php if ($model->isLikes()['islike']): ?>
+                                         <p class="active">
+                                            <span class="up"></span>
+                                            <span class="count"><?php echo $model->isLikes()['likeCount']; ?></span>
+                                        </p>
+
+                                      <?php else: ?>
+                                         <p >
+                                            <span class="up"></span>
+                                            <span class="count"><?php echo $model->isLikes()['likeCount']; ?></span>
+                                            
+                                        </p>
+
+                                      <?php endif;?>
+                                        <p>
+                                            <span class="down"></span>
+                                        </p>
                                     </div>
                                     <div class="Comments Comments--withEditor Comments-withPagination">
                                         <div class="CommentTopbar">
                                            <div class="CommentTopbar-meta">
                                                <h2 class="CommentTopbar-title">
-                                                   100条评论
+                                                   <span><?php echo count($comment); ?></span>条评论
                                                </h2>
                                            </div>
                                            <div></div>
@@ -104,7 +115,7 @@ AppAsset::addJs($this, 'js/bootstrap.min.js');
                                                  <div id="comment-id" data-userId=<?php echo $value->user->id; ?> data-id=<?php echo $value->id;?>>
                                                      <div class="CommentItem-meta">
                                                         <span> 
-                                                        <?= Html::a('<img class="media-object img-cricle"  style="width:25px; height:25px; display:inline-block;" src="http://www.facefrontend.com'.$value->user->avatar.'">', ['user/person','id'=>$value->user->id]) ?>
+                                                        <?= Html::a('<img class="media-object img-cricle"  style="width:24px; height:24px; display:inline-block;" src="http://www.facefrontend.com'.$value->user->avatar.'">', ['user/person','id'=>$value->user->id]) ?>
                                                             
                                                         </span>
                                                         <span>
@@ -117,7 +128,7 @@ AppAsset::addJs($this, 'js/bootstrap.min.js');
                                                         <?php endif ;?>
                                                         <?php if ($value->toUserId != 0 ): ?>
                                                           <span >
-                                                            <span>
+                                                            <span class="topic-huifu">
                                                               回复
                                                             </span>                                  <span>
                                                               <?php echo $value->toUser->username; ?>
@@ -125,17 +136,23 @@ AppAsset::addJs($this, 'js/bootstrap.min.js');
                                                         </span>
                                                         <?php endif?>
                                                         
-                                                        <span>
+                                                        <span class="topic-time">
                                                            <?php echo Yii::$app->formatter->asRelativeTime($value->createdTime) ; ?>
                                                         </span>   
                                                      </div>
                                                     <div class="RichText CommentItem-content">
                                                       <?=HtmlPurifier::process($value->content) ?>
                                                     </div>
-                                                    <div class="CommentItem-footer topic-comment" >
-                                                      <a href="#">
-                                                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                                                        <span>20</span>
+                                                    <div class="CommentItem-footer topic-comment">
+                                                    <a class="comment-like borders">
+                                                       <?php if ($value->isLikes()['islike']): ?>
+                                                         <span class="like-active">
+                                                         <?php echo $value->isLikes()['likeCount'] ; ?></span>
+                                                       <?php else: ?>
+                                                         <span class="like-count"> 
+                                                         <?php echo $value->isLikes()['likeCount'] ; ?>
+                                                         </span>
+                                                       <?php endif;?>
                                                       </a>
                                                       <?php if (!empty($value->children)):?>
                                                         <a data-toggle="modal" data-target="#myModal" class="dialog">

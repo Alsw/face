@@ -94,17 +94,14 @@ $('.Comments').on('click', '.dialog', function(event) {
 				htmls += '<a href="/index.php?r=user%2Fperson&id=1=' + val.userId + '"><img src="http://www.facefrontend.com' + val.userAvatar + '" class="media-object img-cricle"  style="width:25px; height:25px; display:inline-block;" /></a>';
 				htmls += ' </span>';
 				htmls += '<span>' + val.userName + '</span>';
-				htmls += '<span><span>回复</span><span>' + val.toUser + '</span></span>';
-				htmls += ' <span>' + val.createdTime + '</span>';
+				htmls += '<span><span class="topic-huifu">回复</span><span>' + val.toUser + '</span></span>';
+				htmls += ' <span class="topic-time">' + val.createdTime + '</span>';
 				htmls += ' </div>';
 				htmls += '<div class="RichText CommentItem-content">';
 				htmls += val.value.content;
 				htmls += '</div>';
 				htmls += ' <div class="CommentItem-footer topic-comment" >';
-				htmls += ' <a href="#">';
-				htmls += '<span class="glyphicon glyphicon-thumbs-up"></span>';
-				htmls += '<span>20</span>';
-				htmls += '</a></div></div></div>';
+				htmls += '</div></div></div>';
 			});
 
 			htmls += '</div></div></div></div></div>';
@@ -147,4 +144,79 @@ $('.Comments').on('click', '.pinglun', function(event) {
 		}
 	})
 
+});
+$('.goodCount').on('click', 'p', function(event) {
+
+	if ($(this).hasClass('active')) {
+		$(this).removeClass('active').children('.count').text(~~$(this).text() - 1);
+		$.ajax({
+				url: 'index.php?r=like/delete',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					objectId: $('#objectData ').data('id'),
+					objectType: 'topic',
+				},
+			})
+			.done(function(data) {
+				if (data.status !== 200) {
+					alert('评论失败')
+				}
+			})
+
+	} else {
+		$(this).addClass('active').children('.count').text(~~$(this).text() + 1);
+		$.ajax({
+				url: 'index.php?r=like/create',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					objectId: $('#objectData ').data('id'),
+					objectType: 'topic',
+				},
+			})
+			.done(function(data) {
+				if (data.status !== 200) {
+					alert('评论失败')
+				}
+			})
+
+	}
+});
+$('.Comments').on('click', '.like-count', function(event) {
+	if ($(this).hasClass('like-active')) {
+		$(this).removeClass('like-active').text(~~$(this).text() - 1);
+		$.ajax({
+				url: 'index.php?r=like/delete',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					objectId: $(this).parents('#comment-id').data('id'),
+					objectType: 'comment',
+				},
+			})
+			.done(function(data) {
+				if (data.status !== 200) {
+					alert('评论失败')
+				}
+			})
+
+	} else {
+		$(this).addClass('like-active').text(~~$(this).text() + 1);
+		$.ajax({
+				url: 'index.php?r=like/create',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					objectId: $(this).parents('#comment-id').data('id'),
+					objectType: 'comment',
+				},
+			})
+			.done(function(data) {
+				if (data.status !== 200) {
+					alert('评论失败')
+				}
+			})
+
+	}
 });

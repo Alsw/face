@@ -7,6 +7,8 @@ use common\models\User;
 use common\models\TopicColumn;
 use yii\helpers\Json;
 use common\components\Helper;
+use frontend\models\Likes;
+
 /**
  * This is the model class for table "topic".
  *
@@ -94,5 +96,20 @@ class Topic extends \yii\db\ActiveRecord
     public function getAbstrat()
     {
         return Helper::truncate_utf8_string($this->content,100);
+    }
+    public function isLikes()
+    {   
+        $isLike = Likes::find()->where(['objectId' =>$this->id,'objectType'=> 'topic','userId' => Yii::$app->user->identity->id])->one();
+
+        if (!empty($isLike)) {
+            $isLike = true;
+        }else{
+            $isLike = false;
+        }
+
+        $likeCount = Likes::find()->where(['objectId' =>$this->id,'objectType'=> 'topic'])->count();
+        $data = ['islike'=>$isLike,'likeCount'=> $likeCount];
+        
+        return $data;
     }
 }

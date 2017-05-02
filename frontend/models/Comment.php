@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use frontend\models\User;
+use frontend\models\Likes;
 
 /**
  * This is the model class for table "comment".
@@ -63,7 +64,8 @@ class Comment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'toUserId']);
     }
-   
+    
+    
     public function findComments($objectId,$objectType)
     {   
        
@@ -75,5 +77,31 @@ class Comment extends \yii\db\ActiveRecord
         return $data;
 
     }
+    public function commentsAsArray($objectId,$objectType)
+    {
+        $data = Comment::find()->where(['objectId'=>$objectId, 'objectType'=>$objectType,'toUserId' => 0])->orderBy('createdTime DESC')->all();
+        foreach ($data as $value) {
+            $array = Comment::find()->where(['objectId' => $value['id'], 'objectType'=>'comment'])->orderBy('createdTime DESC')->all();
+            $value->children = $array;
+            $data = array_merge($data, $array);
+        }
+        return $data;
+    }
 
+    public function isLikes()
+    {   
+        $isLike = Likes::find()->where(['objectId' =>$this->id,'objectType'=> 'comment','userId' => Yii::$app->user->identity->id])->one();
+
+        if (!empty($isLike)) {
+            $isLike = true;
+        }else{
+            $isLike = false;
+        }
+
+        $likeCount = Likes::find()->where(['objectId' =>$this->id,'objectType'=> 'comment'])->count();
+        $data = ['islike'=>$isLike,'likeCount'=> $likeCount];
+        
+        return $data;
+    }
+   
 }

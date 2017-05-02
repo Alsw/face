@@ -19,6 +19,7 @@ class TopicColumn extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $children;
     public static function tableName()
     {
         return 'topic_column';
@@ -52,7 +53,7 @@ class TopicColumn extends \yii\db\ActiveRecord
             'admin' => 'Admin',
         ];
     }
-    public function findColumns($parentId)
+    public function findColumn($parentId)
     {   
         $ColumnData = TopicColumn::find()->where(['parentId' => $parentId])->all();
         $data = array();
@@ -61,4 +62,5 @@ class TopicColumn extends \yii\db\ActiveRecord
         }
         return  $data;
     }
+    
 }
