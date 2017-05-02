@@ -1,18 +1,25 @@
 <?php
 
 use yii\helpers\Html;
+use common\models\Topic;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ArticleCategory */
-
+$data = Topic::find();
+$week = $data->where(['>', 'createdTime', time()-604800])->count();
+$month = $data->where(['>', 'createdTime', time()-2592000])->count();
 ?>
  <div class="col-md-3 col_5">
                 <ul class="menu">
                     <li class="item1">
                         <h3 class="m_2">按时间分类</h3>
                         <ul class="cute">
-                            <li class="subitem1"><a href="#">一周内(8) </a></li>
-                            <li class="subitem2"><a href="#">一月内(14)</a></li>
+                            <li class="subitem1">
+                            	<?=Html::a('一周内('.$week.')',['topic/index', 'sort'=>'week'])?>
+                            </li>
+                            <li class="subitem2">
+                            	<?=Html::a('一月内('.$month.')' ,['topic/index', 'sort'=>'month'])?>
+                            </li>
                         </ul>
                     </li>
 

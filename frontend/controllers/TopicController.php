@@ -46,13 +46,29 @@ class TopicController extends \yii\web\Controller
         if (is_numeric($sort)) {
             $data = Topic::find()->where(['columnId'=>$sort])->orderBy('createdTime DESC');
         }else if ($sort === 'all') {
+
              $data = Topic::find()->orderBy('id DESC');
+
         }else if($sort ==='new'){
+
              $data = Topic::find()->orderBy('createdTime DESC');
+
         }else if($sort === 'hot'){
+
              $data = Topic::find()->orderBy('goodCount DESC');
+
+        }else if($sort === 'week'){
+
+             $data = Topic::find()->where(['>', 'createdTime', time()-604800])->orderBy('createdTime DESC');
+
+        }else if($sort === 'month'){
+
+             $data = Topic::find()->where(['>', 'createdTime', time()-2592000])->orderBy('createdTime DESC');
+
         }else{
+
              $data = Topic::find()->orderBy('id ASC');
+
         }
 
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '5']);
@@ -66,6 +82,7 @@ class TopicController extends \yii\web\Controller
 
     public function actionAddtopic()
     {	
+       
 		if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -75,19 +92,29 @@ class TopicController extends \yii\web\Controller
 
             return $this->redirect('index');
         }
+        $columns = $this->findColumns();
 
     	$Column = new TopicColumn();
-    	$ColumnData = ['zero' => $Column->findColumns(0),'one' =>$Column->findColumns(1)];
-        return $this->render('add-topic',['model' => $model,'datas' => $ColumnData]); 
+    	$ColumnData = ['zero' => $Column->findColumn(0),'one' =>$Column->findColumn(1)];
+        return $this->render('add-topic',[
+            'model' => $model,
+            'datas' => $ColumnData,
+            'columns'=>$columns
+            ]); 
     }
     public function actionDetail($id)
     {
         $model = Topic::findone(['id'=>$id]);
+        $columns = $this->findColumns();
        
         $CommentSearch = new Comment();
         $Comment = $CommentSearch->commentsAsArray($id,'topic');
               
-        return $this->render('topic-detail',['model'=>$model,'comment' => $Comment]);
+        return $this->render('topic-detail',[
+            'model'=>$model,
+            'comment' => $Comment,
+            'columns' => $columns
+            ]);
     }
 
     public function findColumns()
