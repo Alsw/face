@@ -3,6 +3,9 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use frontend\assets\AppAsset;
 use yii\widgets\LinkPager;
+use yii\widgets\ActiveForm;
+use common\widgets\ueditor\Ueditor; 
+
 
 AppAsset::addCss($this, 'css/topic.css');
 AppAsset::addJs($this, 'js/bootstrap.min.js');
@@ -45,27 +48,28 @@ AppAsset::addJs($this, 'js/bootstrap.min.js');
                                         </p>
                                        
                                     </div>
-                                
-                                    <div class="goodCount">
-                                     <?php if ($model->isLikes()['islike']): ?>
-                                         <p class="active">
-                                            <span class="up"></span>
-                                            <span class="count"><?php echo $model->isLikes()['likeCount']; ?></span>
-                                        </p>
-
-                                      <?php else: ?>
-                                         <p >
-                                            <span class="up"></span>
-                                            <span class="count"><?php echo $model->isLikes()['likeCount']; ?></span>
-                                            
-                                        </p>
-
-                                      <?php endif;?>
-                                        <p>
-                                            <span class="down"></span>
-                                        </p>
+                                    <div class="attention">
+                                          <a> 
+                                            <span>关注</span>
+                                          </a>
                                     </div>
-                                    <div class="Comments Comments--withEditor Comments-withPagination">
+                                    <div class="answer">
+                                          <a> 
+                                            <span class="glyphicon glyphicon-pencil">写回答</span>
+                                          </a>
+                                    </div>
+                                    <div class="answer-main" style="display: none;">
+                                       <?php $form = ActiveForm::begin(); ?>
+                                          <?= $form->field($answer, 'content')->widget('common\widgets\ueditor\Ueditor') ?>  
+
+                                          <div class="form-group">
+                                              <?= Html::submitButton('提交', ['class' =>'btn btn-primary']) ?>
+                                          </div>
+                                       <?php ActiveForm::end(); ?>
+                                    </div>
+                                    
+
+                                    <div style="display: none;" class="Comments Comments--withEditor Comments-withPagination">
                                         <div class="CommentTopbar">
                                            <div class="CommentTopbar-meta">
                                                <h2 class="CommentTopbar-title">
@@ -168,6 +172,9 @@ AppAsset::addJs($this, 'js/bootstrap.min.js');
                             <div class="clearfix"> </div>
                         </div>
                     </div>
+                  <div>
+                    <?=$this->render('topic-answer',['comment'=>$comment,'answerModels'=>$answerModels])?>
+                  </div>
                 </div>
             </div>
             <div class="clearfix"> </div>

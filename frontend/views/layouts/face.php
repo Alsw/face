@@ -51,7 +51,7 @@ AppAsset::register($this);
                                             <span class="caret"></span>
                                             </a>
                                         <ul class="dropdown-menu" role="menu" >
-                                            <li><?= Html::a('个人主页', ['user/me']) ?></li>
+                                            <li><?= Html::a('个人主页', ['user/show']) ?></li>
                                             <li id="logout-li">
                                              <a id="logout">
                                                 <?= Html::beginForm(['/user/logout'], 'post') ?>

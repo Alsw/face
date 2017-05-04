@@ -12,6 +12,9 @@ use common\models\userData;
 use frontend\models\SignupForm;
 use frontend\models\User;
 use frontend\models\UserAlbum;
+use frontend\models\Likes;
+use common\models\Answer;
+use common\models\Topic;
 
 
 
@@ -147,12 +150,61 @@ class UserController extends Controller
     }
     public function actionPerson($id)
     {   
-        $user = Yii::$app->user->identity;
+        // $user = Yii::$app->user->identity;
+        // $model = User::findone(['id'=>$id]);
+        // if ($id == $user->id) {
+        //     return $this->render('me',['model' => $model]);
+        // }else{
+        //     return $this->render('me',['model' => $model]);  
+        // }
+        $user = $id;
+        $sort = Yii::$app->request->get('sort', 'dynamic');
         $model = User::findone(['id'=>$id]);
-        if ($id == $user->id) {
-            return $this->render('me',['model' => $model]);
+        if ($sort === 'dynamic') {
+          $data = Likes::find()->where(['userId'=>$user])->all();  
+          return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'dynamic']);
+        }elseif ($sort === 'answer') {
+          $data = Answer::find()->where(['userId'=>$user])->all();  
+          return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'answer']);
+        }elseif ($sort === 'topic') {
+          $data = Topic::find()->where(['userId'=>$user])->all();  
+           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'topic']);
+        }elseif ($sort === 'attention') {
+          $data = Likes::find()->where(['userId'=>$user])->all();  
+           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'attention']);
+        }elseif ($sort === 'picture') {
+          $data = Likes::find()->where(['userId'=>$user])->all();  
+           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'picture']);
         }else{
-            return $this->render('person',['model' => $model]);  
+            $data = Likes::find()->where(['userId'=>$user])->all();  
+            return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'dynamic']);
         }
+    }
+    public function actionShow()
+    {
+        $sort = Yii::$app->request->get('sort', 'dynamic');
+
+        $user = Yii::$app->user->identity->id;
+        $model = User::findone(['id'=>$user]);
+        if ($sort === 'dynamic') {
+          $data = Likes::find()->where(['userId'=>$user])->all();  
+          return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'dynamic']);
+        }elseif ($sort === 'answer') {
+          $data = Answer::find()->where(['userId'=>$user])->all();  
+          return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'answer']);
+        }elseif ($sort === 'topic') {
+          $data = Topic::find()->where(['userId'=>$user])->all();  
+           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'topic']);
+        }elseif ($sort === 'attention') {
+          $data = Likes::find()->where(['userId'=>$user])->all();  
+           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'attention']);
+        }elseif ($sort === 'picture') {
+          $data = Likes::find()->where(['userId'=>$user])->all();  
+           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'picture']);
+        }else{
+            $data = Likes::find()->where(['userId'=>$user])->all();  
+            return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'dynamic']);
+        }
+        
     }
 }

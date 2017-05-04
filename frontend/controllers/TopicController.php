@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 use Yii;
 use common\models\Topic;
+use common\models\Answer;
 use common\models\TopicColumn;
 use common\models\LoginForm;
 use common\controllers\ResController;
@@ -31,7 +32,7 @@ class TopicController extends \yii\web\Controller
                     //上传图片配置
                     'imageUrlPrefix' => "http://www.facefrontend.com", /* 图片访问路径前缀 */
                     'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
-                    'initialFrameHeight' => '400',
+                    'initialFrameHeight' => '350',
                      /* 上传保存路径,可以自定义保存路径和文件名格式 */
                 ]
             ],
@@ -109,11 +110,21 @@ class TopicController extends \yii\web\Controller
        
         $CommentSearch = new Comment();
         $Comment = $CommentSearch->commentsAsArray($id,'topic');
-              
+        $answerModels = Answer::find()->where(['topicId'=>$id])->all();
+        $answer = new Answer();  
+        if ($answer->load(Yii::$app->request->post())) {
+            $answer->topicId = $id;
+            $answer->createdTime = time();   
+            $answer->userId = Yii::$app->user->identity->id;
+            $answer->save();
+            return $this->redirect(['detail','id'=>$id]);
+        }     
         return $this->render('topic-detail',[
             'model'=>$model,
             'comment' => $Comment,
-            'columns' => $columns
+            'columns' => $columns,
+            'answer'=>$answer,
+            'answerModels' => $answerModels
             ]);
     }
 

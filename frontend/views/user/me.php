@@ -4,7 +4,8 @@ use yii\helpers\Html;
 use frontend\assets\AppAsset;
 
 AppAsset::addJs($this, 'js/jquery.flexslider.js');
-AppAsset::addCss($this, 'css/flexslider.css')
+AppAsset::addCss($this, 'css/flexslider.css');
+AppAsset::addCss($this, 'css/person.css')
 ?>
 
 <div class="grid_3">
@@ -64,7 +65,11 @@ AppAsset::addCss($this, 'css/flexslider.css')
                     </div>
                     <div class="col-sm-3 "></div>
                     <div class="col-sm-2 ">
-                     <?= Html::a('编辑资料', ['user/personedit'],['class' => 'guanzhu']) ?>
+                    <?php if ($model->id == Yii::$app->user->identity->id): ?>
+                        <?= Html::a('编辑资料', ['user/personedit'],['class' => 'guanzhu']) ?>
+                    <?php else: ?>
+                        <?= Html::a('关注', ['user/personedit'],['class' => 'guanzhu']) ?>
+                    <?php endif; ?>
                     </div>
 
                     <div class="clearfix"> </div>
@@ -74,140 +79,41 @@ AppAsset::addCss($this, 'css/flexslider.css')
                 <div class="col_4">
                     <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                         <ul id="myTab" class="nav nav-tabs nav-tabs1" role="tablist">
-                            <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">动态</a></li>
-                            <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">相册</a></li>
-                            <li role="presentation"><a href="#profile1" role="tab" id="profile-tab1" data-toggle="tab" aria-controls="profile1">话题</a></li>
+
+                            <li role="presentation" id="dynamic">
+                             <?=html::a('动态',['user/person', 'id'=> $model->id,'sort'=>'dynamic'],['id'=>'home-tab'])?>
+                            </li> 
+                            <li role="presentation"  id="answer">
+                            <?=html::a('回答',['user/person','id'=> $model->id,'sort'=>'answer'],['id'=>'home-tab'])?>
+                            </li>
+                            <li role="presentation"  id="topic">
+                            <?=html::a('话题',['user/person','id'=> $model->id,'sort'=>'topic'],['id'=>'home-tab'])?>
+                            </li> 
+                            <li role="presentation" id="attention">
+                            <?=html::a('关注',['user/person','id'=> $model->id,'sort'=>'dynamic'],['id'=>'home-tab'])?>
+                            </li>
+                            <li role="presentation" id="picture">
+                            <?=html::a('相册',['user/person','id'=> $model->id,'sort'=>'picture'],['id'=>'home-tab'])?>
+                            </li>
                         </ul>
-                        <div id="myTabContent" class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
-                                <div class="tab_box">
-                                    <h1>1，标题</h1>
-                                    <p>内容简略。。。。</p>
-                                    <a href="#">查看详细</a>
-                                </div>
-                                <div class="tab_box">
-                                    <h1>2，标题</h1>
-                                    <p>内容简略。。。。</p>
-                                    <a href="#">查看详细</a>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
-                                <div class="basic_3">
-                                    <h4>关注话题</h4>
-                                    <div class="basic_1 basic_2">
-                                        <div class="col-md-6 basic_1-left">
-                                            <table class="table_working_hours">
-                                                <tbody>
-                                                    <tr class="opened">
-                                                        <td class="day_label">人脸识别</td>
-                                                    </tr>
-                                                    <tr class="opened">
-                                                        <td class="day_label">人工智能</td>
-                                                    </tr>
-                                                    <tr class="opened">
-                                                        <td class="day_label">社交网络</td>
-                                                    </tr>
-                                                    <tr class="opened">
-                                                        <td class="day_label">计算机</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="profile1" aria-labelledby="profile-tab1">
-                            </div>
-                        </div>
+                        <?php if ($type === 'dynamic'): ?>
+                            <?= $this->render('person-show-dynamic',['data'=>$data, 'model' => $model]) ?>
+                        <?php elseif ($type === 'answer'): ?>
+                            <?= $this->render('person-show-answer',['data'=>$data, 'model' => $model]) ?>
+                        <?php elseif ($type === 'topic'): ?>
+                             <?= $this->render('person-show-topic',['data'=>$data, 'model' => $model]) ?>
+                        <?php elseif ($type === 'attention'): ?>
+                             <?= $this->render('person-show-attention',['data'=>$data, 'model' => $model]) ?>
+                        <?php elseif ($type === 'picture'): ?>
+                             <?= $this->render('person-show-picture',['data'=>$data, 'model' => $model]) ?>
+                        <?php else :?>
+                            <?= $this->render('person-show-dynamic',['data'=>$data, 'model' => $model]) ?>
+                        <?php endif ;?>
+                        
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 profile_right">
-                <div class="view_profile">
-                    <h3>相似的人</h3>
-                    <ul class="profile_item">
-                        <a href="#">
-                            <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
-                            </li>
-                            <li class="profile_item-desc">
-                                <h4>name</h4>
-                                <p>个人标签</p>
-                                <h5>1234567789</h5>
-                            </li>
-                            <div class="clearfix"> </div>
-                        </a>
-                    </ul>
-                    <ul class="profile_item">
-                        <a href="#">
-                            <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
-                            </li>
-                            <li class="profile_item-desc">
-                                <h4>name</h4>
-                                <p>个人标签</p>
-                                <h5>1234567789</h5>
-                            </li>
-                            <div class="clearfix"> </div>
-                        </a>
-                    </ul>
-                    <ul class="profile_item">
-                        <a href="#">
-                            <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
-                            </li>
-                            <li class="profile_item-desc">
-                                <h4>name</h4>
-                                <p>个人标签</p>
-                                <h5>1234567789</h5>
-                            </li>
-                            <div class="clearfix"> </div>
-                        </a>
-                    </ul>
-                </div>
-                <div class="view_profile view_profile1">
-                    <h3>关注者   10</h3>
-                    <ul class="profile_item">
-                        <a href="#">
-                            <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
-                            </li>
-                            <li class="profile_item-desc">
-                                <h4>name</h4>
-                                <p>个人标签</p>
-                                <h5>1234567789</h5>
-                            </li>
-                            <div class="clearfix"> </div>
-                        </a>
-                    </ul>
-                    <ul class="profile_item">
-                        <a href="#">
-                            <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
-                            </li>
-                            <li class="profile_item-desc">
-                                <h4>name</h4>
-                                <p>个人标签</p>
-                                <h5>1234567789</h5>
-                            </li>
-                            <div class="clearfix"> </div>
-                        </a>
-                    </ul>
-                    <ul class="profile_item">
-                        <a href="#">
-                            <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
-                            </li>
-                            <li class="profile_item-desc">
-                                <h4>name</h4>
-                                <p>个人标签</p>
-                                <h5>1234567789</h5>
-                            </li>
-                            <div class="clearfix"> </div>
-                        </a>
-                    </ul>
-                </div>
-            </div>
+             <?= $this->render('person-like') ?>
             <div class="clearfix"> </div>
         </div>
     </div>

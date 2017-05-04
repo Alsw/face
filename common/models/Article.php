@@ -3,7 +3,11 @@
 namespace common\models;
 
 use Yii;
-
+use common\models\User;
+use common\models\ArticleCategory;
+use yii\helpers\Json;
+use common\components\Helper;
+use frontend\models\Likes;
 /**
  * This is the model class for table "article".
  *
@@ -78,4 +82,32 @@ class Article extends \yii\db\ActiveRecord
             'updatedTime' => 'Updated Time',
         ];
     }
+     public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'userId']);
+    }
+    public function getColumn()
+    {
+        return $this->hasOne(ArticleCategory::className(), ['id' => 'categoryId']);
+    }
+    public function getAbstrat()
+    {
+        return Helper::truncate_utf8_string($this->content,100);
+    }
+    public function isLikes()
+    {   
+        $isLike = Likes::find()->where(['objectId' =>$this->id,'objectType'=> 'topic','userId' => Yii::$app->user->identity->id])->one();
+
+        if (!empty($isLike)) {
+            $isLike = true;
+        }else{
+            $isLike = false;
+        }
+
+        $likeCount = Likes::find()->where(['objectId' =>$this->id,'objectType'=> 'topic'])->count();
+        $data = ['islike'=>$isLike,'likeCount'=> $likeCount];
+        
+        return $data;
+    }
+
 }

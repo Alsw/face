@@ -11,13 +11,18 @@ AppAsset::addCss($this, 'css/flexslider.css')
 ?>
 <style type="text/css">
     .per_real_img{
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
     }
     .per_upload_img{
-        width: 150px;
-        height: 150px;
+        width: 100px;
+        height: 100px;
     } 
+    .personEdit{
+        padding: 10px 5px;
+        border-bottom: 1px solid #f0f2f7;
+
+    }
 </style>
 <div class="grid_3">
     <div class="container">
@@ -52,26 +57,15 @@ AppAsset::addCss($this, 'css/flexslider.css')
                     <div class="col-sm-10 row_1">
                         <h2><?= Html::encode($model['user']->username) ?></h2>
                         <?php $form = ActiveForm::begin(['action' => ['user/personupdate'],'method'=>'post']); ?>
+                         <div class="personEdit">
+                               <?= $form->field($model['user'], 'sex')->textInput()->label('性别')->radioList(['男'=>'男','女'=>'女']) ?>
+                        </div>
                         <div class="personEdit">
-
-                            <dl>
                                 <?= $form->field($model['user'], 'avatar')->widget('common\widgets\file_upload\FileUpload')->label('用户头像') ?>
-                            </dl>
                         </div>
                           <div class="personEdit">
-                            <dl>
                                 <?= $form->field($model['user'], 'introduce')->textarea(['rows'=>4])->label('个人简介') ?>
-                            </dl>
-                            
                         </div>
-                       <!--  <?php  foreach ($model['userImg'] as $value):?>
-                            <?php var_dump($value) ?>
-                            <div class="personEdit">
-                                <dl>
-                                    <?= $form->field($value, 'imgPath')->widget('common\widgets\file_upload\FileUpload')->label('用户展示') ?>
-                                </dl>
-                            </div>
-                        <?php endforeach;?> -->
                         <div class="form-group">
                             <?= Html::submitButton('确认', ['class' =>'btn btn-primary']) ?>
                         </div>

@@ -23,15 +23,16 @@ $('#topic-parentid').on('change', function(event) {
 		});
 
 });
-$('#comment-footer button').on('click', function() {
+$('.answer-comment').on('click', 'button', function(event) {
+
 	$.ajax({
 		url: 'index.php?r=comment/create',
 		type: 'post',
 		dataType: 'json',
 		data: {
-			content: $('#comment-text').val(),
-			objectType: 'topic',
-			objectId: $('#objectData ').data('id'),
+			content: $(this).parents('.answer-comment').find('#comment-text').val(),
+			objectType: 'answer',
+			objectId: $(this).parents('.answer-comment').find('#objectData').data('id'),
 			toUserId: 0,
 			_csrf: $('#_csrf').val()
 		},
@@ -47,8 +48,33 @@ $('#comment-footer button').on('click', function() {
 			alert('error');
 		}
 	})
-
 });
+// $('#comment-footer button').on('click', function() {
+// 	$.ajax({
+// 		url: 'index.php?r=comment/create',
+// 		type: 'post',
+// 		dataType: 'json',
+// 		data: {
+// 			content: $('#comment-text').val(),
+// 			objectType: 'topic',
+// 			objectId: $('#objectData ').data('id'),
+// 			toUserId: 0,
+// 			_csrf: $('#_csrf').val()
+// 		},
+// 		success: function(data) {
+// 			if (data.status === 205) {
+// 				location.href = "index.php?=user/login"
+// 			}
+// 			if (data.status === 200) {
+// 				window.location.reload();
+// 			}
+// 		},
+// 		error: function() {
+// 			alert('error');
+// 		}
+// 	})
+
+// });
 $('.Comments').on('click', '.topic-huifu', function() {
 	$('.CommentItem-editor').css({
 		display: 'none',
@@ -154,8 +180,8 @@ $('.goodCount').on('click', 'p', function(event) {
 				type: 'post',
 				dataType: 'json',
 				data: {
-					objectId: $('#objectData ').data('id'),
-					objectType: 'topic',
+					objectId: $(this).parents('.goodCount').data('id'),
+					objectType: 'answer',
 				},
 			})
 			.done(function(data) {
@@ -171,8 +197,8 @@ $('.goodCount').on('click', 'p', function(event) {
 				type: 'post',
 				dataType: 'json',
 				data: {
-					objectId: $('#objectData ').data('id'),
-					objectType: 'topic',
+					objectId: $(this).parents('.goodCount').data('id'),
+					objectType: 'answer',
 				},
 			})
 			.done(function(data) {
@@ -218,5 +244,26 @@ $('.Comments').on('click', '.like-count', function(event) {
 				}
 			})
 
+	}
+});
+
+$(".answer").on('click', 'a', function(event) {
+	$('.answer-main').css({
+		display: 'block',
+	});
+});
+$('#dynamic').on('click', '.detail', function(event) {
+	if ($(this).data('type') == 0) {
+		$(this).data('type', '1').prev('.value-content').css({
+			display: 'block',
+		}).prevAll('.value-abstrat').css({
+			display: ' none',
+		});
+	} else {
+		$(this).data('type', '0').prev('.value-content').css({
+			display: 'none',
+		}).prevAll('.value-abstrat').css({
+			display: 'block',
+		});
 	}
 });
