@@ -1,16 +1,17 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
-
+use frontend\models\User;
 /**
  * This is the model class for table "attention".
  *
  * @property string $id
  * @property string $userId
- * @property string $attentionedId
- * @property string $attentionTime
+ * @property string $objectId
+ * @property string $objectType
+ * @property string $createdTime
  * @property integer $status
  */
 class Attention extends \yii\db\ActiveRecord
@@ -29,8 +30,9 @@ class Attention extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['userId', 'attentionedId', 'attentionTime', 'status'], 'required'],
-            [['userId', 'attentionedId', 'attentionTime', 'status'], 'integer'],
+            [['userId', 'objectId', 'objectType', 'createdTime'], 'required'],
+            [['id', 'userId', 'objectId', 'createdTime', 'status'], 'integer'],
+            [['objectType'], 'string', 'max' => 20],
         ];
     }
 
@@ -42,9 +44,20 @@ class Attention extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'userId' => 'User ID',
-            'attentionedId' => 'Attentioned ID',
-            'attentionTime' => 'Attention Time',
+            'objectId' => 'Object ID',
+            'objectType' => 'Object Type',
+            'createdTime' => 'Created Time',
             'status' => 'Status',
         ];
+    }
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'userId']);
+    }
+    public function getPerson()
+    {  
+        if ($this->objectType == 'user') {
+            return $this->hasOne(User::className(), ['id' => 'objectId']);
+        }
     }
 }

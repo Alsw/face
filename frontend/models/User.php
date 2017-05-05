@@ -3,7 +3,7 @@
 namespace frontend\models;
 
 use Yii;
-
+use frontend\models\Attention;
 /**
  * This is the model class for table "user".
  *
@@ -77,5 +77,36 @@ class User extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function isAttention()
+    {   
+        $id = Yii::$app->user->identity->id;
+        $data = Attention::find()->where([
+            'userId' => $id,
+            'objectType' => 'user',
+            'objectId' => $this->id,
+            ])->one();
+        if (empty($data)) {
+            return false;
+        }
+        return true;
+    }
+
+    public function myAttention()
+    {
+        $data = Attention::find()->where([
+            'userId' => $this->id,
+            'objectType' => 'user',
+            ])->all();
+        return $data;
+    }
+    public function attentionMe()
+    {
+        $data = Attention::find()->where([
+            'objectId' => $this->id,
+            'objectType' => 'user',
+            ])->all();
+        return $data;
     }
 }

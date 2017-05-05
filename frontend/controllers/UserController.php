@@ -10,6 +10,7 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\userData;
 use frontend\models\SignupForm;
+use frontend\models\Attention;
 use frontend\models\User;
 use frontend\models\UserAlbum;
 use frontend\models\Likes;
@@ -67,6 +68,7 @@ class UserController extends Controller
                 'config' => [
                     'imageUrlPrefix' => "http://www.facefrontend.com",
                     'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+                    'imageMaxSize' => 2*1024*1024,
                 ]
             ],
         ];
@@ -150,13 +152,6 @@ class UserController extends Controller
     }
     public function actionPerson($id)
     {   
-        // $user = Yii::$app->user->identity;
-        // $model = User::findone(['id'=>$id]);
-        // if ($id == $user->id) {
-        //     return $this->render('me',['model' => $model]);
-        // }else{
-        //     return $this->render('me',['model' => $model]);  
-        // }
         $user = $id;
         $sort = Yii::$app->request->get('sort', 'dynamic');
         $model = User::findone(['id'=>$id]);
@@ -170,41 +165,61 @@ class UserController extends Controller
           $data = Topic::find()->where(['userId'=>$user])->all();  
            return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'topic']);
         }elseif ($sort === 'attention') {
-          $data = Likes::find()->where(['userId'=>$user])->all();  
+          $data = Attention::find()->where(['userId'=>$user])->all();  
            return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'attention']);
         }elseif ($sort === 'picture') {
-          $data = Likes::find()->where(['userId'=>$user])->all();  
+          $data = UserAlbum::find()->where(['userId'=>$user])->all();  
            return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'picture']);
         }else{
             $data = Likes::find()->where(['userId'=>$user])->all();  
             return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'dynamic']);
         }
     }
-    public function actionShow()
-    {
-        $sort = Yii::$app->request->get('sort', 'dynamic');
 
-        $user = Yii::$app->user->identity->id;
-        $model = User::findone(['id'=>$user]);
-        if ($sort === 'dynamic') {
-          $data = Likes::find()->where(['userId'=>$user])->all();  
-          return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'dynamic']);
-        }elseif ($sort === 'answer') {
-          $data = Answer::find()->where(['userId'=>$user])->all();  
-          return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'answer']);
-        }elseif ($sort === 'topic') {
-          $data = Topic::find()->where(['userId'=>$user])->all();  
-           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'topic']);
-        }elseif ($sort === 'attention') {
-          $data = Likes::find()->where(['userId'=>$user])->all();  
-           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'attention']);
-        }elseif ($sort === 'picture') {
-          $data = Likes::find()->where(['userId'=>$user])->all();  
-           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'picture']);
-        }else{
-            $data = Likes::find()->where(['userId'=>$user])->all();  
-            return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'dynamic']);
+    public function actionAttention($id)
+    {
+        $model = new Attention();
+        $model->userId = Yii::$app->user->identity->id;
+        $model->objectId = $id;
+        $model->objectType = 'user';
+        $model->createdTime = time();
+
+        if ($model->save()) {
+           
+            return $this->redirect(['person','id'=>$id]);
         }
-        
+
+        return $this->redirect(['person','id'=>$id]);
+    }
+
+    public function actionAttentionclear($id)
+    {
+        $model = Attention::find()->where([
+            'objectId' => $id,
+            'objectType' => 'user',
+            'userId' => Yii::$app->user->identity->id,
+            ])->one();
+       
+
+        if ($model->delete()) {
+           
+            return $this->redirect(['person','id'=>$id]);
+        }
+
+        return $this->redirect(['person','id'=>$id]);
+    }
+
+    public function actionAlbum()
+    {
+        $model = new UserAlbum();
+        $id = Yii::$app->user->identity->id;
+        if ($model->load(Yii::$app->request->post())) {
+            $model->userId = $id;
+            $model->createdTime = time();
+            if ($model->save()) {
+               return $this->redirect(['person','id'=>$id,'sort'=>'picture']);
+            }
+               return $this->redirect(['person','id'=>$id,'sort'=>'picture']);
+        }
     }
 }

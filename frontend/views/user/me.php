@@ -21,22 +21,7 @@ AppAsset::addCss($this, 'css/person.css')
             <div class="col-md-12 ">
                 <div class="col_3">
                     <div class="col-sm-2 row_2"> 
-                        <div class="flexslider">
-                            <ul class="slides">
-                                <li data-thumb="images/p1.jpg">
-                                    <img src="images/p1.jpg" />
-                                </li>
-                                <li data-thumb="images/p1.jpg">
-                                    <img src="images/p1.jpg" />
-                                </li>
-                                <li data-thumb="images/p1.jpg">
-                                    <img src="images/p1.jpg" />
-                                </li>
-                                <li data-thumb="images/p1.jpg">
-                                    <img src="images/p1.jpg" />
-                                </li>
-                            </ul>
-                        </div>
+                       
                     </div>
                     <div class="col-sm-4 row_1">
                         <h2><?= Html::encode($model->username) ?></h2>
@@ -66,9 +51,11 @@ AppAsset::addCss($this, 'css/person.css')
                     <div class="col-sm-3 "></div>
                     <div class="col-sm-2 ">
                     <?php if ($model->id == Yii::$app->user->identity->id): ?>
-                        <?= Html::a('编辑资料', ['user/personedit'],['class' => 'guanzhu']) ?>
-                    <?php else: ?>
-                        <?= Html::a('关注', ['user/personedit'],['class' => 'guanzhu']) ?>
+                        <?= Html::a('编辑资料', ['user/personedit'],['class' => 'Button Button--blue']) ?>
+                    <?php elseif($model->isAttention()): ?>
+                        <?= Html::a('取消关注', ['user/attentionclear','id'=>$model->id],['class' => 'Button Button--grey']) ?>
+                    <?php else:  ?>
+                        <?= Html::a('+关注', ['user/attention','id'=>$model->id],['class' => 'Button Button--blue']) ?>
                     <?php endif; ?>
                     </div>
 
@@ -90,7 +77,7 @@ AppAsset::addCss($this, 'css/person.css')
                             <?=html::a('话题',['user/person','id'=> $model->id,'sort'=>'topic'],['id'=>'home-tab'])?>
                             </li> 
                             <li role="presentation" id="attention">
-                            <?=html::a('关注',['user/person','id'=> $model->id,'sort'=>'dynamic'],['id'=>'home-tab'])?>
+                            <?=html::a('关注',['user/person','id'=> $model->id,'sort'=>'attention'],['id'=>'home-tab'])?>
                             </li>
                             <li role="presentation" id="picture">
                             <?=html::a('相册',['user/person','id'=> $model->id,'sort'=>'picture'],['id'=>'home-tab'])?>
