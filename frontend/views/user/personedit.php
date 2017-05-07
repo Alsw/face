@@ -63,7 +63,7 @@ AppAsset::addCss($this, 'css/flexslider.css')
                         <div class="personEdit">
                                 <?= $form->field($model['user'], 'avatar')->widget('common\widgets\file_upload\FileUpload')->label('用户头像') ?>
                         </div>
-                          <div class="personEdit">
+                        <div class="personEdit">
                                 <?= $form->field($model['user'], 'introduce')->textarea(['rows'=>4])->label('个人简介') ?>
                         </div>
                         <div class="form-group">
