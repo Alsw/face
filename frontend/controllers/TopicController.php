@@ -91,7 +91,7 @@ class TopicController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            return $this->redirect('index');
+           return $this->redirect(['detail','id'=>$model->id]);
         }
         $columns = $this->findColumns();
 
@@ -136,6 +136,15 @@ class TopicController extends \yii\web\Controller
             $value->children = TopicColumn::find()->where(['parentId'=>$value->id])->all();
         }
         return $models;
+    }
+    public function actionColumn()
+    {   
+        $id = Yii::$app->request->post('parentId',0);
+        $models = TopicColumn::find()->where(['parentId' => $id])->asArray()->all();
+        // foreach ($models as $key => $value) {
+
+        // }
+       return json_encode($models);
     }
 
 }

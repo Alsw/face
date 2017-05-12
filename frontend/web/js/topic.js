@@ -8,10 +8,9 @@ $('#topic-parentid').on('change', function(event) {
 			},
 		})
 		.done(function(data) {
-			console.log(data);
 			var htmls = '';
-			$.each(data.data, function(index, val) {
-				htmls += ' <option value="' + index + '">' + val + '</option>';
+			$.each(data, function(index, val) {
+				htmls += ' <option value="' + val.id + '">' + val.name + '</option>';
 			});
 			$('#topic-columnid').html(htmls);
 		})

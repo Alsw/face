@@ -34,7 +34,7 @@ AppAsset::register($this);
                                     <li><?= Html::a('那个Ta', ['user/index']) ?></li>
                                     <li><?= Html::a('资讯', ['article/index']) ?></li>
                                     <li><?= Html::a('话题', ['topic/index']) ?></li>
-                                    <li><?= Html::a('FindMe', ['user/index']) ?></li>
+                                    <li><?= Html::a('FindMe', ['face/index']) ?></li>
                                     <?php if(Yii::$app->user->isGuest) :?>
                                         <li>
                                            <?= Html::a(' 登录', ['user/login']) ?>

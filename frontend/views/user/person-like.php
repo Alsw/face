@@ -4,7 +4,7 @@
                     <ul class="profile_item">
                         <a href="#">
                             <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
+                                <img src="images/2.jpg" class="img-responsive" alt="" />
                             </li>
                             <li class="profile_item-desc">
                                 <h4>name</h4>
@@ -17,7 +17,7 @@
                     <ul class="profile_item">
                         <a href="#">
                             <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
+                                <img src="images/2.jpg" class="img-responsive" alt="" />
                             </li>
                             <li class="profile_item-desc">
                                 <h4>name</h4>
@@ -30,7 +30,7 @@
                     <ul class="profile_item">
                         <a href="#">
                             <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
+                                <img src="images/2.jpg" class="img-responsive" alt="" />
                             </li>
                             <li class="profile_item-desc">
                                 <h4>name</h4>
@@ -46,7 +46,7 @@
                     <ul class="profile_item">
                         <a href="#">
                             <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
+                                <img src="images/2.jpg" class="img-responsive" alt="" />
                             </li>
                             <li class="profile_item-desc">
                                 <h4>name</h4>
@@ -59,7 +59,7 @@
                     <ul class="profile_item">
                         <a href="#">
                             <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
+                                <img src="images/2.jpg" class="img-responsive" alt="" />
                             </li>
                             <li class="profile_item-desc">
                                 <h4>name</h4>
@@ -72,7 +72,7 @@
                     <ul class="profile_item">
                         <a href="#">
                             <li class="profile_item-img">
-                                <img src="images/p5.jpg" class="img-responsive" alt="" />
+                                <img src="images/2.jpg" class="img-responsive" alt="" />
                             </li>
                             <li class="profile_item-desc">
                                 <h4>name</h4>
