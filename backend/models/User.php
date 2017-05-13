@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use Yii;
 
@@ -9,6 +9,13 @@ use Yii;
  *
  * @property integer $id
  * @property string $username
+ * @property string $avatar
+ * @property string $sex
+ * @property string $birthday
+ * @property string $phoneNumber
+ * @property string $attentionCount
+ * @property string $introduce
+ * @property string $role
  * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
@@ -16,10 +23,6 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property integer $sex
- * @property string $birthday
- * @property string $phoneNumber
- * @property integer $attentionCount
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -37,11 +40,15 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'sex', 'birthday', 'phoneNumber'], 'required'],
-            [['status', 'created_at', 'updated_at', 'sex', 'attentionCount'], 'integer'],
+            [['username', 'birthday', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['attentionCount', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['introduce'], 'string'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['avatar', 'role'], 'string', 'max' => 128],
+            [['sex'], 'string', 'max' => 2],
+            [['birthday'], 'string', 'max' => 12],
+            [['phoneNumber'], 'string', 'max' => 20],
             [['auth_key'], 'string', 'max' => 32],
-            [['birthday', 'phoneNumber'], 'string', 'max' => 20],
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
@@ -56,6 +63,13 @@ class User extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'username' => 'Username',
+            'avatar' => 'Avatar',
+            'sex' => 'Sex',
+            'birthday' => 'Birthday',
+            'phoneNumber' => 'Phone Number',
+            'attentionCount' => 'Attention Count',
+            'introduce' => 'Introduce',
+            'role' => 'Role',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
@@ -63,10 +77,6 @@ class User extends \yii\db\ActiveRecord
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'sex' => 'Sex',
-            'birthday' => 'Birthday',
-            'phoneNumber' => 'Phone Number',
-            'attentionCount' => 'Attention Count',
         ];
     }
 }

@@ -50,7 +50,10 @@ AppAsset::addJs($this, 'js/findme.js');
                 </div>
                 <div class="compare-result result-box">
                     <h2>比对结果</h2>
-                    <p class="result-desc">是否是同一个人: 可能性95%</p>
+                    
+                    <p class="result-one"></p>
+                    <p class="result-two"></p>
+                    <p class="result-desc"></p>
                 </div>
             </div>
             <div class="clearfix"> </div>
