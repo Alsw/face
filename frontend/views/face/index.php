@@ -23,7 +23,7 @@ AppAsset::addJs($this, 'js/findme.js');
                 <div class="compare-left">
                      <div class="compare-box">
                         <div class="hand-img img-box">
-                            <img id="img-one" src="images/4.jpg" alt="">
+                            <img id="img-one" src="images/demo.jpg" alt="">
                         </div>
                     </div>
                     <div class="search-box">
@@ -37,7 +37,7 @@ AppAsset::addJs($this, 'js/findme.js');
                 <div class="compare-right">
                      <div class="compare-box">
                         <div class="hand-img img-box">
-                            <img id="img-two" src="images/3.jpg" alt="">
+                            <img id="img-two" src="images/demo.jpg" alt="">
                         </div>
                     </div>
                     <div class="search-box">
