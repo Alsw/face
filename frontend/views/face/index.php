@@ -18,7 +18,10 @@ AppAsset::addJs($this, 'js/findme.js');
             <div class="compare">
                 <h2>功能演示</h2>
                 <p>
-                 想知道你跟他人的相识程度，请上传照片,体验一下人脸比对能力
+                 想知道你跟他人的相识程度，请上传照片,体验一下人脸比对能力。
+                </p>
+                <p>
+                    请用谷歌浏览器，目前兼容性比较差，手机版本正在开发。
                 </p>
                 <div class="compare-left">
                      <div class="compare-box">
