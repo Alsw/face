@@ -1,6 +1,7 @@
 .compare {
     text-align: center;
-    overflow: hidden
+    overflow: hidden;
+    padding-bottom: 40px;
 }
 
 .compare h2 {
@@ -15,14 +16,13 @@
 
 .compare img {
     position: relative;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 500px;
+    max-height: 500px;
     vertical-align: middle
 }
 
 .compare .compare-left {
     float: left;
-    padding-right: 70px
 }
 
 .compare .compare-right {
@@ -31,12 +31,11 @@
 
 .img-box {
     zoom: 1;
-    width: 500px;
-    height: 500px;
+    max-width: 500px;
     background-color: #e4e4e4;
     text-align: center;
     position: relative;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .search-box {
@@ -88,7 +87,7 @@
 
 .search-box input.search-input {
     border: 1px solid #59b1f5;
-    width: 280px;
+    max-width: 280px;
     height: 40px;
     line-height: 40px;
     text-indent: 1em;
@@ -98,7 +97,6 @@
 .result-box {
     margin-top: 20px;
     float: left;
-    width: 500px;
     border: 1px solid #cacaca;
     padding: 20px;
     text-align: left

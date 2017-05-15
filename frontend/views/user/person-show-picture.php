@@ -26,7 +26,7 @@ AppAsset::addJs($this, 'js/bootstrap.min.js');
             <?php foreach ($data as $key => $value): ?>
               <div class="col-lg-3 col-sm-3 col-xs-4" data-toggle="modal" data-target="#myModal">
                 <a data-message="<?php echo $value->description; ?>">
-                    <img src="http://www.facefrontend.com<?php echo $value->imgPath; ?>" class="thumbnail img-responsive">
+                    <img src="<?php echo $value->imgPath; ?>" class="thumbnail img-responsive">
                 </a>
             </div> 
             <?php endforeach ?>

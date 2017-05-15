@@ -16,6 +16,7 @@ use frontend\models\UserAlbum;
 use frontend\models\Likes;
 use common\models\Answer;
 use common\models\Topic;
+use common\components\HttpClient;
 
 
 
@@ -66,7 +67,6 @@ class UserController extends Controller
             'upload'=>[
                 'class' => 'common\widgets\file_upload\UploadAction',     //这里扩展地址别写错
                 'config' => [
-                    'imageUrlPrefix' => "http://www.facefrontend.com",
                     'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
                     'imageMaxSize' => 2*1024*1024,
                 ]
@@ -216,7 +216,16 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->userId = $id;
             $model->createdTime = time();
+            $data = array(
+                    'img_base64' =>  'http://112.74.49.39:8081/images/2.jpg',
+                    'attributes' => 'true'
+                );
+            var_dump($model);exit();
+            $result = HttpClient::sendHttp('/v2/detection/detect', $data);
+            $model->faceId = $result->faces[0]->id;
+
             if ($model->save()) {
+               
                return $this->redirect(['person','id'=>$id,'sort'=>'picture']);
             }
                return $this->redirect(['person','id'=>$id,'sort'=>'picture']);

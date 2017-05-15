@@ -12,6 +12,7 @@ use Yii;
  * @property string $imgPath
  * @property string $createdTime
  * @property string $description
+ * @property string $faceId
  */
 class UserAlbum extends \yii\db\ActiveRecord
 {
@@ -33,6 +34,7 @@ class UserAlbum extends \yii\db\ActiveRecord
             [['description'], 'required'],
             [['description'], 'string'],
             [['imgPath'], 'string', 'max' => 128],
+            [['faceId'], 'string', 'max' => 50],
         ];
     }
 
@@ -47,6 +49,7 @@ class UserAlbum extends \yii\db\ActiveRecord
             'imgPath' => 'Img Path',
             'createdTime' => 'Created Time',
             'description' => 'Description',
+            'faceId' => 'Face ID',
         ];
     }
 }

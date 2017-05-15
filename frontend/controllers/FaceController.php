@@ -72,4 +72,18 @@ class FaceController extends \yii\web\Controller
 		return json_encode($result);
 	
 	}
+	public function actionFacecelebrity()
+	{
+
+		$faceid = Yii::$app->request->post('faceid','');
+		
+		$data = array(
+			'face_id' => $faceid,
+		); 
+		
+		$result = HttpClient::sendHttp('/v2/recognition/celebrity', $data);
+
+		return json_encode($result);
+	
+	}
 }

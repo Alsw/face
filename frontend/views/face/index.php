@@ -6,7 +6,7 @@ use frontend\assets\AppAsset;
 AppAsset::addCss($this, 'css/findme.css');
 AppAsset::addJs($this, 'js/findme.js');
 ?>
- <div class="grid_3">
+<div class="grid_3">
         <div class="container">
             <div class="breadcrumb1">
                 <ul>
@@ -15,15 +15,45 @@ AppAsset::addJs($this, 'js/findme.js');
                     <li class="current-page">FindMe</li>
                 </ul>
             </div>
-            <div class="compare">
+            <div class="container-fluid">
+                <div class="compare row">
+                    <h2>功能演示</h2>
+                    <p>
+                     寻找身边的名人，与系统定义的20000余人脸进行对比。
+                    </p>
+                    <p>
+                        请用谷歌浏览器，目前兼容性比较差，手机版本正在开发。
+                    </p>
+                    <div class="compare-left col-xs-12 col-sm-8 col-md-6">
+                        <div class="compare-box">
+                            <div class="hand-img img-box">
+                                <img id="img-zero" src="images/demo.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="search-box">
+                            <lable for="file-uploader" class="upload-img"><i class="icons icon-upload"></i><span>本地上传</span>
+                                <input type="file" accept="image/png,image/jpeg" id="file-uploader-zero" class="file-uploader">
+                            </lable>
+                            <button class="search-btn search-btn-zero">添加</button>
+                            <input placeholder="图片URL" class="search-input search-input-zero">
+                        </div>
+                    </div>
+                    <div class="compare-result result-box col-xs-12 col-sm-4 col-md-6">
+                        <h2>比对结果</h2>
+                        
+                        <p class="result-zero"></p>
+                    </div>
+                </div>
+
+            <div class="compare row">
                 <h2>功能演示</h2>
                 <p>
-                 想知道你跟他人的相识程度，请上传照片,体验一下人脸比对能力。
+                 想知道你跟他人的相识程度，请上传照片,体验一下人脸识别及比对能力。
                 </p>
                 <p>
                     请用谷歌浏览器，目前兼容性比较差，手机版本正在开发。
                 </p>
-                <div class="compare-left">
+                <div class="compare-left col-xs-12 col-sm-6 col-md-6">
                      <div class="compare-box">
                         <div class="hand-img img-box">
                             <img id="img-one" src="images/demo.jpg" alt="">
@@ -37,7 +67,7 @@ AppAsset::addJs($this, 'js/findme.js');
                         <input placeholder="图片URL" class="search-input search-input-one">
                     </div>
                 </div>
-                <div class="compare-right">
+                <div class="compare-right col-xs-12 col-sm-6 col-md-6">
                      <div class="compare-box">
                         <div class="hand-img img-box">
                             <img id="img-two" src="images/demo.jpg" alt="">
@@ -51,7 +81,7 @@ AppAsset::addJs($this, 'js/findme.js');
                          <input placeholder="图片URL" class="search-input search-input-two">
                     </div>
                 </div>
-                <div class="compare-result result-box">
+                <div class="compare-result result-box col-xs-12 col-sm-6 col-md-6">
                     <h2>比对结果</h2>
                     
                     <p class="result-one"></p>
@@ -59,6 +89,17 @@ AppAsset::addJs($this, 'js/findme.js');
                     <p class="result-desc"></p>
                 </div>
             </div>
+        </div>
+
             <div class="clearfix"> </div>
         </div>
-    </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-6">
+
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-6">
+
+          </div>
+        </div>
+</div>
+
