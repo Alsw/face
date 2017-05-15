@@ -20,31 +20,30 @@ class ArticleController extends \yii\web\Controller
     {   
 
         $data = Article::find()->orderBy('createdTime DESC');
-        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '2']);
+        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '3']);
         $model = $data->offset($pages->offset)->limit($pages->limit)->all();
         $category = ArticleCategory::find()->all();
-    
+        
+        $promotedDatas = Article::find()->orderBy('hits DESC')->limit(4)->all();
         return $this->render('index', [
             'datas' => $model,
             'pages' => $pages,
             'categoryName' => $category,
+            'promotedDatas' => $promotedDatas
         ]);
     }
     public function actionDetial($id)
     {   
         $CommentSearch = new Comment();
         $Comment = $CommentSearch->findComments($id,'article');
-
+        $promotedDatas = Article::find()->orderBy('hits DESC')->limit(4)->all();
+       
         $category = ArticleCategory::find()->all();
-        $categoryIds = array();
-        foreach ($category as $key => $value) {
-            $categoryIds[$value->id] = $value->name;
-        }
-
         return $this->render('article-detial',[
-            'categoryName' => $categoryIds,
+            'categoryName' => $category,
             'model' => $this->findModel($id),
             'comment' => $Comment,
+            'promotedDatas' => $promotedDatas
         ]);
     }
     public function actionCategory($id)

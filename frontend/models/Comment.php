@@ -5,7 +5,7 @@ namespace frontend\models;
 use Yii;
 use frontend\models\User;
 use frontend\models\Likes;
-
+use frontend\models\Article;
 /**
  * This is the model class for table "comment".
  *
@@ -103,5 +103,6 @@ class Comment extends \yii\db\ActiveRecord
         
         return $data;
     }
+    
    
 }

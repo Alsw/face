@@ -11,6 +11,7 @@ use common\controllers\ResController;
 use frontend\models\Comment;
 use frontend\models\User;
 use yii\helpers\Json;
+use common\models\Article;
 
 
 class CommentController extends \yii\web\Controller
@@ -40,6 +41,13 @@ class CommentController extends \yii\web\Controller
         $comment->toUserId = $toUserId; 
         $comment->createdTime = time();
         
+        if ($comment->objectType == 'article') {
+            $articleModel = Article::findone(['id'=> $comment->objectId]);
+            $articleModel->postNum  = count(Comment::find()->where(['objectId'=>$articleModel->id,'objectType' => $comment->objectType])->all());
+            $articleModel->save();
+        }
+        
+
         if($comment->save()){
             $user = $comment->user;
         	$data = array(

@@ -72,3 +72,77 @@ $('.media-list').on('click', '#createComment', function() {
         }
     })
 });
+$('article').on('click', '.like-count', function(event) {
+    if ($(this).hasClass('like-active')) {
+        $(this).removeClass('like-active').text(~~$(this).text() - 1);
+        $.ajax({
+                url: 'index.php?r=like/delete',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    objectId: $(this).data('id'),
+                    objectType: 'article',
+                },
+            })
+            .done(function(data) {
+                if (data.status !== 200) {
+                    alert('评论失败')
+                }
+            })
+
+    } else {
+        $(this).addClass('like-active').text(~~$(this).text() + 1);
+        $.ajax({
+                url: 'index.php?r=like/create',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    objectId: $(this).data('id'),
+                    objectType: 'article',
+                },
+            })
+            .done(function(data) {
+                if (data.status !== 200) {
+                    alert('评论失败')
+                }
+            })
+
+    }
+});
+$('.articles').on('click', '.like-count', function(event) {
+    if ($(this).hasClass('like-active')) {
+        $(this).removeClass('like-active').text(~~$(this).text() - 1);
+        $.ajax({
+                url: 'index.php?r=like/delete',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    objectId: $(this).data('id'),
+                    objectType: 'article',
+                },
+            })
+            .done(function(data) {
+                if (data.status !== 200) {
+                    alert('评论失败')
+                }
+            })
+
+    } else {
+        $(this).addClass('like-active').text(~~$(this).text() + 1);
+        $.ajax({
+                url: 'index.php?r=like/create',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    objectId: $(this).data('id'),
+                    objectType: 'article',
+                },
+            })
+            .done(function(data) {
+                if (data.status !== 200) {
+                    alert('评论失败')
+                }
+            })
+
+    }
+});

@@ -100,7 +100,7 @@ AppAsset::addCss($this, 'css/person.css')
                     </div>
                 </div>
             </div>
-             <?= $this->render('person-like') ?>
+             <?= $this->render('person-like',['likeUsers' => $model->likeUsers]) ?>
             <div class="clearfix"> </div>
         </div>
     </div>

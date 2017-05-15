@@ -6,15 +6,16 @@ namespace common\components;
 */
 class HttpClient
 {
-	const HOST = "http://facerecog.market.alicloudapi.com";
+	const FACESET = "http://faceset.market.alicloudapi.com";
+	const FACERECOG = "http://facerecog.market.alicloudapi.com/v2/detection/detect";
+	const FACEAll = "http://faceall.market.alicloudapi.com/v2/detection/detect";
 	const APPCODE = "a81df1bd13a04ddb9b182aaa3e0ecfe9";
-	
-	public static function sendHttp($path, $data)
+	const FACESETID = 'HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv';
+	public static function sendHttp($host ,$path, $data)
 	{
 
-		$host = self::HOST;
+		
 	    $method = "POST";
-	    
 	    $appcode = self::APPCODE;
 	    $headers = array();
 	    array_push($headers, "Authorization:APPCODE " . $appcode);
@@ -39,6 +40,7 @@ class HttpClient
 	        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
 	    }
 	    curl_setopt($curl, CURLOPT_POSTFIELDS, $bodys);
+
 	    $response = curl_exec($curl);
 	    $cur_info = curl_getinfo($curl);
 	    $body = substr($response, $cur_info['header_size']);

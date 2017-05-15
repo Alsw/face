@@ -19,19 +19,49 @@ class FaceController extends \yii\web\Controller
     	return $this->render('index');
 	}
 
-	public function actionfacesetarray()
+	public function actionFacesetarray()
 	{
-		
-		$data = array(
-	    	'faceset_id' => $facesetid, 
-	   		'type' => "life",
-	   		'async' => "true"
-	    	);
+		$host = "http://faceset.market.alicloudapi.com";
+	    $path = "/v2/faceset/add_faces";
+	    $method = "POST";
+	    $appcode = "a81df1bd13a04ddb9b182aaa3e0ecfe9";
+	    $headers = array();
+	    array_push($headers, "Authorization:APPCODE " . $appcode);
+	    array_push($headers, "Content-Type".":"."application/json");
+	    //根据API的要求，定义相对应的Content-Type
+	    array_push($headers, "Content-Type".":"."application/json; charset=UTF-8");
+	    $querys = "";
+	    $data = array(
+	            "faceset_id" =>"HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv",
+	            "face_id" => "6GGwMLdGDc36DqsIOYIkescKFCgCemY7wWzjvjxY",
+	            );
+	    $bodys = json_encode($data);
+	    $url = $host . $path;
 
-	    $result = HttpClient::sendHttp('/v2/faceset/train', $data);
+	    $curl = curl_init();
+	    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+	    curl_setopt($curl, CURLOPT_URL, $url);
+	    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+	    curl_setopt($curl, CURLOPT_FAILONERROR, false);
+	    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($curl, CURLOPT_HEADER, true);
+	    if (1 == strpos("$".$host, "https://"))
+	    {
+	        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+	        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+	    }
+	    curl_setopt($curl, CURLOPT_POSTFIELDS, $bodys);
+	   
 
-	    var_dump($result);
-	    exit();
+	    $response = curl_exec($curl);
+	    $cur_info = curl_getinfo($curl);
+	    $body = substr($response, $cur_info['header_size']);
+	    curl_close($curl);
+	    $responseData = json_decode($body,true);
+	    var_dump($responseData);
+			
+	      
+
 	}
 
 	public function actionFacedetect()
@@ -53,7 +83,7 @@ class FaceController extends \yii\web\Controller
 		}
 		
 		
-		$result = HttpClient::sendHttp('/v2/detection/detect', $data);
+		$result = HttpClient::sendHttp('http://facerecog.market.alicloudapi.com','/v2/detection/detect', $data);
 
 		return json_encode($result);
 	}
@@ -67,7 +97,7 @@ class FaceController extends \yii\web\Controller
    			'face_id2' => $faceid2
 		); 
 		
-		$result = HttpClient::sendHttp('/v2/recognition/compare_face', $data);
+		$result = HttpClient::sendHttp('http://facerecog.market.alicloudapi.com','/v2/recognition/compare_face', $data);
 
 		return json_encode($result);
 	
@@ -81,7 +111,7 @@ class FaceController extends \yii\web\Controller
 			'face_id' => $faceid,
 		); 
 		
-		$result = HttpClient::sendHttp('/v2/recognition/celebrity', $data);
+		$result = HttpClient::sendHttp('http://facerecog.market.alicloudapi.com', '/v2/recognition/celebrity', $data);
 
 		return json_encode($result);
 	

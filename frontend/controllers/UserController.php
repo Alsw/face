@@ -17,6 +17,9 @@ use frontend\models\Likes;
 use common\models\Answer;
 use common\models\Topic;
 use common\components\HttpClient;
+use common\components\Foo;
+use common\models\Article;
+
 
 
 
@@ -76,8 +79,10 @@ class UserController extends Controller
 
     public function actionIndex()
     {   
-       
-        return $this->render('index');
+        $models = Article::find()->where(['promoted' => 1])->orderBy('hits DESC')->limit(5)->all();
+        $userModels = User::find()->orderBy('attentionCount')->limit(5)->all();
+        
+        return $this->render('index',['models' => $models, 'userModels' => $userModels]);
     }
 
     public function actionLogin()
@@ -87,6 +92,7 @@ class UserController extends Controller
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+         
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -153,8 +159,42 @@ class UserController extends Controller
     public function actionPerson($id)
     {   
         $user = $id;
+
+        //推荐相似人
+        $data = array(
+            "faceset_id" => "HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv",
+            "face_id" => "",
+            "limit" => '5',
+        );
+        $arrs = array();
+        $likeUsers = array();
+        $img_face_id = UserAlbum::find()->where(['userId'=>$id])->all();
+        foreach ($img_face_id as $value) {
+            if (!empty($value->faceId) && $value->id != 0) {
+                $data['face_id'] = $value->faceId; 
+
+            $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/recognition/compare_face_faceset', $data);
+                foreach ($result['scores'] as $item) {
+                    $arrs[$item['face_id']] =$item['score'];
+                }
+            }
+            
+        }
+
+        $keys = array_keys($arrs);
+        foreach ($keys as $key => $value) {
+           $likes = UserAlbum::findone(['faceId'=>$value]);
+
+           if ($likes->userId != Yii::$app->user->identity->id) {
+                $likes->user->faceDatas = [$value => $arrs[$value]];
+                array_push($likeUsers, $likes->user);
+           }
+        }
+       
+
         $sort = Yii::$app->request->get('sort', 'dynamic');
         $model = User::findone(['id'=>$id]);
+        $model->likeUsers = $likeUsers;
         if ($sort === 'dynamic') {
           $data = Likes::find()->where(['userId'=>$user])->all();  
           return $this->render('me',['model' => $model,'data'=>$data,'type'=> 'dynamic']);
@@ -184,6 +224,12 @@ class UserController extends Controller
         $model->objectType = 'user';
         $model->createdTime = time();
 
+        $userModel = User::findone(['id'=>$id]);
+
+        $userModel->attentionCount = count($userModel->attentionMe());
+        
+        $userModel->save();
+
         if ($model->save()) {
            
             return $this->redirect(['person','id'=>$id]);
@@ -210,25 +256,41 @@ class UserController extends Controller
     }
 
     public function actionAlbum()
-    {
+    {   
+        $foo = new Foo;
         $model = new UserAlbum();
         $id = Yii::$app->user->identity->id;
         if ($model->load(Yii::$app->request->post())) {
             $model->userId = $id;
             $model->createdTime = time();
             $data = array(
-                    'img_base64' =>  'http://112.74.49.39:8081/images/2.jpg',
+                    'img_url' =>  'http://112.74.49.39:8081/images/2.jpg',
                     'attributes' => 'true'
                 );
-            var_dump($model);exit();
-            $result = HttpClient::sendHttp('/v2/detection/detect', $data);
-            $model->faceId = $result->faces[0]->id;
-
+            
+            $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/detection/detect', $data);
+            $model->faceId = $result['faces'][0]['id'];
+            $data = array(
+                    "faceset_id" =>"HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv",
+                    "face_id" =>$model->faceId ,
+                );
+            
             if ($model->save()) {
-               
+                $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/faceset/add_faces',$data);
+             
                return $this->redirect(['person','id'=>$id,'sort'=>'picture']);
             }
                return $this->redirect(['person','id'=>$id,'sort'=>'picture']);
         }
+    }
+    public function actionFacetrain()
+    {
+        $data = array(
+           "faceset_id"=>"HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv",
+           "type"=>"life",
+           "async"=>"true"
+        ); 
+        $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/faceset/train',$data);
+        var_dump($result);
     }
 }

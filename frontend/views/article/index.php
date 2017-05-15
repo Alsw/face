@@ -11,17 +11,19 @@ use yii\widgets\LinkPager;
                 <div class="span8 col-lg-8">
                    
                     <?php foreach($datas as $model): ?> 
-                        <article>
+                        <article style="margin-bottom: 20px;">
                             <header>
                                 <h3>
                                     <?=HTML::a($model->title,['article/detial', 'id'=>$model->id])?>
                                 </h3>
                                 <div class="border">
                                 
-                                    <span class="date"><?php echo date("Y-m-d H:i", $model->createdTime) ?></span>
-                                    <span class="category"><?=HTML::a($model->userId,['user/person'])?></span>
-                                    <span class="comments"><a href="#" >3</a></span>
-                                    <span class="like-count">66</span>
+                                    <span class="date"><?php echo Yii::$app->formatter->asRelativeTime($model->createdTime) ; ?></span>
+                                    <span class="category"><?=HTML::a($model->user->username,['user/person','id'=>$model->user->id])?></span>
+                                    <span class="comments">
+                                    <a href="#" ><?php echo $model->postNum; ?></a>
+                                    </span>
+                                    <span class="like-count" data-id=<?php echo $model->id;?>><?php echo $model->upsNum; ?></span>
                                 </div>
                             </header>
                             <a href="#" title="Using Images">
@@ -40,23 +42,30 @@ use yii\widgets\LinkPager;
                 <aside class="span4 page-sidebar col-lg-4">
                     <section class="widget">
                         <div class="support-widget">
-                            <h3 class="title">那个Ta</h3>
-                            <p class="intro">生活中的不经意回眸，或许能看到另一个你，是否想看到更多关于那个Ta的奇闻轶事呢？</p>
+                            <h3 class="title">新闻资讯</h3>
+                            <p class="intro">推广生活在有意思的人或者事</p>
                         </div>
                     </section>
                     <section class="widget">
                         <h3 class="title">最热浏览</h3>
                         <ul class="articles">
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">撞脸：你也许真有一个活生生的分身？</a></h4>
-                                <span class="article-meta">2017-01-16 by<a href="#" title="View all posts in Server &amp; Database">Gorvett 利维坦</a></span>
-                                <span class="like-count">66</span>
+                        <?php foreach ($promotedDatas as $key => $value): ?>
+                             <li class="article-entry standard">
+                                <h4>
+                                    <?=HTML::a($value->title,['article/detial', 'id'=>$value->id])?>
+                                </h4>
+                                <span class="article-meta">
+                                    <?php echo Yii::$app->formatter->asRelativeTime($value->createdTime) ; ?>
+                                    By
+                                    <?php echo($value->user->username) ?>
+                                        
+                                    
+                                </span>
+                                <span class="like-count" data-id=<?php echo $value->id;?>><?php echo($value->upsNum) ?></span>
                             </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">撞脸：你也许真有一个活生生的分身？</a></h4>
-                                <span class="article-meta">2017-01-16 by<a href="#" title="View all posts in Server &amp; Database">Gorvett 利维坦</a></span>
-                                <span class="like-count">66</span>
-                            </li>
+                        <?php endforeach ?>
+                           
+                          
                         </ul>
                     </section>
                     <section class="widget">
@@ -71,3 +80,6 @@ use yii\widgets\LinkPager;
             </div>
         </div>
     </div>
+<?php 
+    AppAsset::addJs($this, 'js/article.js');
+?>

@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use frontend\models\Attention;
+use frontend\models\UserAlbum;
 /**
  * This is the model class for table "user".
  *
@@ -29,6 +30,9 @@ class User extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $likeUsers;
+    public $faceDatas;
+    public $likePicture;
     public static function tableName()
     {
         return 'user';
@@ -107,6 +111,14 @@ class User extends \yii\db\ActiveRecord
             'objectId' => $this->id,
             'objectType' => 'user',
             ])->all();
+        return $data;
+    }
+    public function getImg($faceId)
+    {
+        $data = UserAlbum::find()->where([
+            'userId' => $this->id,
+            'faceId' => $faceId,
+            ])->one();
         return $data;
     }
 }

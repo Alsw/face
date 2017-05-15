@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use yii;
 use frontend\models\Likes;
 use common\controllers\ResController;
+use common\models\Article;
 
 class LikeController extends \yii\web\Controller
 {
@@ -21,6 +22,12 @@ class LikeController extends \yii\web\Controller
         $Likes->objectId = $objectId;
         $Likes->userId = Yii::$app->user->identity->id;
         $Likes->createdTime = time();
+
+        if ($Likes->objectType == 'article') {
+            $articleModel = Article::findone(['id'=> $Likes->objectId]);
+            $articleModel->upsNum  = count(Likes::find()->where(['objectId'=>$articleModel->id,'objectType' => $Likes->objectType])->all());
+            $articleModel->save();
+        }
 
         if ($Likes->save()) {
         	return $Res->setStatus('200')->setMessage('success')->getRes();

@@ -3,7 +3,7 @@
 namespace frontend\models;
 
 use Yii;
-
+use frontend\models\User;
 /**
  * This is the model class for table "user_album".
  *
@@ -16,6 +16,8 @@ use Yii;
  */
 class UserAlbum extends \yii\db\ActiveRecord
 {
+
+    
     /**
      * @inheritdoc
      */
@@ -51,5 +53,9 @@ class UserAlbum extends \yii\db\ActiveRecord
             'description' => 'Description',
             'faceId' => 'Face ID',
         ];
+    }
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'userId']);
     }
 }
