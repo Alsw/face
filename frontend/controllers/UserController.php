@@ -186,7 +186,7 @@ class UserController extends Controller
         foreach ($keys as $key => $value) {
            $likes = UserAlbum::findone(['faceId'=>$value]);
 
-           if ($likes->userId != Yii::$app->user->identity->id) {
+           if (!empty($likes) && $likes->userId != Yii::$app->user->identity->id) {
                 $likes->user->faceDatas = [$value => $arrs[$value]];
                 array_push($likeUsers, $likes->user);
            }
