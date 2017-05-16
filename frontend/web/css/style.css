@@ -879,10 +879,11 @@ span.m_3{
 }
 figure.thumbnail1{
     float: left;
-    width: 20%;
+   
     margin-right: 5%;
 }
 .extra-wrap {
+	float: left;
     overflow: hidden;
 }
 .post-meta span.day {
@@ -898,7 +899,6 @@ span.month {
     text-transform: uppercase;
 }
 .post-meta {
-    width: 20%;
     float: left;
     margin-right: 10%;
 }
@@ -925,6 +925,7 @@ h4.post-title a:hover{
 	margin:1em 0;
 }
 .box_1{
+	overflow: hidden;
 	margin-bottom:2em;
 }
 /* Shutter In Vertical */
@@ -3528,5 +3529,4 @@ a.order-btn {
 ul.feature_list.feature_list1 {
     margin-bottom: 1em;
 }
-
 

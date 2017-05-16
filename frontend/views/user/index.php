@@ -75,7 +75,7 @@ use yii\helpers\HtmlPurifier;
                                 </div>
                                 <div class="suceess_story-content-container">
                                     <figure class="suceess_story-content-featured-image">
-                                        <img width="75" height="75" src="<?php echo $value->user->avatar; ?>" class="img-responsive" alt="" />
+                                        <img width="55" height="55" src="<?php echo $value->user->avatar; ?>" class="img-responsive" alt="" />
                                     </figure>
                                     <div class="suceess_story-content-info">
                                         <h4>
@@ -95,7 +95,7 @@ use yii\helpers\HtmlPurifier;
                         <?php foreach ($userModels as $key => $value): ?>
                             <div class="box_1">
                                 <figure class="thumbnail1">
-                                    <?= Html::a('<img class="media-object img-cricle"  style="width:75px; height:75px; display:inline-block;" src="http://www.facefrontend.com'.$value->avatar.'">', ['user/person','id'=>$value->id])  ?>
+                                    <?= Html::a('<img class="media-object img-cricle"  style="width:55px; height:55px; display:inline-block;" src="http://www.facefrontend.com'.$value->avatar.'">', ['user/person','id'=>$value->id])  ?>
                                 </figure>
                                 <div class="extra-wrap">
                                     <div class="post-meta">

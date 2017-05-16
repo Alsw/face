@@ -37,22 +37,7 @@ AppAsset::addCss($this, 'css/flexslider.css')
             <div class="col-md-12 ">
                 <div class="col_3">
                     <div class="col-sm-2 row_2"> 
-                        <div class="flexslider">
-                            <ul class="slides">
-                                <li data-thumb="images/p1.jpg">
-                                    <img src="images/p1.jpg" />
-                                </li>
-                                <li data-thumb="images/p1.jpg">
-                                    <img src="images/p1.jpg" />
-                                </li>
-                                <li data-thumb="images/p1.jpg">
-                                    <img src="images/p1.jpg" />
-                                </li>
-                                <li data-thumb="images/p1.jpg">
-                                    <img src="images/p1.jpg" />
-                                </li>
-                            </ul>
-                        </div>
+                        
                     </div>
                     <div class="col-sm-10 row_1">
                         <h2><?= Html::encode($model['user']->username) ?></h2>

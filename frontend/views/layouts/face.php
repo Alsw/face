@@ -31,7 +31,6 @@ AppAsset::register($this);
                             <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                                 <ul class="nav navbar-nav nav_1">
                                     <li><?= Html::a('首页', ['user/index']) ?></li>
-                                    <li><?= Html::a('那个Ta', ['user/index']) ?></li>
                                     <li><?= Html::a('资讯', ['article/index']) ?></li>
                                     <li><?= Html::a('话题', ['topic/index']) ?></li>
                                     <li><?= Html::a('FindMe', ['face/index']) ?></li>

@@ -10,7 +10,7 @@ $week = $data->where(['>', 'createdTime', time()-604800])->count();
 $month = $data->where(['>', 'createdTime', time()-2592000])->count();
 ?>
  <div class="col-md-3 col_5">
-                <ul class="menu">
+                <ul class="menu" style="margin-top: 70px;">
                     <li class="item1">
                         <h3 class="m_2">按时间分类</h3>
                         <ul class="cute">
