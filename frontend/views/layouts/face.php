@@ -44,7 +44,7 @@ AppAsset::register($this);
                                     <?php else :?>
                                      <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <?php echo '<img class="Avatar" style="width:25px;height:25px;" src="http://www.facefrontend.com'.Yii::$app->user->identity->avatar.'">'; ?>
+                                        <?php echo '<img class="Avatar" style="width:25px;height:25px;" src="'.Yii::$app->user->identity->avatar.'">'; ?>
                                             
                                             <?= Yii::$app->user->identity->username ;?>
                                             <span class="caret"></span>
