@@ -150,9 +150,7 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
-               return $this->render('me',[
-                'model' => $model,
-                ]);
+               return $this->redirect(['person','id'=>$model->id]);
             }
         }
     }

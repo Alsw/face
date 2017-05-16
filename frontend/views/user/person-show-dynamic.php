@@ -113,7 +113,7 @@ AppAsset::addCss($this, 'css/topic.css');
                            <?=HtmlPurifier::process($value->abstrat) ?>
                         </div>
                         <div style="display: none" class="value-content">
-                           <?=HtmlPurifier::process($value->content) ?>
+                           <?=HtmlPurifier::process($value->body) ?>
                         </div>
                         <a data-type='0' class="detail">查看详细</a>
                         <div class="goodCount" data-id=<?php echo $value->id; ?>>
