@@ -271,7 +271,7 @@ class UserController extends Controller
             $model->userId = $id;
             $model->createdTime = time();
             $data = array(
-                    'img_url' =>  'http://112.74.49.39:8081/images/2.jpg',
+                    'img_url' =>  'http://112.74.49.39:8081'.$model->imgPath,
                     'attributes' => 'true'
                 );
             
