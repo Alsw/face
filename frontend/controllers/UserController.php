@@ -171,7 +171,10 @@ class UserController extends Controller
             if (!empty($value->faceId) && $value->id != 0) {
                 $data['face_id'] = $value->faceId; 
 
-            $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/recognition/compare_face_faceset', $data);
+                $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/recognition/compare_face_faceset', $data);
+                if (!isset($result['scores'])) {
+                  return $this->redirect(['person','id'=> $id]);
+                }
                 foreach ($result['scores'] as $item) {
                     $arrs[$item['face_id']] =$item['score'];
                 }
@@ -275,8 +278,16 @@ class UserController extends Controller
             
             if ($model->save()) {
                 $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/faceset/add_faces',$data);
-             
-               return $this->redirect(['person','id'=>$id,'sort'=>'picture']);
+                
+                $data = array(
+                   "faceset_id"=>"HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv",
+                   "type"=>"life",
+                   "async"=>"true"
+                ); 
+                 $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/faceset/train',$data);
+                if ($result) {
+                   return $this->redirect(['person','id'=>$id,'sort'=>'picture']);
+                }
             }
                return $this->redirect(['person','id'=>$id,'sort'=>'picture']);
         }
