@@ -57,7 +57,7 @@ use yii\widgets\LinkPager;
 
                                   <li class="media" data-id=<?php echo $value->id;?>>
                                     <div class="media-left">
-                                        <?= Html::a('<img class="media-object img-cricle" width="45" height="45" src="http://www.facefrontend.com'.$value->user->avatar.'">', ['user/person','id'=>$value->user->id]) ?>
+                                        <?= Html::a('<img class="media-object img-cricle" width="45" height="45" src="'.$value->user->avatar.'">', ['user/person','id'=>$value->user->id]) ?>
                                     </div>
                                     <div class="media-body" >
                                         <h4 class="media-heading">
@@ -81,7 +81,7 @@ use yii\widgets\LinkPager;
                                         <?php foreach ($value->children as  $items): ?>
                                              <div class="media" style="margin-left: 40px;"  data-id=<?php echo $value->id;?>>
                                                 <div class="media-left">
-                                                     <?= Html::a('<img class="media-object img-cricle" width="45" height="45" src="http://www.facefrontend.com'.$items->user->avatar.'">', ['user/person','id'=>$items->user->id]) ?>
+                                                     <?= Html::a('<img class="media-object img-cricle" width="45" height="45" src="'.$items->user->avatar.'">', ['user/person','id'=>$items->user->id]) ?>
                                                 </div>
                                                   <div class="media-body" >
                                                     <h4 class="media-heading">

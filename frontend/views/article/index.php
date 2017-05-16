@@ -27,7 +27,7 @@ use yii\widgets\LinkPager;
                                 </div>
                             </header>
                             <a href="#" title="Using Images">
-                                <?php echo '<img src="http://www.facebackend.com'.$model->thumb.'" width="600" class=" wp-post-image" alt="Living room">'; ?>
+                                <?php echo '<img src="http://112.74.49.39:8080'.$model->thumb.'" width="600" class=" wp-post-image" alt="Living room">'; ?>
                             </a>
                             <p>
                                 <?php echo $model->abstrat; ?>
