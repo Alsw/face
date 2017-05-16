@@ -3,7 +3,8 @@ window.onload = function() {
 	// 选择图片  
 	facedetect('zero', function(id) {
 		$.ajax({
-				url: 'index.php?r=face/facecelebrity',
+				//url: 'index.php?r=face/facecelebrity',
+				url: ''，
 				type: 'post',
 				dataType: 'json',
 				data: {
