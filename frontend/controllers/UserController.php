@@ -27,7 +27,7 @@ class UserController extends Controller
 {   
     public $layout = "face";
     public $enableCsrfValidation = true;
-
+    public $faceset_id = 'HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv';
     public function behaviors()
     {
         return [
@@ -160,7 +160,7 @@ class UserController extends Controller
 
         //推荐相似人
         $data = array(
-            "faceset_id" => "HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv",
+            "faceset_id" => $this->faceset_id,
             "face_id" => "",
             "limit" => '5',
         );
@@ -173,7 +173,7 @@ class UserController extends Controller
 
                 $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/recognition/compare_face_faceset', $data);
                 if (!isset($result['scores'])) {
-                  return $this->redirect(['person','id'=> $id]);
+                  return $this->redirect(['index']);
                 }
                 foreach ($result['scores'] as $item) {
                     $arrs[$item['face_id']] =$item['score'];
@@ -272,7 +272,7 @@ class UserController extends Controller
             $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/detection/detect', $data);
             $model->faceId = $result['faces'][0]['id'];
             $data = array(
-                    "faceset_id" =>"HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv",
+                    "faceset_id" =>$this->faceset_id,
                     "face_id" =>$model->faceId ,
                 );
             
@@ -280,7 +280,7 @@ class UserController extends Controller
                 $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/faceset/add_faces',$data);
                 
                 $data = array(
-                   "faceset_id"=>"HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv",
+                   "faceset_id"=>$this->faceset_id,
                    "type"=>"life",
                    "async"=>"true"
                 ); 
@@ -295,7 +295,7 @@ class UserController extends Controller
     public function actionFacetrain()
     {
         $data = array(
-           "faceset_id"=>"HMr2zcdYnspTI0CdQz7mTKfDDtZRFgNz3FmwXLVv",
+           "faceset_id"=>$this->faceset_id,
            "type"=>"life",
            "async"=>"true"
         ); 

@@ -15,7 +15,7 @@ use yii\helpers\Html;
                         <?php  echo $value->username; ?>
                         </h4>
                         <p>相似度</p>
-                        <h5><?php echo( $value->faceDatas[array_keys($value->faceDatas)[0]])  ?>%</h5>
+                        <h5><?php echo( $value->faceDatas[array_keys($value->faceDatas)[0]]*100)  ?>%</h5>
                     </li>
                     <div class="clearfix"> </div>
                 </a>
