@@ -167,17 +167,23 @@ class UserController extends Controller
         $arrs = array();
         $likeUsers = array();
         $img_face_id = UserAlbum::find()->where(['userId'=>$id])->all();
+
         foreach ($img_face_id as $value) {
             if (!empty($value->faceId) && $value->id != 0) {
                 $data['face_id'] = $value->faceId; 
 
                 $result = HttpClient::sendHttp('http://faceset.market.alicloudapi.com', '/v2/recognition/compare_face_faceset', $data);
                 if (!isset($result['scores'])) {
-                  return $this->redirect(['index']);
+                     continue;
+                }else{
+                    foreach ($result['scores'] as $item) {
+                        if ($item['score'] >= 0.5) {
+                             $arrs[$item['face_id']] =$item['score'];
+                        }
+                       
+                    } 
                 }
-                foreach ($result['scores'] as $item) {
-                    $arrs[$item['face_id']] =$item['score'];
-                }
+                
             }
             
         }

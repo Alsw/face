@@ -116,4 +116,9 @@ class FaceController extends \yii\web\Controller
 		return json_encode($result);
 	
 	}
+
+	public function actionKai()
+	{
+		return $this->render('likai');
+	}
 }
