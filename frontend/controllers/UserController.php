@@ -270,6 +270,7 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->userId = $id;
             $model->createdTime = time();
+          
             $data = array(
                     'img_url' =>  'http://112.74.49.39:8081'.$model->imgPath,
                     'attributes' => 'true'
