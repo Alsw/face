@@ -95,7 +95,7 @@ use yii\helpers\HtmlPurifier;
                         <?php foreach ($userModels as $key => $value): ?>
                             <div class="box_1">
                                 <figure class="thumbnail1">
-                                    <?= Html::a('<img class="media-object img-cricle"  style="width:55px; height:55px; display:inline-block;" src="http://www.facefrontend.com'.$value->avatar.'">', ['user/person','id'=>$value->id])  ?>
+                                    <?= Html::a('<img class="media-object img-cricle"  style="width:55px; height:55px; display:inline-block;" src="'.$value->avatar.'">', ['user/person','id'=>$value->id])  ?>
                                 </figure>
                                 <div class="extra-wrap">
                                     <div class="post-meta">
